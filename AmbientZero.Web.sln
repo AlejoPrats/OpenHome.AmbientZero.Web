@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmbientZero.Web", "AmbientZero.Web\AmbientZero.Web\AmbientZero.Web.csproj", "{E72DD571-2260-45DC-9157-708AC2B1126F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmbientZero.Web.Client", "AmbientZero.Web\AmbientZero.Web.Client\AmbientZero.Web.Client.csproj", "{785F3E5F-57A5-4C4B-AF2C-27AB7AAF4E2E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E72DD571-2260-45DC-9157-708AC2B1126F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E72DD571-2260-45DC-9157-708AC2B1126F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E72DD571-2260-45DC-9157-708AC2B1126F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E72DD571-2260-45DC-9157-708AC2B1126F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{785F3E5F-57A5-4C4B-AF2C-27AB7AAF4E2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{785F3E5F-57A5-4C4B-AF2C-27AB7AAF4E2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{785F3E5F-57A5-4C4B-AF2C-27AB7AAF4E2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{785F3E5F-57A5-4C4B-AF2C-27AB7AAF4E2E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {281ECFE0-207B-47BE-BDE8-1B3F009F569B}
+	EndGlobalSection
+EndGlobal

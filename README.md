@@ -1,14 +1,11 @@
-# Ambient Zero API
-
-API was designed with .Net 8, using Entity Framework and SQL Lite, it is specifically tailored to run with the [DietPi](https://dietpi.com/#download "DietPi") distro, since the endpoints to check the status of the RaspberryPi use commands that might be different or might not be installed by default in other ARM-based distros
-
-This API works as the bridge between the AmbientZero Sensors and the user interface which is a webpage made in Blazor.
-
-:warning: Since it's an internal API not exposed to the open world, it has the CORS set as Allow all, if you plan to expose the API I would recommend that you set the CORS accordingly to avoid free access to the API
+# AmbientZero.Web WIP
+The web interface for the AmbientZero Project was made with Blazor, ApexCharts, and Bootstrap, right now everything is a mess since I do not have a lot of experience working with Blazor therefore is a WIP, I still have to do some research on the good practices how to sort the files, etc. The important thing here is that it works and can be used, but the design of the UI can be better
 
 ## Build Locally
 
-There is no secret, the API can be fully functional in a Windows/Mac/Linux computer, but keep in mind that the /System controller will only work if you have the `ip`, `journalctl`, `iwgetid`, `top` and `free` commands working in your system, as it is said in the description, DietPi distro has all those commands ready to use out of the box
+There is no secret, the Web is fully functional in a Windows/mac/Linux PC, but keep in mind that the API must be configured and be running and reachable somewhere, you should change the appsettings.json files to point to your API
+
+:warning: There is no mock data in the projects you will have to create them manually to have information to display in the graph and the sensor information pages
 
 ## Build For Deploy
 
@@ -17,3 +14,4 @@ To deploy manually into an RPI you should check the target runtime to `linux-arm
 ## Installation And Setup Instructions
 
 A step-by-step guide is coming
+

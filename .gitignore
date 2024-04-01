@@ -1,0 +1,9 @@
+AmbientZero.Web/AmbientZero.Web.Client/bin/
+AmbientZero.Web/AmbientZero.Web.Client/obj/AmbientZero.Web.Client.csproj.nuget.dgspec.json
+AmbientZero.Web/AmbientZero.Web.Client/obj/
+AmbientZero.Web/AmbientZero.Web/bin/
+AmbientZero.Web/AmbientZero.Web/obj/Debug/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+AmbientZero.Web/AmbientZero.Web/obj/
+AmbientZero.Web/AmbientZero.Web/Properties/
+AmbientZero.Web/AmbientZero.Web/.config/dotnet-tools.json
+.vs/

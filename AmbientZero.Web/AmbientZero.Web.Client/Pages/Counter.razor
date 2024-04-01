@@ -1,0 +1,64 @@
+﻿@page "/counter"
+@rendermode InteractiveWebAssembly
+@using AmbientZero.Web.Client.Interfaces
+@using AmbientZero.Web.Client.Models
+@inject IClientTemperatureService TemperatureService
+@inject PersistentComponentState ApplicationState
+
+@code {
+    private ApexChart<MeasurementLog> chart;
+    private DateTime selectedDate = DateTime.Now;
+    private List<IGrouping<string, MeasurementLog>> measurements = new();
+
+    private async Task GetMeasurements()
+    {
+        measurements = (await TemperatureService.GetDailyMeasurements()).GroupBy(g => g.DeviceId).ToList();
+    }
+
+    private async Task SetDate(DateDirection action)
+    {
+        if (action == DateDirection.Forward)
+        {
+            selectedDate = selectedDate.AddDays(1);
+        }
+        else
+        {
+            selectedDate = selectedDate.AddDays(-1);    
+        }
+        measurements = new();
+        measurements = (await TemperatureService.GetDailyMeasurements(selectedDate)).GroupBy(g => g.DeviceId).ToList();
+    }
+}
+
+<PageTitle>Temperature Graph</PageTitle>
+
+<h1>Graph for date: @selectedDate.ToShortDateString()</h1>
+<div>
+    <button class="btn btn-primary" @onclick="@(() => SetDate(DateDirection.Backward))">Prev Date</button>
+    <button class="btn btn-primary" @onclick="@(() => SetDate(DateDirection.Forward))">Next Date</button>
+</div>
+@if (measurements!.Any())
+{
+    <ApexChart @ref=chart TItem="MeasurementLog">
+        @foreach (var measure in measurements)
+        {
+        <ApexPointSeries TItem="MeasurementLog"
+                             Items="measure"
+                         Name="@measure.First().Name"
+                         SeriesType="SeriesType.Line"
+                         XValue="e => e.ShortDateTime"
+                         YValue="e=> e.CleanTemperature"/>
+        }
+    </ApexChart>
+}
+else
+{
+    <div>Loading...</div>
+}
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await GetMeasurements();
+    }
+}

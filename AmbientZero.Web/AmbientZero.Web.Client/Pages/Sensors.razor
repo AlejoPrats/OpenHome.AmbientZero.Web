@@ -1,0 +1,161 @@
+﻿@page "/sensors"
+@rendermode InteractiveWebAssembly
+@using AmbientZero.Web.Client.Interfaces
+@using AmbientZero.Web.Client.Models
+@inject IClientSensorService SensorService
+@inject PersistentComponentState ApplicationState
+@inherits LayoutComponentBase
+<Modal @ref="nameModal" Title="Edit Sensor Name">
+    <BodyTemplate>
+        Device Id: @selectedDeviceId
+        <InputText @bind-Value="@deviceVirtualName" />
+    </BodyTemplate>
+    <FooterTemplate>
+        <Button Color="ButtonColor.Primary" @onclick="OnNameModalSaveClick">Save changes</Button>
+        <Button Color="ButtonColor.Danger" @onclick="OnNameModalCloseClick">Close</Button>
+    </FooterTemplate>
+</Modal>
+
+<Modal @ref="lightModal" Title="Edit Sensor Light Settings">
+    <BodyTemplate>
+        <Switch Label="Enable Lights" Value="selectedSensorSettings.IsLightEnabled" ValueExpression="() => selectedSensorSettings.IsLightEnabled" ValueChanged="EnableLightSwitchChanged" />
+        <Switch Label="Disable Lights On Schedule" Disabled="!selectedSensorSettings.IsLightEnabled" Value="selectedSensorSettings.IsScheduled" ValueExpression="() => selectedSensorSettings.IsScheduled" ValueChanged="IsScheduledSwitchChanged" />
+        @if(hideScheduleOptions)
+        {
+            <div class="mb-3">
+                Diable Start Time
+            </div>
+            <div class="mb-3">
+                <TimeInput TValue="TimeOnly?" @bind-Value="selectedSensorSettings.DisableStartTime" />
+            </div>
+            <div class="mb-3">
+                Disable End Time
+            </div>
+            <div class="mb-3">
+                <TimeInput TValue="TimeOnly?" @bind-Value="selectedSensorSettings.DisableEndTime" />
+            </div>
+        }
+    </BodyTemplate>
+    <FooterTemplate>
+        <Button Color="ButtonColor.Primary" @onclick="OnLightModalSaveClick">Save changes</Button>
+        <Button Color="ButtonColor.Danger">Close</Button>
+    </FooterTemplate>
+</Modal>
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+@if (sensors!.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Battery</th>
+                <th>Last Reading</th>
+                <th>Temperature</th>
+                <th>Signaling</th>
+                <th>Tendency</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var sensor in sensors)
+            {
+                <tr>
+                    <td>@sensor.DisplayName</td>
+                    <td><Icon Name="IconName.BatteryFull" /> @sensor.ADCReading</td>
+                    <td>@sensor.LastReadingTime.ToString("dd-MM-yyyy HH:mm")</td>
+                    <td>@sensor.CleanTemperature <Icon Name="IconName.Thermometer" /> </td>
+                    <td><Icon Name="IconName.Signal" /> @sensor.IsSignaling</td>
+                    <td>@sensor.TemperatureTendency</td>
+                    <td>
+                        <Icon Name="IconName.Pencil" @onclick="@(() => OnShowNameModalClick(@sensor.Id))" Style="cursor: pointer" />
+                        <Icon Name="IconName.BarChart" Style="cursor: pointer"></Icon>
+                        <Icon Name="IconName.Gear" Style="cursor: pointer" @onclick="@(() => OnShowLightModalClick(@sensor.Id))"></Icon>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+else
+{
+    <div>Loading...</div>
+}
+@code {
+    private List<SensorInformation> sensors = new();
+
+    private string selectedDeviceId;
+    private bool hideScheduleOptions = false;
+    private SensorSettings selectedSensorSettings = new();
+    private Modal nameModal;
+    private Modal lightModal;
+    private string deviceVirtualName;
+
+    private async Task OnShowNameModalClick(int i)
+    {
+        selectedDeviceId = sensors.Where(x => x.Id == i).FirstOrDefault()!.DeviceId;
+
+        await nameModal!.ShowAsync();
+    }
+
+    private async Task OnShowLightModalClick(int i)
+    {
+        selectedSensorSettings = sensors.Where(x => x.Id == i)?.FirstOrDefault()?.SensorSetting ?? new SensorSettings();
+        await lightModal!.ShowAsync();
+    }
+
+    private void ScheduleSwitchChanged()
+    {
+        hideScheduleOptions = selectedSensorSettings.IsScheduled;
+    }
+
+    private async Task OnNameModalSaveClick()
+    {
+        await SensorService.UpdateSensorName(selectedDeviceId, deviceVirtualName);
+        deviceVirtualName = string.Empty;
+        await nameModal!.HideAsync();
+    }
+
+    private async Task OnNameModalCloseClick()
+    {
+        deviceVirtualName = string.Empty;
+        await nameModal!.HideAsync();
+    }
+
+    private async Task GetSensorInformation()
+    {
+        sensors = (await SensorService.GetSensorInformation()).ToList();
+    }
+
+    private PersistingComponentStateSubscription persistingSubscription;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetSensorInformation();
+    }
+
+    private void EnableLightSwitchChanged(bool value)
+    {
+        selectedSensorSettings.IsLightEnabled = value;
+        if (!value)
+        {
+            selectedSensorSettings.IsScheduled = false;
+        }
+    }
+
+    private void IsScheduledSwitchChanged(bool value)
+    {
+        selectedSensorSettings.IsScheduled = value;
+        hideScheduleOptions = value;
+    }
+
+    private async Task OnLightModalSaveClick()
+    {
+        await SensorService.UpdateSensorSetting(selectedSensorSettings);
+        await lightModal!.HideAsync();
+    }
+}
+
