@@ -1,6 +1,5 @@
 ﻿using AmbientZero.Web.Client.Interfaces;
 using AmbientZero.Web.Client.Models;
-using System;
 using System.Net.Http.Json;
 
 namespace AmbientZero.Web.Client.Services

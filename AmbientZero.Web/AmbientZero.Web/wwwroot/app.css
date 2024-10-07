@@ -49,3 +49,22 @@ h1:focus {
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
 }
+
+.dashboard-description-container {
+    padding-top:80px;
+    padding-bottom:80px;
+}
+
+.dashboard-buttons-container {
+    align-content: center;
+}
+
+.dashboard-buttons {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.dashboard-logo {
+    margin-top:30px;
+    text-align: center;
+}
