@@ -7,5 +7,6 @@ namespace AmbientZero.Web.Client.Interfaces
         Task<List<SensorInformation>> GetSensorInformation(DateTime? dateTime = null);
         Task<HttpResponseMessage> UpdateSensorName(string deviceId, string sensorVirtualName);
         Task<HttpResponseMessage> UpdateSensorSetting(SensorSettings sensorSettings);
+        IEnumerable<TimeZoneInfo> timezone();
     }
 }

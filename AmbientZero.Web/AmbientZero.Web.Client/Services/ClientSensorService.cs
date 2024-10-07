@@ -28,5 +28,10 @@ namespace AmbientZero.Web.Client.Services
             var requestUri = "/Sensor/UpdateSensorSettings";
             return await client.PatchAsJsonAsync(requestUri, sensorSettings);
         }
+
+        public IEnumerable<TimeZoneInfo> timezone()
+        {
+            return TimeZoneInfo.GetSystemTimeZones();
+        }
     }
 }

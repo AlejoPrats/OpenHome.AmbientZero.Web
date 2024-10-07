@@ -5,10 +5,13 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
+  
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <BlazorWebAssemblyOmitDebugProxyOutput>true</BlazorWebAssemblyOmitDebugProxyOutput>
+  </PropertyGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\AmbientZero.Web.Client\AmbientZero.Web.Client.csproj" />
-    <PackageReference Include="Blazor.Bootstrap" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.2" />
   </ItemGroup>
 
