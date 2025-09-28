@@ -1,0 +1,105 @@
+<form [formGroup]="deviceSettingsForm" class="example-form">
+  <table class="table">
+    <tbody>
+      <tr>
+        <td colspan="4">
+          Device Name:
+          @if(showNameEditorForm)
+          {
+          <mat-form-field class="example-full-width">
+            <mat-label>Device Name</mat-label>
+            <input matInput placeholder="Descriptive name for the device" formControlName="deviceVirtualName">
+          </mat-form-field>
+          <button mat-raised-button [disabled]="deviceSettingsForm.controls.deviceVirtualName.pristine"
+            (click)="updateName()"><i class="bi bi-floppy-fill"></i></button>
+          <button mat-raised-button (click)="cancelNameEdition()"><i class="bi bi-x-lg"></i></button>
+          }
+          @else
+          {
+          {{selectedSensor?.deviceVirtualName === null ? "No Name Set" : selectedSensor?.deviceVirtualName}}
+          <button mat-raised-button (click)="editName()"><i class="bi bi-pencil"></i></button>
+          }
+
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Battery:
+        </td>
+        <td>
+          {{selectedSensor?.adcReading}}%
+        </td>
+        <td>
+          Temperature:
+        </td>
+        <td>
+          {{ selectedSensor?.lastReadingValue | number:'1.1-1' }}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Last reading:
+        </td>
+        <td>
+          {{ selectedSensor?.lastReadingTime | date:'dd-MM-YYYY HH:mm' }}
+        </td>
+        <td>
+          Temperature Tendency:
+        </td>
+        <td>
+          {{ selectedSensor?.temperatureTendency }}
+        </td>
+      </tr>
+      <tr>
+        <td colspan="1">
+          Light Enabled:
+        </td>
+        <td colspan="3">
+          <mat-slide-toggle formControlName="isLightEnabled" [checked]="true"></mat-slide-toggle>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="1">
+          Light Schedule:
+        </td>
+        <td colspan="3">
+          <mat-slide-toggle formControlName="isScheduled"></mat-slide-toggle>
+        </td>
+      </tr>
+      @if(this.deviceSettingsForm.value.isScheduled)
+      {
+      <tr>
+        <td>
+          Disable Start Time:
+        </td>
+        <td>
+          <mat-form-field>
+            <mat-label>Pick a time</mat-label>
+            <input matInput [matTimepicker]="disableStartTime" formControlName="disableStartTime">
+            <mat-timepicker-toggle matIconSuffix [for]="disableStartTime" />
+            <mat-timepicker #disableStartTime />
+          </mat-form-field>
+        </td>
+        <td>
+          Disable End Time:
+        </td>
+        <td>
+          <mat-form-field>
+            <mat-label>Pick a time</mat-label>
+            <input matInput [matTimepicker]="disableEndTime" formControlName="disableEndTime">
+            <mat-timepicker-toggle matIconSuffix [for]="disableEndTime" />
+            <mat-timepicker #disableEndTime />
+          </mat-form-field>
+        </td>
+      </tr>
+      }
+      <tr>
+        <td colspan="4" style="text-align: right; padding: 10px;">
+          <button type="button" class="btn btn-secondary" [routerLink]="['/list']">Back</button>
+          <button type="button" class="btn btn-primary" (click)="submitSensorSettings()">Save</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  Is Signaling: {{ selectedSensor?.isSignaling }} <br>
+</form>
