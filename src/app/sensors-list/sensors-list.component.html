@@ -1,7 +1,9 @@
 <div class="container-fluid">
-  <div *ngIf="sensorsInformation.length === 0 || sensorsInformation === undefined">
-    No data
-  </div>
+  @if (sensorsInformation.length === 0 || sensorsInformation === undefined) {
+    <div>
+      No data
+    </div>
+  }
   <div class="container-fluid">
     <table class="table">
       <thead>
@@ -30,51 +32,65 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of sensorsInformation">
-          <td class="col">
-            {{item.deviceVirtualName === null ? item.deviceId : item.deviceVirtualName}}
-          </td>
-          <td class="col">
-            <span *ngIf="item.adcReading >= 75">
-              <i class="bi bi-battery-full"></i>
-            </span>
-            <span *ngIf="item.adcReading <= 74 && item.adcReading >=30">
-              <i class="bi bi-battery-half"></i>
-            </span>
-            <span *ngIf="item.adcReading <= 29">
-              <i class="bi bi-battery"></i>
-            </span>
-            {{item.adcReading}}%
-          </td>
-          <td class="col-sm">
-            {{item.lastReadingTime | date:'dd-MM-YYYY HH:mm' }}
-          </td>
-          <td class="col-sm">
-            <span *ngIf="item.lastReadingValue >=26.9">
-              <i class="bi bi-thermometer-high"></i>
-            </span>
-            <span *ngIf="item.lastReadingValue <= 26 && item.lastReadingValue >=23">
-              <i class="bi bi-thermometer-half"></i>
-            </span>
-            <span *ngIf="item.lastReadingValue <= 22.9">
-              <i class="bi bi-thermometer-low"></i>
-            </span>
-            {{item.lastReadingValue | number:'1.1-1'}}
-          </td>
-          <td class="col-sm">
-            {{item.isSignaling}}
-          </td>
-          <td class="col-sm">
-            {{item.temperatureTendency}}
-          </td>
-          <td class="col-sm">
-            <a [routerLink]="['/sensorDetail',item.id]"><i class="bi bi-pencil"></i></a>
-            <i class="bi bi-bar-chart"></i>
-            <i class="bi bi-eye-slash"></i>
-            <i class="bi bi-gear"></i>
-            <i class="bi bi-trash3"></i>
-          </td>
-        </tr>
+        @for (item of sensorsInformation; track item) {
+          <tr>
+            <td class="col">
+              {{item.deviceVirtualName === null ? item.deviceId : item.deviceVirtualName}}
+            </td>
+            <td class="col">
+              @if (item.adcReading >= 75) {
+                <span>
+                  <i class="bi bi-battery-full"></i>
+                </span>
+              }
+              @if (item.adcReading <= 74 && item.adcReading >=30) {
+                <span>
+                  <i class="bi bi-battery-half"></i>
+                </span>
+              }
+              @if (item.adcReading <= 29) {
+                <span>
+                  <i class="bi bi-battery"></i>
+                </span>
+              }
+              {{item.adcReading}}%
+            </td>
+            <td class="col-sm">
+              {{item.lastReadingTime | date:'dd-MM-yyyy HH:mm' }}
+            </td>
+            <td class="col-sm">
+              @if (item.lastReadingValue >=26.9) {
+                <span>
+                  <i class="bi bi-thermometer-high"></i>
+                </span>
+              }
+              @if (item.lastReadingValue <= 26 && item.lastReadingValue >=23) {
+                <span>
+                  <i class="bi bi-thermometer-half"></i>
+                </span>
+              }
+              @if (item.lastReadingValue <= 22.9) {
+                <span>
+                  <i class="bi bi-thermometer-low"></i>
+                </span>
+              }
+              {{item.lastReadingValue | number:'1.1-1'}}
+            </td>
+            <td class="col-sm">
+              {{item.isSignaling}}
+            </td>
+            <td class="col-sm">
+              {{item.temperatureTendency}}
+            </td>
+            <td class="col-sm">
+              <a [routerLink]="['/sensorDetail',item.id]"><i class="bi bi-pencil"></i></a>
+              <i class="bi bi-bar-chart"></i>
+              <i class="bi bi-eye-slash"></i>
+              <i class="bi bi-gear"></i>
+              <i class="bi bi-trash3"></i>
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
   </div>

@@ -5,7 +5,7 @@ import { LoadingIndicatorComponent } from "./loading-indicator/loading-indicator
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, LoadingIndicatorComponent],
+  imports: [RouterModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
