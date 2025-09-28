@@ -1,0 +1,44 @@
+<main>
+    <header class="brand-name">
+    </header>
+    <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark" style="width: 12%">
+                <div class="flex-column align-items-center align-items-sm-start pt-2 text-white min-vh-100">
+                    <a href="/" class="align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                        <span class="top-row ps-3 navbar navbar-dark">Ambient Zero</span>
+                    </a>
+                    <div class="nav-scrollable">
+                        <div class="">
+                            <div class="nav-item">
+                                <a [routerLink]="['/']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="nav-link">
+                                    <i class="fs-4 bi-house-door-fill"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                                </a>
+                            </div>
+                            <div class="nav-item">
+                                <a [routerLink]="['/chart']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="nav-link">
+                                    <i class="fs-4 bi-bar-chart-fill"></i> <span class="ms-1 d-none d-sm-inline">Temperature Chart</span>
+                                </a>
+                            </div>
+                            <div class="nav-item">
+                                <a [routerLink]="['/list']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="nav-link">
+                                    <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Sensors</span>
+                                </a>
+                            </div>
+                            <div class="nav-item">
+                                <a [routerLink]="['/settings']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" class="nav-link">
+                                    <i class="fs-4 bi-gear-fill"></i><span class="ms-1 d-none d-sm-inline">Settings</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col py-3">
+                <section class="container-fluid">
+                    <router-outlet />
+                </section>
+            </div>
+        </div>
+    </div>
+</main>
