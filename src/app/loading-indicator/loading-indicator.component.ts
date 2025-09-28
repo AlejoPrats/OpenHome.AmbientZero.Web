@@ -1,4 +1,4 @@
-import { AsyncPipe, NgIf, NgOptimizedImage, NgTemplateOutlet } from "@angular/common";
+import { AsyncPipe, NgOptimizedImage, NgTemplateOutlet } from "@angular/common";
 import { Component, ContentChild, Input, OnInit, TemplateRef } from "@angular/core";
 import { Observable, tap } from "rxjs";
 import { LoadingService } from "../services/loading.service";

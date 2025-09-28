@@ -45,7 +45,7 @@ jobs:
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
     - name: Zip artifact for push
-      run: mkdir ./zip && zip -r "./zip/release_${{ steps.date.outputs.date }}_${{ github.ref_name }}.zip" ./release
+      run: mkdir ./zip && zip -r "./zip/release_${{ steps.date.outputs.date }}_${{ github.ref_name }}.zip" ./dist/abmbient-zero-site/browser
     - name: 📂 Upload File  
       uses: wangyucode/sftp-upload-action@v2.0.2
       with:

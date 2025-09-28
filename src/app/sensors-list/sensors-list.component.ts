@@ -1,5 +1,5 @@
 import { Component, Input, inject } from '@angular/core';
-import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { SensorInformation } from '../interfaces/sensor-information';
 import { SensorsService } from '../services/sensors.service';
 import { RouterModule } from '@angular/router';
@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 @Component({
     selector: 'app-sensors-list',
     standalone: true,
-    imports: [NgFor, NgIf, RouterModule, CommonModule],
+    imports: [RouterModule, CommonModule],
     templateUrl: './sensors-list.component.html',
     styleUrl: './sensors-list.component.css'
 })
