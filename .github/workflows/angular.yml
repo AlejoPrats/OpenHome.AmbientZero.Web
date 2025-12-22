@@ -52,7 +52,7 @@ jobs:
       run: |
         { 
         mkdir ./zip 
-        cd dist/ambient-zero-site/browser
+        cd dist/abmbient-zero-site/browser
         zip  -r '../../../zip/${{ steps.date.outputs.date }}_${{steps.version.outputs.Version}}.zip' ./*
         }
     - name: 📂 Upload File  
