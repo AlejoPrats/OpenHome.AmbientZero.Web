@@ -1,12 +1,11 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
 name: Angular Build
 
 on:
   push:
      tags: 
-     - 'v*.*.*'
+     - 'patch-*'
+     - 'minor-*'
+     - 'major-*'
     
 jobs:
   check-branch-tag:
@@ -27,10 +26,9 @@ jobs:
           echo "branch=$branch" >> $GITHUB_OUTPUT
           echo "Branches where this tag exists : $branch."
   build:
-
     runs-on: ubuntu-latest
     needs: check-branch-tag
-    if: needs.check-branch-tag.outputs.branch == 'origin/main'
+    if: needs.check-branch-tag.outputs.branch == 'origin/master'
     steps:
     - uses: actions/checkout@v4
     - name: Adding Node.js
@@ -39,13 +37,24 @@ jobs:
         node-version: 22.19.0
     - name: Install Dependencies
       run: npm install
+    - name: Get Next Version
+      id: version
+      run: | 
+        {
+          echo "Version=$(curl -k -L -X GET 'https://openhomeproject.com/system/Version/GetNextVersion?versionIncrement=${{github.ref_name}}' -H 'x-api-key: ${{ secrets.APIKEY }}')"  
+        } >> $GITHUB_OUTPUT
     - name: 👷 Build & Publish
       run: npm run build --production
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
     - name: Zip artifact for push
-      run: mkdir ./zip && zip -r "./zip/release_${{ steps.date.outputs.date }}_${{ github.ref_name }}.zip" ./dist/abmbient-zero-site/browser
+      run: |
+        { 
+        mkdir ./zip 
+        cd dist/open-home-site/browser
+        zip  -r '../../../zip/${{ steps.date.outputs.date }}_${{steps.version.outputs.Version}}.zip' ./*
+        }
     - name: 📂 Upload File  
       uses: wangyucode/sftp-upload-action@v2.0.2
       with:
@@ -55,4 +64,8 @@ jobs:
         compress: true                             
         forceUpload: true                          
         localDir: './zip'                              
-        remoteDir: '/releases/AmbientZero/Web'     
+        remoteDir: ${{ secrets.FTP_FILE_PATH }}   
+    - name: Deploy
+      run: | 
+        curl -k -L -X POST 'https://openhomeproject.com/system/Deploy/DeployApp' -H 'x-api-key: ${{ secrets.APIKEY }}' -H 'Content-Type: application/json' --data-raw '{"fileName": "${{ steps.date.outputs.date }}_${{github.ref_name}}.zip", "version": "${{ steps.version.outputs.Version }}"}'
+       
