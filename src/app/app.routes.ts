@@ -1,32 +1,24 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { SensorDetailsComponent } from './sensor-details/sensor-details.component';
-import { SensorsListComponent } from './sensors-list/sensors-list.component';
-import { TemperatureChartComponent } from './temperature-chart/temperature-chart.component';
-import { SettingsComponent } from './settings/settings.component';
+import { sensorsResolver } from './shared/resolvers/sensors-resolver';
 
 export const routes: Routes = [{
     path: '',
-    component: HomeComponent,
-    title: 'Home Page',
-},
-{
-    path: 'sensorDetail/:id',
-    component: SensorDetailsComponent,
-    title: 'Sensor Detail'
-},
-{
-    path: 'list',
-    component: SensorsListComponent,
-    title: 'Sensors List'
-},
-{
-    path: 'chart',
-    component: TemperatureChartComponent,
-    title: 'Temperature Chart'
-},
-{
-    path: 'settings',
-    component: SettingsComponent,
-    title: 'Settings'
+    loadComponent: () =>
+        import('./features/pages/site-layout/site-layout').then((m) => m.SiteLayout),
+    children: [
+        {
+            path: 'chart',
+            loadComponent: () => import('./features/pages/temperature-chart/temperature-chart').then((m) => m.TemperatureChart)
+        },
+        {
+            path: 'list',
+            loadComponent: () => import('./features/pages/sensor-list/sensor-list').then((m) => m.SensorList),
+            runGuardsAndResolvers: 'always',
+            resolve: { sensors: sensorsResolver }
+        },
+        {
+            path: 'settings',
+            loadComponent: () => import('./features/pages/settings/settings').then((m) => m.Settings)
+        },
+    ]
 }];

@@ -1,0 +1,31 @@
+<p>sensor-list works!</p>
+@if(sensorLists(); as sensors)
+{
+
+    <table tuiTable>
+        <thead>
+            <tr>
+                <th tuiTh>Sensor Name</th>
+                <th tuiTh>Battery</th>
+                <th tuiTh>Last Reading</th>
+                <th tuiTh>Temperature</th>
+                <th tuiTh>Signaling</th>
+                <th tuiTh>Tendency</th>
+                <th tuiTh>Options</th>
+            </tr>
+        </thead>
+        <tbody tuiTbody>
+            @for (sensor of sensors; track sensor) {
+                <tr>
+                    <td tuiTd>{{ sensor.deviceVirtualName ?? sensor.deviceId }}</td>
+                    <td tuiTd>{{ sensor.aDCReading }}</td>
+                    <td tuiTd>{{ sensor.lastReadingTime | date:'dd-MM-yyyy HH:mm' }}</td>
+                    <td tuiTd>{{ sensor.lastReadingValue | number:'1.1-1' }}</td>
+                    <td tuiTd>{{ sensor.isSignaling }}</td>
+                    <td tuiTd>{{ sensor.temperatureTendency }}</td>
+                    <td tuiTd></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
