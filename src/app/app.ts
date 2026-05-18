@@ -1,6 +1,7 @@
 import { TuiRoot } from '@taiga-ui/core';
-import { Component, signal } from '@angular/core';
+import { Component,inject,input, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ThemeService } from './shared/services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +11,5 @@ import { RouterOutlet } from '@angular/router';
 })
 export class App {
   protected readonly title = signal('OpenHome.AmbientZero.Web');
-  theme: 'light' | 'dark' | null = null;
+  readonly theme = inject(ThemeService);
 }

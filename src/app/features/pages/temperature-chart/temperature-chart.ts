@@ -1,171 +1,94 @@
-import {ChangeDetectionStrategy, Component, computed, inject, signal} from '@angular/core';
-	import {FormsModule} from '@angular/forms';
-	import {WA_IS_E2E} from '@ng-web-apis/platform';
-	import {
-	    TuiAxes,
-	    TuiLineChart,
-	    TuiLineDaysChart,
-	    TuiLineDaysChartHint,
-	} from '@taiga-ui/addon-charts';
-	import {
-	    TuiDay,
-	    type TuiDayLike,
-	    TuiDayRange,
-	    TuiFilterPipe,
-	    type TuiMapper,
-	    TuiMapperPipe,
-	    type TuiMatcher,
-	    TuiMonth,
-	} from '@taiga-ui/cdk';
-import { TUI_MONTHS, TuiNotification, TuiPoint, TuiTextfield } from '@taiga-ui/core';
-import { TuiInputDateRange } from '@taiga-ui/kit';
+import { Component, inject } from '@angular/core';
+import { NgxEchartsModule } from 'ngx-echarts';
+import { ThemeService } from '../../../shared/services/theme.service';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs';
+import { SensorDailyTemperatureResponse } from '../../../shared/interfaces/sensor-daily-temperature-response';
+import { EchartsSeries } from '../../../shared/interfaces/echarts-series';
+import { ECBasicOption } from 'echarts/types/dist/shared';
+import { ChartResponse } from '../../../shared/interfaces/chart-response';
 
 @Component({
-  selector: 'app-temperature-chart',
-  imports: [FormsModule,
-	        TuiAxes,
-	        TuiFilterPipe,
-	        TuiInputDateRange,
-	        TuiLineChart,
-	        TuiLineDaysChart,
-	        TuiLineDaysChartHint,
-	        TuiMapperPipe,
-	        TuiNotification,
-	        TuiTextfield],
-  templateUrl: './temperature-chart.html',
-  styleUrl: './temperature-chart.less',
+	selector: 'app-temperature-chart',
+	imports: [NgxEchartsModule],
+	templateUrl: './temperature-chart.html',
+	styleUrl: './temperature-chart.less',
 })
 export class TemperatureChart {
-  	    private readonly isE2E = inject(WA_IS_E2E);
-	    private readonly months = inject(TUI_MONTHS);
-	 
-	    protected readonly data = signal(
-	        new TuiDayRange(TuiDay.currentLocal(), TuiDay.currentLocal().append({month: 5})),
-	    );
-	 
-	    protected readonly show = signal(this.data());
-	    protected readonly days = computed(() => this.random(this.data()));
-	    protected readonly maxLength: TuiDayLike = {month: 6};
-	 
-	    protected readonly range = computed(() => {
-	        const range = this.show();
-	        const {from, to} = range;
-	        const length = TuiDay.lengthBetween(from, to);
-	        const dayOfWeekFrom = from.dayOfWeek();
-	        const dayOfWeekTo = to.dayOfWeek();
-	        const mondayFrom = dayOfWeekFrom ? from.append({day: 7 - dayOfWeekFrom}) : from;
-	        const mondayTo = dayOfWeekTo ? to.append({day: 7 - dayOfWeekTo}) : to;
-	        const mondaysLength = TuiDay.lengthBetween(mondayFrom, mondayTo);
-	 
-	        if (length > 90) {
-	            return range;
-	        }
-	 
-	        if (length > 60) {
-	            return new TuiDayRange(
-	                mondayFrom,
-	                mondayTo.append({day: mondaysLength % 14}),
-	            );
-	        }
-	 
-	        if (length > 14) {
-	            return new TuiDayRange(mondayFrom, mondayTo);
-	        }
-	 
-	        return new TuiDayRange(from, to.append({day: length % 2}));
-	    });
-	 
-	    protected readonly labels = computed(() => {
-	        const {from, to} = this.show();
-	        const length = TuiDay.lengthBetween(from, to);
-	        const months = this.months();
-	 
-	        if (length > 90) {
-	            return [
-	                ...Array.from(
-	                    {length: TuiMonth.lengthBetween(from, to) + 1},
-	                    (_, i) => months[from.append({month: i}).month] ?? '',
-	                ),
-	                '',
-	            ];
-	        }
-	 
-	        const range = Array.from({length}, (_, day) => from.append({day}));
-	        const mondays = onlyMondays(range);
-	        const days = range.map(String);
-	 
-	        if (length > 60) {
-	            return [...even(mondays), ''];
-	        }
-	 
-	        if (length > 14) {
-	            return [...mondays, ''];
-	        }
-	 
-	        if (length > 7) {
-	            return [...even(days), ''];
-	        }
-	 
-	        return [...days, ''];
-	    });
-	 
-	    protected getWidth({from, to}: TuiDayRange): number {
-	        return TuiDay.lengthBetween(from, to);
-	    }
-	 
-	    protected getDate(day: TuiDay | number, date: TuiDay): TuiDay {
-	        return day instanceof TuiDay ? day : date.append({day});
-	    }
-	 
-	    protected readonly filter: TuiMatcher<[readonly [TuiDay, number], TuiDayRange]> = ( 
-	        [day],
-	        {from, to},
-	    ) => day.daySameOrAfter(from) && day.daySameOrBefore(to);
-	 
-	    protected readonly toNumbers: TuiMapper<
-	        [ReadonlyArray<readonly [TuiDay, number]>, TuiDayRange],
-	        readonly TuiPoint[]
-	    > = (days, {from}) =>
-	        days.map(([day, value]) => [TuiDay.lengthBetween(from, day), value]);
-	 
-	    private generateRandomData(
-	        {from, to}: TuiDayRange,
-	        initial: number,
-	    ): ReadonlyArray<[TuiDay, number]> {
-	        return Array.from({length: TuiDay.lengthBetween(from, to) + 1})
-	            .reduce<ReadonlyArray<[TuiDay, number]>>(
-	                (array, _, i) => [
-	                    ...array,
-	                    [
-	                        from.append({day: i}),
-	                        this.isE2E
-	                            ? initial
-	                            : Math.max(
-	                                  (i ? (array[i - 1]?.[1] ?? 0) : initial) +
-	                                      Math.random() * 10 -
-	                                      5,
-	                                  0,
-	                              ),
-	                    ],
-	                ],
-	                [],
-	            )
-	            .filter(([day]) => day.dayOfWeek() < 5);
-	    }
-	 
-	    private random(data: TuiDayRange): ReadonlyArray<ReadonlyArray<[TuiDay, number]>> {
-	        return [
-	            this.generateRandomData(data, 100),
-	            this.generateRandomData(data, 75),
-	            this.generateRandomData(data, 50),
-	        ];
-	    }
+	readonly theme = inject(ThemeService);
+	private readonly route = inject(ActivatedRoute);
+
+	private readonly EMPTY_ECHARTS_OPTION: ChartOption = {
+		tooltip: { trigger: 'axis' },
+		legend: { data: [] as string[] },
+		xAxis: { type: 'time', boundaryGap: [0, 0], data: [] },
+		yAxis: { type: 'value', min: 20, max: 30 },
+		grid: {
+			left: 0,
+			right: 0,
+			top: 20,
+			bottom: 40,
+			containLabel: false,
+		},
+		series: [{
+			name: '',
+			smooth: true,
+			type: 'line',
+			data: [] as (string | number)[][],   // <‑‑ IMPORTANT
+		}],
+	};
+
+	protected readonly options = toSignal(
+		this.route.data.pipe(
+			map(({ temperatureReadings }) => {
+				const chartResponse = temperatureReadings as ChartResponse;
+				const chartValues = chartResponse.measurements as SensorDailyTemperatureResponse[];
+				let legendData: string[] = [];
+				let legendSeries: EchartsSeries[] = [];
+				for (let i = 0; i < chartValues.length; i++) {
+					legendData.push(chartValues[i].sensorVirtualName!);
+					legendSeries.push({ name: chartValues[i].sensorVirtualName!, smooth: true, type: 'line', data: chartValues[i].temperatureReadings.map(x => [new Date(x.date).toISOString(), x.temperature]) })
+				}
+
+				return ({
+					tooltip: { trigger: 'axis' },
+					legend: { data: legendData },
+					xAxis: { type: 'time' },
+					yAxis: { type: 'value', min: chartResponse.minTemperature, max: chartResponse.maxTemperature },
+					grid: {
+						left: 3,
+						right: 3,
+						top: 20,
+						containLabel: false, // disables label padding
+					},
+					series: legendSeries,
+				} satisfies ECBasicOption)
+			}
+			)
+		),
+		{ initialValue: this.EMPTY_ECHARTS_OPTION },
+	);
+
+
 }
 
-	function onlyMondays(range: readonly TuiDay[]): readonly string[] {
-	    return range.filter((day) => !day.dayOfWeek()).map(String);
-	}
-	 
-	function even<T>(array: readonly T[]): readonly T[] {
-	    return array.filter((_, i) => !(i % 2));
-	}
+type ChartOption = {
+	tooltip: { trigger: string };
+	legend: { data: string[] };
+	xAxis: { type: string, boundaryGap: number[], data: string[] };
+	yAxis: { type: string, min: number, max: number };
+	grid: {
+		left: number,
+		right: number,
+		top: number,
+		bottom: number,
+		containLabel: boolean, // disables label padding
+	};
+	series: {
+		name: string;
+		smooth: boolean;
+		type: string;
+		data: (string | number)[][];
+	}[];
+};
