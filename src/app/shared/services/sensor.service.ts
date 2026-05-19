@@ -22,4 +22,9 @@ export class SensorService {
   saveSensorSettings(sensorUpdateRequest: SensorUpdateRequest): Observable<any> {
     return this.http.patch<ApplicationSettings[]>(`${this.sensorApiRoot}/UpdateSensorSettings`, sensorUpdateRequest);
   }
+
+  deleteSensor(sensorId: number): Observable<any> {
+    const params = new HttpParams().set('sensorId', sensorId);
+    return this.http.delete(`${this.sensorApiRoot}/DeleteSensor`, { params });
+  }
 }

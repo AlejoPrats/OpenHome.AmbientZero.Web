@@ -1,4 +1,3 @@
-<p>sensor-list works!</p>
 @if(sensorLists(); as sensors)
 {
 
@@ -28,7 +27,7 @@
                 <app-icon [name]="IconName.Chart" size="medium" />
                 <app-icon [name]="IconName.Eye" size="medium" />
                 <app-icon [name]="IconName.Cog" size="medium" />
-                <app-icon [name]="IconName.Delete" size="medium" />
+                <span (click)="openDeleteDialog(sensor.id)"><app-icon [name]="IconName.Delete" size="medium" /></span>
             </td>
         </tr>
         }
