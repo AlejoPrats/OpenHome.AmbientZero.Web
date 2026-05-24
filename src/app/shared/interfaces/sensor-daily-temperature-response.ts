@@ -1,7 +1,7 @@
-import { TemperatureReadings } from "./temperature-readings";
+import { TemperatureReadings } from './temperature-readings';
 
 export interface SensorDailyTemperatureResponse {
-    deviceId:string,
-    sensorVirtualName:string|null,
-    temperatureReadings:TemperatureReadings[]
+  deviceId: string;
+  sensorVirtualName: string | null;
+  temperatureReadings: TemperatureReadings[];
 }

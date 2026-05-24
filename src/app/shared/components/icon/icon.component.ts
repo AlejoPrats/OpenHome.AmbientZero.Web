@@ -10,7 +10,7 @@ import { mapIconName } from './icon-mapper';
   selector: 'app-icon',
   imports: [TuiIcon, TuiHintDirective, TuiTooltip],
   templateUrl: './icon.component.html',
-  styleUrl: './icon.component.scss',
+  styleUrl: './icon.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IconComponent {

@@ -1,11 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { ResolveFn } from '@angular/router';
 
-import { systemResolver } from './system-resolver';
+import { systemTimeZonesResolver } from './system-resolver';
+import { TimeZone } from '../interfaces/time-zone';
 
-describe('systemResolver', () => {
-  const executeResolver: ResolveFn<boolean> = (...resolverParameters) =>
-    TestBed.runInInjectionContext(() => systemResolver(...resolverParameters));
+describe('systemTimeZonesResolver', () => {
+  const executeResolver: ResolveFn<TimeZone[]> = (...resolverParameters) =>
+    TestBed.runInInjectionContext(() => systemTimeZonesResolver(...resolverParameters));
 
   beforeEach(() => {
     TestBed.configureTestingModule({});

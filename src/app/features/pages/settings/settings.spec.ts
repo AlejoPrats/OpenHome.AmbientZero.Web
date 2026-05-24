@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 import { Settings } from './settings';
 
@@ -7,8 +9,16 @@ describe('Settings', () => {
   let fixture: ComponentFixture<Settings>;
 
   beforeEach(async () => {
+    const mockActivatedRoute = {
+      data: of({
+        timeZones: [{ id: 'UTC', name: 'UTC' }],
+        applicationSettings: [{ settingName: 'TemperatureSetting', settingValue: '1' }],
+      }),
+    };
+
     await TestBed.configureTestingModule({
       imports: [Settings],
+      providers: [{ provide: ActivatedRoute, useValue: mockActivatedRoute }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Settings);

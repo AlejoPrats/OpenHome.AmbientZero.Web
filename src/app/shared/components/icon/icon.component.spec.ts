@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { MockInstance, vi } from 'vitest';
 
 import { IconComponent } from './icon.component';
 import { IconName } from './icon-name.enum';
@@ -7,10 +8,10 @@ import { IconName } from './icon-name.enum';
 describe('IconComponent', () => {
   let component: IconComponent;
   let fixture: ComponentFixture<IconComponent>;
-  let windowOpenSpy: jest.SpyInstance;
+  let windowOpenSpy: MockInstance;
 
   beforeEach(async () => {
-    windowOpenSpy = jest.spyOn(window, 'open').mockImplementation(() => null);
+    windowOpenSpy = vi.spyOn(window, 'open').mockImplementation(() => null);
 
     await TestBed.configureTestingModule({
       imports: [IconComponent],
