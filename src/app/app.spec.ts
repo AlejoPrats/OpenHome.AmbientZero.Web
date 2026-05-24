@@ -4,26 +4,36 @@ import { provideTaiga } from '@taiga-ui/core';
 import { vi } from 'vitest';
 import { App } from './app';
 
-Object.defineProperty(window, 'matchMedia', {
-  writable: true,
-  value: vi.fn().mockImplementation((query: string) => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: vi.fn(),
-    removeListener: vi.fn(),
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-    dispatchEvent: vi.fn(),
-  })),
-});
-
 describe('App', () => {
+  let matchMediaMock: ReturnType<typeof vi.fn>;
+
   beforeEach(async () => {
+    matchMediaMock = vi.fn().mockImplementation((query: string) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    }));
+
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: matchMediaMock,
+      configurable: true,
+    });
+
     await TestBed.configureTestingModule({
       imports: [App],
       providers: [provideRouter([]), provideTaiga()],
     }).compileComponents();
+  });
+
+  afterEach(() => {
+    vi.clearAllMocks();
+    delete (window as unknown as Record<string, unknown>)['matchMedia'];
   });
 
   it('should create the app', () => {

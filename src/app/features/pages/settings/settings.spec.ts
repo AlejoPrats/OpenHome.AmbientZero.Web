@@ -4,18 +4,18 @@ import { of } from 'rxjs';
 
 import { Settings } from './settings';
 
-const mockActivatedRoute = {
-  data: of({
-    timeZones: [{ id: 'UTC', name: 'UTC' }],
-    applicationSettings: [{ settingName: 'TemperatureSetting', settingValue: '1' }],
-  }),
-};
-
 describe('Settings', () => {
   let component: Settings;
   let fixture: ComponentFixture<Settings>;
 
   beforeEach(async () => {
+    const mockActivatedRoute = {
+      data: of({
+        timeZones: [{ id: 'UTC', name: 'UTC' }],
+        applicationSettings: [{ settingName: 'TemperatureSetting', settingValue: '1' }],
+      }),
+    };
+
     await TestBed.configureTestingModule({
       imports: [Settings],
       providers: [{ provide: ActivatedRoute, useValue: mockActivatedRoute }],
