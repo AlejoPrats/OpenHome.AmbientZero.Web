@@ -17,15 +17,12 @@ export class SensorService {
     return data ?? [];
   }
 
-  saveSensorSettings(sensorUpdateRequest: SensorUpdateRequest): Observable<any> {
-    return this.http.patch<ApplicationSettings[]>(
-      `${this.sensorApiRoot}/UpdateSensorSettings`,
-      sensorUpdateRequest,
-    );
+  saveSensorSettings(sensorUpdateRequest: SensorUpdateRequest): Observable<ApplicationSettings[]> {
+    return this.http.patch<ApplicationSettings[]>(`${this.sensorApiRoot}/UpdateSensorSettings`, sensorUpdateRequest);
   }
 
-  deleteSensor(sensorId: number): Observable<any> {
+  deleteSensor(sensorId: number): Observable<void> {
     const params = new HttpParams().set('sensorId', sensorId);
-    return this.http.delete(`${this.sensorApiRoot}/DeleteSensor`, { params });
+    return this.http.delete<void>(`${this.sensorApiRoot}/DeleteSensor`, { params });
   }
 }

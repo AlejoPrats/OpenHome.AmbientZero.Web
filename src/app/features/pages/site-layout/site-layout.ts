@@ -37,7 +37,7 @@ export class SiteLayout {
   protected readonly expanded = signal(false);
   protected open = false;
   protected switch = false;
-  protected readonly routes: any = {};
+  protected readonly routes: Record<string, unknown> = {};
   protected readonly breadcrumbs = ['Home', 'Angular', 'Repositories', 'Taiga UI'];
 
   readonly theme = inject(ThemeService);

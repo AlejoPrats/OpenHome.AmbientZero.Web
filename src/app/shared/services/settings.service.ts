@@ -10,8 +10,8 @@ export class SettingsService {
   private readonly http = inject(HttpClient);
   private readonly applicationSettingsApiRoot = '/api/ApplicationSettings';
 
-  saveApplicationSettings(applicationSettings: ApplicationSettings[]): Observable<any> {
-    return this.http.put(
+  saveApplicationSettings(applicationSettings: ApplicationSettings[]): Observable<void> {
+    return this.http.put<void>(
       `${this.applicationSettingsApiRoot}/SaveApplicationSettings`,
       applicationSettings,
     );

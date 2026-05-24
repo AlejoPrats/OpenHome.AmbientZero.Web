@@ -1,0 +1,44 @@
+name: 'CI - Code Quality Checks'
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+  push:
+    branches:
+      - develop
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Dependencies
+        uses: ./.github/actions/setup-deps
+      - name: Run lint
+        run: pnpm lint
+
+  test:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Dependencies
+        uses: ./.github/actions/setup-deps
+      - name: Run tests
+        run: pnpm test
+
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Dependencies
+        uses: ./.github/actions/setup-deps
+      - name: Run build
+        run: pnpm build
