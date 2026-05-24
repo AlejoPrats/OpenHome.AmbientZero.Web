@@ -11,10 +11,15 @@ export class SettingsService {
   private readonly applicationSettingsApiRoot = '/api/ApplicationSettings';
 
   saveApplicationSettings(applicationSettings: ApplicationSettings[]): Observable<any> {
-    return this.http.put(`${this.applicationSettingsApiRoot}/SaveApplicationSettings`, applicationSettings);
+    return this.http.put(
+      `${this.applicationSettingsApiRoot}/SaveApplicationSettings`,
+      applicationSettings,
+    );
   }
 
   getApplicationSettings(): Observable<ApplicationSettings[]> {
-    return this.http.get<ApplicationSettings[]>(`${this.applicationSettingsApiRoot}/GetApplicationSettings`);
+    return this.http.get<ApplicationSettings[]>(
+      `${this.applicationSettingsApiRoot}/GetApplicationSettings`,
+    );
   }
 }

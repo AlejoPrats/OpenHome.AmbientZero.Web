@@ -2,9 +2,10 @@ import { TestBed } from '@angular/core/testing';
 import { ResolveFn } from '@angular/router';
 
 import { sensorsResolver } from './sensors-resolver';
+import { SensorInformationResponse } from '../interfaces/sensor-information-response';
 
 describe('sensorsResolver', () => {
-  const executeResolver: ResolveFn<boolean> = (...resolverParameters) =>
+  const executeResolver: ResolveFn<SensorInformationResponse[]> = (...resolverParameters) =>
     TestBed.runInInjectionContext(() => sensorsResolver(...resolverParameters));
 
   beforeEach(() => {

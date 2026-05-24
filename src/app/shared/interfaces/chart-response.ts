@@ -1,7 +1,7 @@
-import { SensorDailyTemperatureResponse } from "./sensor-daily-temperature-response";
+import { SensorDailyTemperatureResponse } from './sensor-daily-temperature-response';
 
 export interface ChartResponse {
-    maxTemperature:number,
-    minTemperature:number,
-    measurements:SensorDailyTemperatureResponse[]
+  maxTemperature: number;
+  minTemperature: number;
+  measurements: SensorDailyTemperatureResponse[];
 }

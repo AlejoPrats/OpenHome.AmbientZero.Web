@@ -1,5 +1,5 @@
 export interface TemperatureReadings {
-    id:number,
-    date:Date,
-    temperature:number
+  id: number;
+  date: Date;
+  temperature: number;
 }

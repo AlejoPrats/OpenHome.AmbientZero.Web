@@ -1,10 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { SensorInformationResponse } from '../../../shared/interfaces/sensor-information-response';
-import { DatePipe, DecimalPipe } from '@angular/common'
-import { IconComponent } from "../../../shared/components/icon/icon.component";
+import { DatePipe, DecimalPipe } from '@angular/common';
+import { IconComponent } from '../../../shared/components/icon/icon.component';
 import { IconName } from '../../../shared/components/icon/icon-name.enum';
 import { TuiResponsiveDialogService } from '@taiga-ui/addon-mobile';
 import { TUI_CONFIRM, TuiConfirmData } from '@taiga-ui/kit';
@@ -15,6 +15,7 @@ import { SensorService } from '../../../shared/services/sensor.service';
   imports: [DatePipe, DecimalPipe, IconComponent],
   templateUrl: './sensor-list.html',
   styleUrl: './sensor-list.less',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SensorList {
   private readonly route = inject(ActivatedRoute);
@@ -49,7 +50,7 @@ export class SensorList {
   deleteDevice(id: number) {
     this.sensorService.deleteSensor(id).subscribe({
       next: () => {
-        const index = this.sensorLists()?.findIndex(x => x.id == id)
+        const index = this.sensorLists()?.findIndex((x) => x.id == id);
         this.sensorLists()?.splice(index!, 1);
       },
     });
