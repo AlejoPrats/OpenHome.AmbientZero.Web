@@ -51,6 +51,8 @@ export class TemperatureChartComponent {
 		}],
 	};
 
+  protected readonly today = TuiDay.currentLocal();
+
   protected readonly options = toSignal(
     this.route.data.pipe(
       map(({ temperatureReadings }) => {

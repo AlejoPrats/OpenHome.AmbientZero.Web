@@ -12,9 +12,9 @@ import { SensorService } from '../../../shared/services/sensor.service';
 
 @Component({
   selector: 'app-sensor-list',
-  imports: [DatePipe, DecimalPipe, IconComponent],
-  templateUrl: './sensor-list.html',
-  styleUrl: './sensor-list.less',
+  imports: [DatePipe, DecimalPipe, IconComponent, RouterLink, RouterModule],
+  templateUrl: './sensor-list.component.html',
+  styleUrl: './sensor-list.component.less',
 })
 export class SensorListComponent {
   private readonly route = inject(ActivatedRoute);
