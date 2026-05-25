@@ -11,7 +11,7 @@ export enum IconName {
   CircleCheck = 'CIRCLE_CHECK',
   CircleQuestion = 'CIRCLE_QUESTION',
   CircleX = 'CIRCLE_X',
-  Cog = "COG",
+  Cog = 'COG',
   Component = 'COMPONENT',
   ClosePanelRight = 'CLOSE_PANEL_RIGHT',
   Delete = 'DELETE',

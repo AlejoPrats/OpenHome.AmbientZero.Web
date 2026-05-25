@@ -1,19 +1,47 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
+import { provideEchartsCore } from 'ngx-echarts';
+import { vi } from 'vitest';
 
-import { TemperatureChartComponent } from './temperature-chart.component';
+import { TemperatureChart, TemperatureChartComponent } from './temperature-chart.component';
 
 describe('TemperatureChart', () => {
   let component: TemperatureChartComponent;
   let fixture: ComponentFixture<TemperatureChartComponent>;
+  let resizeObserverMock: unknown;
 
   beforeEach(async () => {
+    resizeObserverMock = (globalThis as unknown as Record<string, unknown>)['ResizeObserver'];
+
+    (globalThis as unknown as Record<string, unknown>)['ResizeObserver'] = class {
+      observe() {}
+      unobserve() {}
+      disconnect() {}
+    };
+
+    const mockActivatedRoute = {
+      data: of({
+        temperatureReadings: { measurements: [], minTemperature: 20, maxTemperature: 30 },
+      }),
+    };
+
     await TestBed.configureTestingModule({
       imports: [TemperatureChartComponent],
+      providers: [
+        { provide: ActivatedRoute, useValue: mockActivatedRoute },
+        provideEchartsCore({ echarts: () => import('echarts') }),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TemperatureChartComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
+  });
+
+  afterEach(() => {
+    (globalThis as unknown as Record<string, unknown>)['ResizeObserver'] = resizeObserverMock;
+    vi.clearAllMocks();
   });
 
   it('should create', () => {

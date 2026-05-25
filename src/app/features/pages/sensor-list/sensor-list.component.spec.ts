@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 
 import { SensorListComponent } from './sensor-list';
 
@@ -9,6 +10,7 @@ describe('SensorList', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SensorListComponent],
+      providers: [provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SensorListComponent);

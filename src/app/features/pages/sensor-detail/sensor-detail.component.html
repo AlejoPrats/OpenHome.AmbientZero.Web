@@ -88,11 +88,9 @@
 
                     Disable End Time:
                 </tui-expand>
-
             </td>
             <td tuiTd>
                 <tui-expand [expanded]="sensor.sensorSetting.isScheduled">
-
                     <tui-textfield>
                         <input placeholder="Click me to open dropdown" tuiInputTime
                             [(ngModel)]="sensor.sensorSetting.disableEndTime" />

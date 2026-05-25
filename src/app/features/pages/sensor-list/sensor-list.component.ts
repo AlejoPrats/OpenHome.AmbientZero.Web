@@ -1,10 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
 import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { SensorInformationResponse } from '../../../shared/interfaces/sensor-information-response';
-import { DatePipe, DecimalPipe } from '@angular/common'
-import { IconComponent } from "../../../shared/components/icon/icon.component";
+import { DatePipe, DecimalPipe } from '@angular/common';
+import { IconComponent } from '../../../shared/components/icon/icon.component';
 import { IconName } from '../../../shared/components/icon/icon-name.enum';
 import { TuiResponsiveDialogService } from '@taiga-ui/addon-mobile';
 import { TUI_CONFIRM, TuiConfirmData } from '@taiga-ui/kit';
@@ -12,9 +12,9 @@ import { SensorService } from '../../../shared/services/sensor.service';
 
 @Component({
   selector: 'app-sensor-list',
-  imports: [DatePipe, DecimalPipe, IconComponent, RouterLink, RouterModule],
-  templateUrl: './sensor-list.component.html',
-  styleUrl: './sensor-list.component.less',
+  imports: [DatePipe, DecimalPipe, IconComponent],
+  templateUrl: './sensor-list.html',
+  styleUrl: './sensor-list.less',
 })
 export class SensorListComponent {
   private readonly route = inject(ActivatedRoute);
@@ -49,7 +49,7 @@ export class SensorListComponent {
   deleteDevice(id: number) {
     this.sensorService.deleteSensor(id).subscribe({
       next: () => {
-        const index = this.sensorLists()?.findIndex(x => x.id == id)
+        const index = this.sensorLists()?.findIndex((x) => x.id == id);
         this.sensorLists()?.splice(index!, 1);
       },
     });

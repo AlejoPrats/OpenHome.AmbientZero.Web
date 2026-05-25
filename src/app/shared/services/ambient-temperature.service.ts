@@ -7,7 +7,6 @@ import { ChartResponse } from '../interfaces/chart-response';
   providedIn: 'root',
 })
 export class AmbientTemperatureService {
-
   private readonly http = inject(HttpClient);
   private readonly sensorApiRoot = '/api/AmbientTemperature';
 
@@ -16,5 +15,4 @@ export class AmbientTemperatureService {
     const data = this.http.get<ChartResponse>(`${this.sensorApiRoot}`, { params });
     return data ?? [];
   }
-
 }
