@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { ThemeService } from '../../../shared/services/theme.service';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -8,17 +8,28 @@ import { SensorDailyTemperatureResponse } from '../../../shared/interfaces/senso
 import { EchartsSeries } from '../../../shared/interfaces/echarts-series';
 import { ECBasicOption } from 'echarts/types/dist/shared';
 import { ChartResponse } from '../../../shared/interfaces/chart-response';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { TuiDropdownSheet } from '@taiga-ui/addon-mobile';
+import { TuiDay } from '@taiga-ui/cdk';
+import { TuiInputDateTime } from '@taiga-ui/kit';
+import { TuiForm } from '@taiga-ui/layout';
 
 @Component({
 	selector: 'app-temperature-chart',
-	imports: [NgxEchartsModule],
-	templateUrl: './temperature-chart.html',
-	styleUrl: './temperature-chart.less',
+	imports: [
+		ReactiveFormsModule,
+		TuiDropdownSheet,
+		TuiInputDateTime,
+		NgxEchartsModule],
+	templateUrl: './temperature-chart.component.html',
+	styleUrl: './temperature-chart.component.less',
 })
-export class TemperatureChart {
+export class TemperatureChartComponent {
 	readonly theme = inject(ThemeService);
 	private readonly route = inject(ActivatedRoute);
-
+	protected readonly open = signal(false);
+	protected readonly control = new FormControl<TuiDay>(TuiDay.currentLocal());
+	
 	private readonly EMPTY_ECHARTS_OPTION: ChartOption = {
 		tooltip: { trigger: 'axis' },
 		legend: { data: [] as string[] },
@@ -70,6 +81,7 @@ export class TemperatureChart {
 		{ initialValue: this.EMPTY_ECHARTS_OPTION },
 	);
 
+	protected readonly today = TuiDay.currentLocal();
 
 }
 

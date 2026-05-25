@@ -46,10 +46,10 @@ type ThemeMode = 'light' | 'dark' | 'auto';
     RouterLinkWithHref,
     LoadingIndicatorComponent
 ],
-  templateUrl: './site-layout.html',
-  styleUrl: './site-layout.less',
+  templateUrl: './site-layout.component.html',
+  styleUrl: './site-layout.component.less',
 })
-export class SiteLayout {
+export class SiteLayoutComponent {
   protected readonly expanded = signal(false);
   protected open = false;
   protected switch = false;

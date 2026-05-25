@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SiteLayout } from './site-layout';
+import { SensorListComponent } from './sensor-list';
 
-describe('SiteLayout', () => {
-  let component: SiteLayout;
-  let fixture: ComponentFixture<SiteLayout>;
+describe('SensorList', () => {
+  let component: SensorListComponent;
+  let fixture: ComponentFixture<SensorListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SiteLayout],
+      imports: [SensorListComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SiteLayout);
+    fixture = TestBed.createComponent(SensorListComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

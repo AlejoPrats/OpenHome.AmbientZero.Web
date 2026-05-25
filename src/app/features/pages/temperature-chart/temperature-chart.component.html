@@ -1,0 +1,14 @@
+<button tuiButton>Previous Date</button>
+<tui-textfield tuiDropdownSheet="Pick a date" >
+    <label tuiLabel>Date</label>
+    <input formControlName="control" tuiInputDateTime />
+    <ng-container *tuiDropdown>
+        <tui-calendar />
+        <button appearance="action" size="m" tuiButton type="button"
+            (click)="control.setValue(today); open.set(false)">
+            Today
+        </button>
+    </ng-container>
+</tui-textfield>
+<button tuiButton>Next Date</button>
+<div echarts [options]="options()" [theme]="theme.eChartsAttr()" class="chart"></div>

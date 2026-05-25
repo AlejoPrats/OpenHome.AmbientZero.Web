@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
 import { map } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { SensorInformationResponse } from '../../../shared/interfaces/sensor-information-response';
@@ -12,11 +12,11 @@ import { SensorService } from '../../../shared/services/sensor.service';
 
 @Component({
   selector: 'app-sensor-list',
-  imports: [DatePipe, DecimalPipe, IconComponent],
-  templateUrl: './sensor-list.html',
-  styleUrl: './sensor-list.less',
+  imports: [DatePipe, DecimalPipe, IconComponent, RouterLink, RouterModule],
+  templateUrl: './sensor-list.component.html',
+  styleUrl: './sensor-list.component.less',
 })
-export class SensorList {
+export class SensorListComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly dialogs = inject(TuiResponsiveDialogService);
   private readonly sensorService = inject(SensorService);

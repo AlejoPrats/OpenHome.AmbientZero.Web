@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TemperatureChart } from './temperature-chart';
+import { TemperatureChartComponent } from './temperature-chart.component';
 
 describe('TemperatureChart', () => {
-  let component: TemperatureChart;
-  let fixture: ComponentFixture<TemperatureChart>;
+  let component: TemperatureChartComponent;
+  let fixture: ComponentFixture<TemperatureChartComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TemperatureChart],
+      imports: [TemperatureChartComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TemperatureChart);
+    fixture = TestBed.createComponent(TemperatureChartComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

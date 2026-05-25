@@ -21,10 +21,10 @@ import { number } from 'echarts';
     TuiSegmented,
     FormsModule,
   TuiTabs],
-  templateUrl: './settings.html',
-  styleUrl: './settings.less',
+  templateUrl: './settings.component.html',
+  styleUrl: './settings.component.less',
 })
-export class Settings {
+export class SettingsComponent {
   private readonly route = inject(ActivatedRoute);
   protected readonly buttons = ['Celcius', 'Farenheit', 'Kelvin'];
   protected readonly activeTabIndex = 0;

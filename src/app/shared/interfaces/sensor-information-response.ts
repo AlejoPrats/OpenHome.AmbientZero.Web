@@ -4,10 +4,11 @@ export interface SensorInformationResponse {
         id: number
         deviceId: string
         deviceVirtualName: string | null
-        aDCReading: number
+        adcReading: number
         isSignaling: boolean
         lastReadingTime: Date
         lastReadingValue: number
         temperatureTendency: string
+        version: string
         sensorSetting: SensorSettingsResponse
 }

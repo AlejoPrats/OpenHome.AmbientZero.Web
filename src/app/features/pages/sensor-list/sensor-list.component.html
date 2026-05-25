@@ -17,13 +17,15 @@
         @for (sensor of sensors; track sensor) {
         <tr>
             <td tuiTd>{{ sensor.deviceVirtualName ?? sensor.deviceId }}</td>
-            <td tuiTd>%{{ sensor.aDCReading }}</td>
+            <td tuiTd>%{{ sensor.adcReading }}</td>
             <td tuiTd>{{ sensor.lastReadingTime | date:'dd-MM-yyyy HH:mm' }}</td>
             <td tuiTd>{{ sensor.lastReadingValue | number:'1.1-1' }}</td>
             <td tuiTd>{{ sensor.isSignaling }}</td>
             <td tuiTd>{{ sensor.temperatureTendency }}</td>
             <td tuiTd>
-                <app-icon [name]="IconName.Edit" size="large" />
+                <span [routerLink]="['/sensorDetail',sensor.id]">
+                    <app-icon [name]="IconName.Edit" size="large" />
+                </span>
                 <app-icon [name]="IconName.Chart" size="medium" />
                 <app-icon [name]="IconName.Eye" size="medium" />
                 <app-icon [name]="IconName.Cog" size="medium" />

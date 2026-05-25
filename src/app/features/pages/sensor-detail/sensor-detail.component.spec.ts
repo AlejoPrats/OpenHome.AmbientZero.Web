@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Settings } from './settings';
+import { SensorDetailComponent } from './sensor-detail.component';
 
-describe('Settings', () => {
-  let component: Settings;
-  let fixture: ComponentFixture<Settings>;
+describe('SensorDetailComponent', () => {
+  let component: SensorDetailComponent;
+  let fixture: ComponentFixture<SensorDetailComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Settings],
+      imports: [SensorDetailComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Settings);
+    fixture = TestBed.createComponent(SensorDetailComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
