@@ -4,7 +4,7 @@ import { of } from 'rxjs';
 import { provideEchartsCore } from 'ngx-echarts';
 import { vi } from 'vitest';
 
-import { TemperatureChart, TemperatureChartComponent } from './temperature-chart.component';
+import { TemperatureChartComponent } from './temperature-chart.component';
 
 describe('TemperatureChart', () => {
   let component: TemperatureChartComponent;

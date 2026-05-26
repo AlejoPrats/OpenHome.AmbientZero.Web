@@ -1,14 +1,20 @@
-<button tuiButton>Previous Date</button>
-<tui-textfield tuiDropdownSheet="Pick a date" >
-    <label tuiLabel>Date</label>
-    <input formControlName="control" tuiInputDateTime />
-    <ng-container *tuiDropdown>
-        <tui-calendar />
-        <button appearance="action" size="m" tuiButton type="button"
-            (click)="control.setValue(today); open.set(false)">
-            Today
-        </button>
-    </ng-container>
-</tui-textfield>
-<button tuiButton>Next Date</button>
+<div class="controls-container">
+    <span style="left: 0;">
+        <h1>Temperature Chart</h1>
+    </span>
+    <span style="right: 0;">
+        <button tuiButton iconStart="@tui.chevron-left" (click)="previousDay()">Previous Date</button>
+        <tui-textfield tuiDropdownSheet="Pick a date">
+            <label tuiLabel>Date</label>
+            <input tuiInputDate [(ngModel)]="displayDate" />
+            <ng-container *tuiDropdown="let close">
+                <tui-calendar />
+                <button appearance="action" size="m" tuiButton type="button" class="button" (click)="close(); today()">
+                    Today
+                </button>
+            </ng-container>
+        </tui-textfield>
+        <button tuiButton iconEnd="@tui.chevron-right" (click)="nextDay()">Next Date</button>
+    </span>
+</div>
 <div echarts [options]="options()" [theme]="theme.eChartsAttr()" class="chart"></div>
