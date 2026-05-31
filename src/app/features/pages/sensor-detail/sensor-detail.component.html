@@ -4,8 +4,8 @@
     <tbody tuiTbody>
         <tr tuiTr>
             <td tuiTd colspan="4">
-                DeviceName: {{sensor.deviceVirtualName}} <button iconStart="@tui.pencil" size="s" tuiIconButton
-                    type="button">
+                DeviceName: {{sensor.deviceVirtualName ?? '(No Name Set)'}} <button appearance="secondary" iconStart="@tui.pencil" size="s" tuiIconButton
+                    type="button" (click)="showNameUpdateDialog()">
                     Help
                 </button>
             </td>
@@ -78,7 +78,7 @@
                 <tui-expand [expanded]="sensor.sensorSetting.isScheduled">
                     <tui-textfield>
                         <input placeholder="Click me to open dropdown" tuiInputTime
-                            [(ngModel)]="sensor.sensorSetting.disableStartTime" />
+                            [(ngModel)]="disableStartTime" />
                         <tui-data-list-wrapper *tuiDropdown [items]="items | tuiFilterByInput: filter" />
                     </tui-textfield>
                 </tui-expand>
@@ -93,7 +93,7 @@
                 <tui-expand [expanded]="sensor.sensorSetting.isScheduled">
                     <tui-textfield>
                         <input placeholder="Click me to open dropdown" tuiInputTime
-                            [(ngModel)]="sensor.sensorSetting.disableEndTime" />
+                            [(ngModel)]="disableEndTime" />
                         <tui-data-list-wrapper *tuiDropdown [items]="items | tuiFilterByInput: filter" />
                     </tui-textfield>
                 </tui-expand>
@@ -104,11 +104,27 @@
                 <button size="m" tuiButton iconStart="@tui.x" type="button">
                     Cancel
                 </button>
-                <button size="m" tuiButton iconStart="@tui.save" type="button">
+                <button size="m" tuiButton iconStart="@tui.save" type="button" (click)="saveSensorSettings()">
                     Apply Changes
                 </button>
             </td>
         </tr>
     </tbody>
 </table>
+
+<ng-template [tuiDialogOptions]="{label: 'Edit Device Virtual Name'}" [(tuiDialog)]="changeNameModalOpen">  
+        <tui-textfield >
+            <label tuiLabel>Device Virtual Name</label>
+            <input tuiAutoFocus tuiInput [(ngModel)]="this.tempSensorVirtualName" />
+        </tui-textfield>
+        <footer>
+            <button appearance="secondary" tuiButton type="button" (click)="hideNameUpdateDialog()">
+                Cancel
+            </button>
+            <button tuiButton type="submit" (click)="updateVirtualName()">
+                Submit
+            </button>
+        </footer>
+</ng-template>
+
 }

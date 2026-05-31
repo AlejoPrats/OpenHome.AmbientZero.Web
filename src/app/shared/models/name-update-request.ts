@@ -1,10 +1,10 @@
 export class NameUpdateRequest {
-    sensorId: string;
+    deviceId: string;
     virtualName: string;
 
     constructor(sensorId:string, virtualName:string)
     {
-        this.sensorId = sensorId;
+        this.deviceId = sensorId;
         this.virtualName = virtualName;
     }
 }
