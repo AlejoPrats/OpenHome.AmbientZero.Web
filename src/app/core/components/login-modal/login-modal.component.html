@@ -5,14 +5,23 @@
     </tui-textfield>
     <tui-textfield>
         <label tuiLabel>Password</label>
-        <input name="password" type="password" tuiAutoFocus tuiInput [(ngModel)]="password" />
+        <input name="password" type="password" tuiInput [(ngModel)]="password" />
     </tui-textfield>
     <footer>
-        <button appearance="secondary" tuiButton type="button" (click)="context.$implicit.complete()">
-            Cancel
-        </button>
-        <button tuiButton (click)="login()">
-            Submit
-        </button>
+        <div class="footer-row">
+            @if (timerService.isActive('login')) {
+            <div class="timer-text">
+                Try again in {{ timerService.getRemaining('login') / 1000 | number:'1.0-0' }} seconds
+            </div>
+            }
+            <div class="footer-buttons">
+                <button appearance="secondary" tuiButton type="button" (click)="context.$implicit.complete()">
+                    Cancel
+                </button>
+                <button [disabled]="timerService.isActive('login')" tuiButton (click)="login()">
+                    Login
+                </button>
+            </div>
+        </div>
     </footer>
 </form>

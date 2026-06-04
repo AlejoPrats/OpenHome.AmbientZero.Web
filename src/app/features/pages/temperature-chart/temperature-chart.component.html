@@ -4,9 +4,9 @@
     </span>
     <span style="right: 0;">
         <button tuiButton iconStart="@tui.chevron-left" (click)="previousDay()">Previous Date</button>
-        <tui-textfield tuiDropdownSheet="Pick a date">
+        <tui-textfield tuiDropdownSheet="Pick a date" >
             <label tuiLabel>Date</label>
-            <input tuiInputDate [(ngModel)]="displayDate" />
+            <input tuiInputDate [(ngModel)]="displayDate" (ngModelChange)="selectedDate($event)" />
             <ng-container *tuiDropdown="let close">
                 <tui-calendar />
                 <button appearance="action" size="m" tuiButton type="button" class="button" (click)="close(); today()">

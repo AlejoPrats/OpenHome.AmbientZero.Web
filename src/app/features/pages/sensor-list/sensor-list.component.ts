@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
-import { map } from 'rxjs';
+import { interval, map, Subscription } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { SensorInformationResponse } from '../../../shared/interfaces/sensor-information-response';
 import { DatePipe, DecimalPipe } from '@angular/common';
@@ -20,11 +20,20 @@ export class SensorListComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly dialogs = inject(TuiResponsiveDialogService);
   private readonly sensorService = inject(SensorService);
+  private autoRefreshSub!: Subscription;
   protected readonly IconName = IconName;
-  protected readonly sensorLists = toSignal(
+  protected readonly sensorList = signal<SensorInformationResponse[] | null>(null);
+  protected readonly resolvedSensors = toSignal(
     this.route.data.pipe(map(({ sensors }) => sensors as SensorInformationResponse[])),
     { initialValue: null },
   );
+
+  ngOnInit() {
+    this.sensorList.set(this.resolvedSensors());
+    this.autoRefreshSub = interval(20 * 60 * 1000).subscribe(() => {
+      this.refreshData();
+    });
+  }
 
   openDeleteDialog(id: number): void {
     const data: TuiConfirmData = {
@@ -49,9 +58,21 @@ export class SensorListComponent {
   deleteDevice(id: number) {
     this.sensorService.deleteSensor(id).subscribe({
       next: () => {
-        const index = this.sensorLists()?.findIndex((x) => x.id == id);
-        this.sensorLists()?.splice(index!, 1);
+        const index = this.sensorList()?.findIndex((x) => x.id == id);
+        this.sensorList()?.splice(index!, 1);
       },
     });
+  }
+
+  refreshData() {
+    this.sensorService.getAllSensors().subscribe({
+      next: (result) => {
+        this.sensorList.set(result)
+      }
+    })
+  }
+
+  ngOnDestroy() {
+    this.autoRefreshSub?.unsubscribe();
   }
 }

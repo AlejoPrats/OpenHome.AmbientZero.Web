@@ -50,6 +50,10 @@ export class TemperatureChartComponent {
     this.updateChartData();
   }
 
+  protected selectedDate(value: TuiDay) {
+    this.updateChartData();
+  }
+
   protected today() {
     this.displayDate = TuiDay.currentLocal();
     this.updateChartData();

@@ -15,8 +15,15 @@ export class AuthService {
   private readonly localStorageService = inject(LocalStorageService);
   private readonly sensorApiRoot = '/api/Auth';
 
-  isLoggedIn(): string | null {
-    return this.localStorageService.getAuthenticationToken();
+  isLoggedIn(): boolean {
+    const token = this.localStorageService.getAuthenticationToken();
+
+    if (!token) return false;
+
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const expiry = payload.exp * 1000;
+
+    return Date.now() < expiry;
   }
 
   getProtectionMode(): Observable<ProtectionMode> {

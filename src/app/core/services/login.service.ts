@@ -31,7 +31,6 @@ export class LoginService {
           complete: () => resolve(false),
         });
     }).finally(() => {
-      // When modal closes, allow opening a new one later
       this.modalPromise = undefined;
     });
 
