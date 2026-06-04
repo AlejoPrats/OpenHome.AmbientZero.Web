@@ -3,38 +3,53 @@ import { sensorInfrmationResolver, sensorsResolver } from './shared/resolvers/se
 import { temperatureChartResolver } from './shared/resolvers/temperature-chart-resolver';
 import { systemTimeZonesResolver } from './shared/resolvers/system-resolver';
 import { applicationSettingsResolver } from './shared/resolvers/settings-resolver';
+import { ProtectionMode } from './core/enums/protection-mode';
+import { authGuard } from './core/guards/auth.guard';
+import { authResolver } from './core/resolvers/auth.resolver';
 
 export const routes: Routes = [{
     path: '',
     loadComponent: () =>
         import('./features/pages/site-layout/site-layout.component').then((m) => m.SiteLayoutComponent),
+    canActivate: [authGuard],
+    runGuardsAndResolvers: 'always',
+    resolve: { authMode: authResolver },
+    data: { protectionLevel: ProtectionMode.Open },
     children: [
         {
             path: 'chart',
             loadComponent: () => import('./features/pages/temperature-chart/temperature-chart.component').then((m) => m.TemperatureChartComponent),
-            runGuardsAndResolvers: 'always',
-            resolve: { temperatureReadings: temperatureChartResolver }
+            resolve: { temperatureReadings: temperatureChartResolver },
+            data: { protectionLevel: ProtectionMode.All }
         },
         {
             path: 'list',
             loadComponent: () => import('./features/pages/sensor-list/sensor-list.component').then((m) => m.SensorListComponent),
-            runGuardsAndResolvers: 'always',
-            resolve: { sensors: sensorsResolver }
+            resolve: { sensors: sensorsResolver },
+            data: { protectionLevel: ProtectionMode.All }
+
         },
         {
             path: 'sensorDetail/:id',
             loadComponent: () => import('./features/pages/sensor-detail/sensor-detail.component').then((m) => m.SensorDetailComponent),
-            runGuardsAndResolvers: 'always',
-            resolve: { sensorInformation: sensorInfrmationResolver }
+            resolve: { sensorInformation: sensorInfrmationResolver },
+            data: { protectionLevel: ProtectionMode.All }
         },
         {
             path: 'settings',
             loadComponent: () => import('./features/pages/settings/settings.component').then((m) => m.SettingsComponent),
-            runGuardsAndResolvers: 'always',
             resolve: {
                 timeZones: systemTimeZonesResolver,
                 applicationSettings: applicationSettingsResolver
-            }
+            },
+            data: { protectionLevel: ProtectionMode.Settings }
+        },
+        {
+            path: 'advancedSettings',
+            loadComponent: () => import('./features/pages/advanced-settings/advanced-settings.component').then((m) => m.AdvancedSettingsComponent),
+            resolve: {
+            },
+            data: { protectionLevel: ProtectionMode.Allways }
         },
     ]
 }];

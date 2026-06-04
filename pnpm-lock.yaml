@@ -50,6 +50,9 @@ importers:
       '@taiga-ui/layout':
         specifier: 5.7.0
         version: 5.7.0(@angular/common@21.2.14(@angular/core@21.2.14(@angular/compiler@21.2.14)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.2.14(@angular/compiler@21.2.14)(rxjs@7.8.2))(@taiga-ui/cdk@5.7.0(5696131627af5c22d1efe1ff35cf1a4e))(@taiga-ui/core@5.7.0(8ad52d44e0a4fba5a0f37fd46ce499a6))(@taiga-ui/kit@5.7.0(e728bc4263717ca9cd23a97c95c0e0c0))(@taiga-ui/polymorpheus@5.0.1(@angular/core@21.2.14(@angular/compiler@21.2.14)(rxjs@7.8.2))(@angular/platform-browser@21.2.14(@angular/common@21.2.14(@angular/core@21.2.14(@angular/compiler@21.2.14)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.2.14(@angular/compiler@21.2.14)(rxjs@7.8.2))))(rxjs@7.8.2)
+      '@taiga-ui/polymorpheus':
+        specifier: ^5.0.1
+        version: 5.0.1(@angular/core@21.2.14(@angular/compiler@21.2.14)(rxjs@7.8.2))(@angular/platform-browser@21.2.14(@angular/common@21.2.14(@angular/core@21.2.14(@angular/compiler@21.2.14)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.2.14(@angular/compiler@21.2.14)(rxjs@7.8.2)))
       '@taiga-ui/styles':
         specifier: 5.7.0
         version: 5.7.0(@taiga-ui/design-tokens@0.301.0)

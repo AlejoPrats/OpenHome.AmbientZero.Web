@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLinkWithHref } from '@angular/router';
 import { TuiTable } from '@taiga-ui/addon-table';
 import { map } from 'rxjs';
 import { FormsModule } from '@angular/forms';
@@ -26,6 +26,7 @@ import { SensorUpdateRequest } from '../../../shared/models/sensor-update-reques
     TuiButton,
     TuiExpand,
     TuiDialog,
+    RouterLinkWithHref,
     TuiAutoFocus],
   templateUrl: './sensor-detail.component.html',
   styleUrl: './sensor-detail.component.less',
@@ -99,5 +100,5 @@ export class SensorDetailComponent implements OnInit {
 export const toApiTime = (t: string | null): string | null =>
   t ? `${t.toString()}:00` : null;
 
-export const fromApiTime = (t: string|undefined): string | null =>
+export const fromApiTime = (t: string | undefined): string | null =>
   t ? `${t.split(':')[0]}:${t.split(':')[1]}` : null;

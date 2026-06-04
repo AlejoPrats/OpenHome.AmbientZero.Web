@@ -1,0 +1,18 @@
+<form tuiForm>
+    <tui-textfield>
+        <label tuiLabel>Username</label>
+        <input name="username" tuiAutoFocus tuiInput [(ngModel)]="username" />
+    </tui-textfield>
+    <tui-textfield>
+        <label tuiLabel>Password</label>
+        <input name="password" type="password" tuiAutoFocus tuiInput [(ngModel)]="password" />
+    </tui-textfield>
+    <footer>
+        <button appearance="secondary" tuiButton type="button" (click)="context.$implicit.complete()">
+            Cancel
+        </button>
+        <button tuiButton (click)="login()">
+            Submit
+        </button>
+    </footer>
+</form>
