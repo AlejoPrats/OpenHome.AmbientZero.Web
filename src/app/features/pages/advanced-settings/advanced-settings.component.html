@@ -1,1 +1,4 @@
-<p>advanced-settings works!</p>
+<app-nav-bar [tabs]="tabs" (activeItemIndexChange)="onTabChange($event)">
+</app-nav-bar>
+
+<ng-container *ngComponentOutlet="currentComponent(); inputs: currentInputs()" />

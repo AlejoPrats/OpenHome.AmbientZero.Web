@@ -1,0 +1,41 @@
+@if(data(); as accessPointSettings)
+{
+<div class="info-block">
+    <div class="title">Acces Point Settings</div>
+
+    <div class="row">
+        <div class="label">Name</div>
+        <div class="value">
+            <tui-textfield iconStart="@tui.search">
+                <label tuiLabel>Access Point Name</label>
+                <input tuiInput [(ngModel)]="accessPointSettings.accessPointName" />
+            </tui-textfield>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="label">Password</div>
+        <div class="value">
+            <tui-textfield iconStart="@tui.search">
+                <label tuiLabel>Access Point Password</label>
+                <input tuiInput [(ngModel)]="disableStartTime" />
+            </tui-textfield>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="label">Authentication Method</div>
+        <div class="value"> 
+            <tui-textfield tuiChevron tuiDropdownMobile>
+                <input placeholder="Country" tuiComboBox [(ngModel)]="country" />
+                <tui-data-list-wrapper *tuiDropdown [items]="ApSecurityList" />
+            </tui-textfield>
+        </div>
+    </div>
+</div>
+}
+<footer>
+    <button tuiButton>
+        Save
+    </button>
+</footer>

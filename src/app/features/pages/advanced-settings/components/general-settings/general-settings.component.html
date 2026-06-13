@@ -1,0 +1,64 @@
+@if(data(); as generalSettings)
+{
+
+<div class="info-block">
+    <div class="title">Update Options</div>
+    <div class="row">
+        <div class="label">
+            Check For Updates
+        </div>
+        <div class="value">
+            <input tuiSwitch type="checkbox" [(ngModel)]="generalSettings.checkForUpdatesEnabled" [showIcons]="true"
+                size="m" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="label">
+            Apply Updates Automatically
+        </div>
+        <div class="value">
+            <input tuiSwitch type="checkbox" [(ngModel)]="generalSettings.automaticUpdatesEnabled" [showIcons]="true"
+                size="m" />
+        </div>
+    </div>
+    <div class="title">Battery Settings</div>
+    <div class="row">
+        <div class="label">
+            Max Battery Raw Reading
+        </div>
+        <div class="value">
+            <tui-textfield tuiTextfieldSize="m">
+                <label tuiLabel>Max</label>
+                <input tuiInputNumber [(ngModel)]="generalSettings.maxBatteryValue" />
+            </tui-textfield>
+        </div>
+    </div>
+    <div class="row">
+        <div class="label">
+            Min Battery Raw Reading
+        </div>
+        <div class="value">
+            <tui-textfield tuiTextfieldSize="m">
+                <label tuiLabel>Min</label>
+                <input tuiInputNumber [(ngModel)]="generalSettings.minBatteryValue" />
+            </tui-textfield>
+        </div>
+    </div>
+    <div class="title">Backup Options</div>
+    <div class="row">
+        <div class="label"> <button tuiButton>
+                Export
+            </button></div>
+        <div class="value">
+            <button tuiButton>
+                Import
+            </button>
+        </div>
+    </div>
+</div>
+<footer>
+    <button tuiButton>
+        Save
+    </button>
+</footer>
+}

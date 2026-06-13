@@ -6,6 +6,7 @@ import { applicationSettingsResolver } from './shared/resolvers/settings-resolve
 import { ProtectionMode } from './core/enums/protection-mode';
 import { authGuard } from './core/guards/auth.guard';
 import { authResolver } from './core/resolvers/auth.resolver';
+import { advancedSettingsResolver } from './shared/resolvers/advanced-settings.resolver';
 
 export const routes: Routes = [{
     path: '',
@@ -48,6 +49,7 @@ export const routes: Routes = [{
             path: 'advancedSettings',
             loadComponent: () => import('./features/pages/advanced-settings/advanced-settings.component').then((m) => m.AdvancedSettingsComponent),
             resolve: {
+                advancedSettings: advancedSettingsResolver
             },
             data: { protectionLevel: ProtectionMode.Allways }
         },

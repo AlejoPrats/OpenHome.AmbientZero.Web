@@ -46,9 +46,9 @@
 <main style="margin-left: 40px;" tuiNavigationMain>
     <nav compact tuiSubheader [style.position]="'sticky'">
         <tui-breadcrumbs [itemsLimit]="10">
-            @for (item of breadcrumbs; track item) {
+            @for (item of breadcrumbs(); track item) {
             @if ($last) {
-            <strong *tuiItem tuiFade>
+            <strong *tuiItem>
                 {{ item }}
             </strong>
             }
@@ -60,22 +60,8 @@
             }
         </tui-breadcrumbs>
         <tui-tabs tuiFade>
-            <button tuiTab type="button">
-                Default view
-            </button>
-            <button tuiTab type="button">
-                Details
-            </button>
-            <button tuiTab type="button">
-                Followers
-            </button>
+            <span>{{additionalInformation()}}</span>
         </tui-tabs>
-        <button appearance="secondary" tuiButton type="button">
-            Secondary
-        </button>
-        <button tuiButton type="button">
-            Primary
-        </button>
         <tui-tabs [activeItemIndex]="modes.indexOf(theme.mode())" (activeItemIndexChange)="select($event)"
             appearance="segmented">
             <button tuiTab>Light</button>

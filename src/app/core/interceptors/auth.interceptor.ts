@@ -2,7 +2,7 @@ import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { PermissionCacheService } from '../services/permission-cache.service';
 import { LoginService } from '../services/login.service';
-import { RouteProtectionService } from '../../shared/services/route-protection.service';
+import { RouteProtectionService } from '../services/route-protection.service';
 import { catchError, from, switchMap, throwError } from 'rxjs';
 import { AuthService } from '../../shared/services/auth.service';
 import { LocalStorageService } from '../services/local-storage.service';

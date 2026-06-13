@@ -4,7 +4,7 @@ import { PermissionCacheService } from '../services/permission-cache.service';
 import { AuthService } from '../../shared/services/auth.service';
 import { LoginService } from '../services/login.service';
 import { ProtectionMode } from '../enums/protection-mode';
-import { RouteProtectionService } from '../../shared/services/route-protection.service';
+import { RouteProtectionService } from '../services/route-protection.service';
 
 export const authGuard: CanActivateFn = async (route, state) => {
   const permissionsCache = inject(PermissionCacheService);

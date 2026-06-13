@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ProtectionMode } from '../../core/enums/protection-mode';
+import { ProtectionMode } from '../enums/protection-mode';
 
 @Injectable({ providedIn: 'root' })
 export class RouteProtectionService {

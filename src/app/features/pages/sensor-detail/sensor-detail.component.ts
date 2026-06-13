@@ -12,6 +12,8 @@ import { TuiAutoFocus, TuiTime } from '@taiga-ui/cdk';
 import { SensorService } from '../../../shared/services/sensor.service';
 import { NameUpdateRequest } from '../../../shared/models/name-update-request';
 import { SensorUpdateRequest } from '../../../shared/models/sensor-update-request';
+import { BreadcrumbService } from '../../../core/services/breadcrumb.service';
+import { AdditionalPageInformationService } from '../../../core/services/additional-page-information.service';
 
 @Component({
   selector: 'app-sensor-detail',
@@ -36,6 +38,8 @@ export class SensorDetailComponent implements OnInit {
 
   private readonly route = inject(ActivatedRoute);
   private readonly sensorService = inject(SensorService)
+  private readonly breadcrumbService = inject(BreadcrumbService);
+  protected readonly additionalPageInformationService = inject(AdditionalPageInformationService);
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly notificationService = inject(TuiNotificationService);
   protected changeNameModalOpen = false;
@@ -49,6 +53,9 @@ export class SensorDetailComponent implements OnInit {
   );
 
   ngOnInit(): void {
+    this.breadcrumbService.addBreadcrumb("Edit Sensor");
+    this.breadcrumbService.addBreadcrumb(this.sensorInformation()?.deviceVirtualName ?? this.sensorInformation()!.deviceId);
+    this.additionalPageInformationService.clearAdditionalInformation();
     this.disableStartTime = fromApiTime(this.sensorInformation()?.sensorSetting?.disableStartTime);
     this.disableEndTime = fromApiTime(this.sensorInformation()?.sensorSetting?.disableEndTime);
   }

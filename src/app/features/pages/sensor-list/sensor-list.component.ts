@@ -9,6 +9,8 @@ import { IconName } from '../../../shared/components/icon/icon-name.enum';
 import { TuiResponsiveDialogService } from '@taiga-ui/addon-mobile';
 import { TUI_CONFIRM, TuiConfirmData } from '@taiga-ui/kit';
 import { SensorService } from '../../../shared/services/sensor.service';
+import { BreadcrumbService } from '../../../core/services/breadcrumb.service';
+import { AdditionalPageInformationService } from '../../../core/services/additional-page-information.service';
 
 @Component({
   selector: 'app-sensor-list',
@@ -19,7 +21,9 @@ import { SensorService } from '../../../shared/services/sensor.service';
 export class SensorListComponent {
   private readonly route = inject(ActivatedRoute);
   private readonly dialogs = inject(TuiResponsiveDialogService);
+  protected readonly additionalPageInformationService = inject(AdditionalPageInformationService);
   private readonly sensorService = inject(SensorService);
+  private readonly breadcrumbService = inject(BreadcrumbService);
   private autoRefreshSub!: Subscription;
   protected readonly IconName = IconName;
   protected readonly sensorList = signal<SensorInformationResponse[] | null>(null);
@@ -29,6 +33,9 @@ export class SensorListComponent {
   );
 
   ngOnInit() {
+    this.breadcrumbService.clearBreadcrumbs();
+    this.breadcrumbService.addBreadcrumb("Sensors");
+    this.additionalPageInformationService.setAdditionalInformation(`Last Updated: ${this.getTimeAsString()}`);
     this.sensorList.set(this.resolvedSensors());
     this.autoRefreshSub = interval(20 * 60 * 1000).subscribe(() => {
       this.refreshData();
@@ -64,10 +71,20 @@ export class SensorListComponent {
     });
   }
 
+  private getTimeAsString(): string {
+    const now = new Date(Date.now());
+
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+
+    return `${hours}:${minutes}`;
+  }
+
   refreshData() {
     this.sensorService.getAllSensors().subscribe({
       next: (result) => {
-        this.sensorList.set(result)
+        this.additionalPageInformationService.setAdditionalInformation(`Last Updated: ${this.getTimeAsString()}`);
+        this.sensorList.set(result);
       }
     })
   }

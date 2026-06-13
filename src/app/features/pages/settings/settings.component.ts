@@ -7,6 +7,8 @@ import { TimeZone } from '../../../shared/interfaces/time-zone';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { ApplicationSettings } from '../../../shared/models/application-settings';
+import { BreadcrumbService } from '../../../core/services/breadcrumb.service';
+import { AdditionalPageInformationService } from '../../../core/services/additional-page-information.service';
 
 @Component({
   selector: 'app-settings',
@@ -25,6 +27,8 @@ import { ApplicationSettings } from '../../../shared/models/application-settings
 })
 export class SettingsComponent {
   private readonly route = inject(ActivatedRoute);
+  private readonly breadcrumbService = inject(BreadcrumbService);
+  protected readonly additionalPageInformationService = inject(AdditionalPageInformationService);
   protected readonly buttons = ['Celcius', 'Farenheit', 'Kelvin'];
   protected readonly activeTabIndex = 0;
   protected readonly timeZones = toSignal(
@@ -38,6 +42,12 @@ export class SettingsComponent {
     ),
     { initialValue: null },
   );
+
+  ngOnInit() {
+    this.additionalPageInformationService.clearAdditionalInformation();
+    this.breadcrumbService.clearBreadcrumbs();
+    this.breadcrumbService.addBreadcrumb("Basic Settings")
+  }
 
   protected readonly options = [
     {
