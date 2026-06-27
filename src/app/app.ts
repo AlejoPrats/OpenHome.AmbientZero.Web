@@ -13,4 +13,5 @@ import { ThemeService } from './core/services/theme.service';
 export class App {
   protected readonly title = signal('OpenHome.AmbientZero.Web');
   readonly theme = inject(ThemeService);
+
 }

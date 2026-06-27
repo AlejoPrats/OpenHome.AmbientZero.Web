@@ -16,10 +16,11 @@ import { AdvancedSettingsResponse } from '../../../shared/interfaces/advanced-se
 import { map } from 'rxjs';
 import { BreadcrumbService } from '../../../core/services/breadcrumb.service';
 import { AdditionalPageInformationService } from '../../../core/services/additional-page-information.service';
+import { ScrollIndicatorComponent } from "../../../shared/components/scroll-indicator/scroll-indicator.component";
 
 @Component({
   selector: 'app-advanced-settings',
-  imports: [CommonModule, TuiTabBar, TuiHint, NavBarComponent],
+  imports: [CommonModule, TuiTabBar, TuiHint, NavBarComponent, ScrollIndicatorComponent],
   templateUrl: './advanced-settings.component.html',
   styleUrl: './advanced-settings.component.less',
   encapsulation: ViewEncapsulation.None

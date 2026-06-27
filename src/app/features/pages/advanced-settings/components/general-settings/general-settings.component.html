@@ -44,6 +44,43 @@
             </tui-textfield>
         </div>
     </div>
+    <div class="title">Version</div>
+    <div> <button iconStart="@tui.refresh-cw" size="s" tuiHint="Refresh Versions" tuiButton (click)="updateVersion()"></button>
+    </div>
+    <div class="flex-table">
+        <div class="table-row header">
+            <div class="cell">
+                Module Name
+            </div>
+            <div class="cell">
+                Local Version
+            </div>
+            <div class="cell">
+                Remote Version
+            </div>
+            <div class="cell">
+                Last Updated
+            </div>
+        </div>
+        @for(version of versionList(); track version; let i = $index)
+        {
+        <div class="table-row">
+            <div class="cell">
+                {{version.name}}
+            </div>
+            <div class="cell">
+                {{version.localVersion}}
+            </div>
+            <div class="cell">
+                {{version.remoteVersion}}
+            </div>
+            <div class="cell">
+                {{version.lastUpdated | date:'dd-MM-yyyy HH:mm'}}
+            </div>
+        </div>
+        }
+    </div>
+
     <div class="title">Backup Options</div>
     <div class="row">
         <div class="label"> <button tuiButton>
@@ -56,8 +93,8 @@
         </div>
     </div>
 </div>
-<footer>
-    <button tuiButton>
+<footer class="advancedSettings">
+    <button tuiButton (click)="saveGeneralSettings()">
         Save
     </button>
 </footer>

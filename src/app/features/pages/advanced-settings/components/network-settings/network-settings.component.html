@@ -18,24 +18,26 @@
         <div class="value">
             <tui-textfield iconStart="@tui.search">
                 <label tuiLabel>Access Point Password</label>
-                <input tuiInput [(ngModel)]="disableStartTime" />
+                <input tuiInput [disabled]="accessPointSettings.accessPointSecurity == 0" [(ngModel)]="accessPointSettings.accessPointPassword" />
             </tui-textfield>
+            <app-password-strength [style.display]="accessPointSettings.accessPointSecurity == 0 ? 'none' : 'block'" [passwordInput]="accessPointSettings.accessPointPassword"></app-password-strength>
         </div>
     </div>
 
     <div class="row">
         <div class="label">Authentication Method</div>
-        <div class="value"> 
+        <div class="value">
             <tui-textfield tuiChevron tuiDropdownMobile>
-                <input placeholder="Country" tuiComboBox [(ngModel)]="country" />
+                <input placeholder="AccessPoint Security" tuiComboBox
+                    [(ngModel)]="selectedSecurity" (ngModelChange)="selectedSecurity.set($event)" />
                 <tui-data-list-wrapper *tuiDropdown [items]="ApSecurityList" />
             </tui-textfield>
         </div>
     </div>
 </div>
 }
-<footer>
-    <button tuiButton>
+<footer class="advancedSettings">
+    <button tuiButton (click)="saveNetworkSettings()">
         Save
     </button>
 </footer>
