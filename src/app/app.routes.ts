@@ -7,12 +7,13 @@ import { ProtectionMode } from './core/enums/protection-mode';
 import { authGuard } from './core/guards/auth.guard';
 import { authResolver } from './core/resolvers/auth.resolver';
 import { advancedSettingsResolver } from './shared/resolvers/advanced-settings.resolver';
+import { onboardingGuard } from './core/components/onboarding/guard/onboarding.guard';
 
 export const routes: Routes = [{
     path: '',
     loadComponent: () =>
         import('./features/pages/site-layout/site-layout.component').then((m) => m.SiteLayoutComponent),
-    canActivate: [authGuard],
+    canActivate: [authGuard, onboardingGuard],
     runGuardsAndResolvers: 'always',
     resolve: { authMode: authResolver },
     data: { protectionLevel: ProtectionMode.Open },

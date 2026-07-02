@@ -1,0 +1,57 @@
+:host {
+  display: flex;
+  align-items: center;
+}
+
+.t-flag {
+  inline-size: 1.75rem;
+  block-size: 1.75rem;
+  border-radius: var(--border-radius-full);
+  margin-inline-end: var(--spacing-xs);
+}
+
+[tuiOption] {
+  justify-content: flex-start;
+  gap: var(--spacing-xs);
+}
+
+img {
+  box-shadow: inset 0 0 0 1px var(--tui-border-normal);
+}
+
+.selected-flag {
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  bottom: 0;
+  margin-right: -7px;
+  margin-bottom: -7px;
+}
+
+.language-button-color {
+  color: var(--color-text);
+  background-color: transparent;
+
+  border: 2px solid gray;
+
+  > tui-opt-group {
+    background-color: var(--color-background);
+  }
+}
+
+.super-class {
+  background-color: var(--color-background);
+
+  > tui-opt-group {
+    color: var(--color-text);
+
+    > button {
+      --tui-text-action: var(--color-primary);
+      color: var(--color-text);
+    }
+  }
+}
+
+.language-button-color > tui-data-list > tui-opt-group {
+  background-color: var(--color-background);
+}

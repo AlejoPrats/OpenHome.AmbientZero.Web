@@ -1,0 +1,16 @@
+<tui-textfield [attr.tuiTheme]="theme.attr()" tuiChevron style="width: 100%;" [content]="languages && content">
+  <input [attr.tuiTheme]="theme.attr()" placeholder="Select A language" tuiSelect [(ngModel)]="value" />
+  <tui-data-list-wrapper [attr.tuiTheme]="theme.attr()" class="weridclasseasytoxsdasdsearch" *tuiDropdown [itemContent]="content" [items]="languages" />
+</tui-textfield>
+
+<ng-template #content let-language>
+  <div style="display:flex; flex-direction: row; gap: 15px; align-items: center; color: var(--tui-text-primary);" [attr.tuiTheme]="theme.attr()"  class="card">
+    <div>
+      <img alt="" size="s" tuiBadge style="border-radius: 50px;" tuiSlot="bottom"
+        [src]="language.countryIsoCode | tuiFlag" [attr.tuiTheme]="theme.attr()"  />
+    </div>
+    <div [attr.tuiTheme]="theme.attr()" >
+    {{ capitalize(language.name) }}
+    </div>
+  </div>
+</ng-template>
