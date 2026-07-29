@@ -30,21 +30,69 @@
     display: inline-block
 }
 
-tui-popups:has(.weridclasseasytoxsdasdsearch) {
+.driver-overlay {
+    z-index: 7 !important;
+}
+
+.driver-overlay-animated {
+    z-index: 9 !important;
+}
+
+#driver-popover-content {
+    z-index: 10;
+}
+
+.onboarding-popover-footer-button:disabled {
+    background-color: #ccc;
+    user-select: none;
+    cursor: not-allowed;
+    color: #666;
+    border-color: #bbb;
+}
+
+tui-popups:has(.tui-textfield-override) {
     z-index: 1000000001 !important;
 }
 
+tui-popups {
+    z-index: 101 !important;
+}
+
 /* Only the actual dropdown panel gets pointer events */
-.driver-active tui-popups .weridclasseasytoxsdasdsearch,
-.driver-active tui-popups .weridclasseasytoxsdasdsearch * {
+.driver-active tui-popups .tui-textfield-override,
+.driver-active tui-popups .tui-textfield-override *,
+.driver-active tui-popups tui-scrollbar,
+.driver-active tui-popups tui-scrollbar div tui-data-list-wrapper tui-data-list button {
     pointer-events: auto !important;
 }
 
-.driver-active:has(tui-popups .weridclasseasytoxsdasdsearch) .driver-overlay {
+.driver-active:has(tui-popups .tui-textfield-override) .driver-overlay {
     pointer-events: none !important;
 }
 
-
 #driver-angular-host {
-  display: block !important;
+    display: block !important;
+}
+
+*:is(app-language-selector, app-unit-selector)>tui-textfield>span>div>div,
+*:is(app-time-zone-selector, app-password-change)>tui-textfield>input {
+    color: black !important;
+}
+
+*:is(app-language-selector, app-unit-selector, app-time-zone-selector,app-password-change)>tui-textfield>span>button,
+*:is(app-password-change)>tui-textfield>span>tui-icon
+{
+    filter: contrast(0);
+}
+
+*:is(app-language-selector, app-unit-selector, app-time-zone-selector, app-password-change)>.tui-interactive.tui-textfield-override {
+    color: black !important;
+}
+
+*:is(app-language-selector, app-unit-selector, app-time-zone-selector, app-password-change)>.tui-interactive.tui-textfield-override input::placeholder {
+    color: grey !important;
+}
+
+.driver-popover:has(app-time-zone-selector,app-password-change){
+    min-width: 400px;
 }

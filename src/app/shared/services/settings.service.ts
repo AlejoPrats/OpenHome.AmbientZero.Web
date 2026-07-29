@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApplicationSettings } from '../models/application-settings';
+import { TimeZone } from '../interfaces/time-zone';
 
 @Injectable({
   providedIn: 'root',
@@ -18,8 +19,6 @@ export class SettingsService {
   }
 
   getApplicationSettings(): Observable<ApplicationSettings[]> {
-    return this.http.get<ApplicationSettings[]>(
-      `${this.applicationSettingsApiRoot}/GetApplicationSettings`,
-    );
+    return this.http.get<ApplicationSettings[]>(`${this.applicationSettingsApiRoot}/GetApplicationSettings`);
   }
 }

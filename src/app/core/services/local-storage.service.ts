@@ -39,4 +39,17 @@ export class LocalStorageService {
   clearLoginAttempts(): void {
     localStorage.removeItem(STORAGE_KEYS.LOGIN_ATTEMPTS);
   }
+
+  getLanguage(): string | null {
+    return localStorage.getItem(STORAGE_KEYS.LANGUAGE);
+  }
+
+  setLanguage(language: string): void {
+    if (language) {
+      localStorage.setItem(STORAGE_KEYS.LANGUAGE, language);
+    }
+    else {
+      localStorage.removeItem(STORAGE_KEYS.LANGUAGE);
+    }
+  }
 }

@@ -1,11 +1,11 @@
 
-import { isPlatformServer } from '@angular/common';
+import { isPlatformServer, NgClass } from '@angular/common';
 import { Component, computed, inject, input, PLATFORM_ID } from '@angular/core';
 import { TuiProgress } from '@taiga-ui/kit';
 
 @Component({
   selector: 'app-password-strength',
-  imports: [TuiProgress],
+  imports: [TuiProgress, NgClass],
   templateUrl: './password-strength.component.html',
   styleUrl: './password-strength.component.less',
 })
@@ -20,9 +20,10 @@ export class PasswordStrengthComponent {
     'var(--tui-background-accent-1)',
   ];
 
-  passwordInput = input.required<string>();
+  passwordInput = input.required<string | undefined>();
+  minPasswordLength = input.required<number>();
   strengthLabel = computed(() => this.getStrengthLabel(this.score()));
-  protected score = computed(() => this.evaluate(this.passwordInput()));
+  protected score = computed(() => this.passwordInput() ? this.evaluate(this.passwordInput()!) : -1);
 
 
   getStrengthLabel(score: number): 'Weak 😟' | 'Normal 🙂' | 'Strong 😎' {

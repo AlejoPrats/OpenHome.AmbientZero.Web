@@ -1,10 +1,12 @@
-<p>onboarding-timezone-selector works!</p>
+<div style="width: 100%;">
+    <app-time-zone-selector  (valueChanged)="timeZoneSelectorChanged($event)"></app-time-zone-selector>
+</div>
 <footer class="onboarding-popover-footer">
     <span class="onboarding-popover-navigation-buttons">
         <button type="button" class="onboarding-popover-footer-button" (click)="previous()">
             Back
         </button>
-        <button type="button" class="onboarding-popover-footer-button" (click)="next()">
+        <button type="button"  [disabled]="buttonDisabled()" class="onboarding-popover-footer-button" (click)="next()">
             Next
         </button>
     </span>

@@ -1,10 +1,16 @@
-<p>onboarding-unit-selector works!</p>
+    <p>
+        Select your temperature unit preference
+    </p>
+    <div style="width: 100%;">
+        <app-unit-selector [attr.tuiTheme]="theme.attr()"
+            (valueChanged)="unitSelectorChanged($event)"></app-unit-selector>
+    </div>
 <footer class="onboarding-popover-footer">
     <span class="onboarding-popover-navigation-buttons">
         <button type="button" class="onboarding-popover-footer-button" (click)="previous()">
             Back
         </button>
-        <button type="button" class="onboarding-popover-footer-button" (click)="next()">
+        <button type="button" [disabled]="buttonDisabled()" class="onboarding-popover-footer-button" (click)="next()">
             Next
         </button>
     </span>

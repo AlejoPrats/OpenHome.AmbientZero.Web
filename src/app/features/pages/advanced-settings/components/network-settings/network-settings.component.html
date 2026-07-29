@@ -20,7 +20,7 @@
                 <label tuiLabel>Access Point Password</label>
                 <input tuiInput [disabled]="accessPointSettings.accessPointSecurity == 0" [(ngModel)]="accessPointSettings.accessPointPassword" />
             </tui-textfield>
-            <app-password-strength [style.display]="accessPointSettings.accessPointSecurity == 0 ? 'none' : 'block'" [passwordInput]="accessPointSettings.accessPointPassword"></app-password-strength>
+            <app-password-strength [style.display]="accessPointSettings.accessPointSecurity == 0 ? 'none' : 'block'" [passwordInput]="accessPointSettings.accessPointPassword" [minPasswordLength]="8" />
         </div>
     </div>
 

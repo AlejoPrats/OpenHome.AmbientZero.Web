@@ -1,22 +1,21 @@
 <tui-textfield *transloco="let t" class="tui-textfield-override" tuiChevron style="width: 100%;"
-  [content]="languages && content">
+  [content]="units && content">
   <input [attr.tuiTheme]="theme.attr()" placeholder="{{t('languageSelector.select-a-language')}}" tuiSelect
-    [(ngModel)]="value" (ngModelChange)="languageChanged()" />
+    [(ngModel)]="value" (ngModelChange)="unitChanged()" />
   <tui-data-list-wrapper [attr.tuiTheme]="theme.attr()" class="tui-textfield-override" *tuiDropdown
-    [itemContent]="content" [items]="languages" />
+    [itemContent]="content" [items]="units" />
 </tui-textfield>
 
 
-<ng-template #content let-language>
+<ng-template #content let-unit>
   <div *transloco="let t"
     style="display:flex; flex-direction: row; gap: 15px; align-items: center; color: var(--tui-text-primary);"
     [attr.tuiTheme]="theme.attr()" class="card">
     <div>
-      <img alt="" size="s" tuiBadge style="border-radius: 50px;" tuiSlot="bottom"
-        [src]="language.countryIsoCode | tuiFlag" [attr.tuiTheme]="theme.attr()" />
+      {{unit.name}}
     </div>
     <div style="color: var(--tui-text-primary);" [attr.tuiTheme]="theme.attr()">
-      {{ capitalize(t(`languageSelector.${language.name}`)) }}
+      {{ unit.name }}
     </div>
   </div>
 </ng-template>

@@ -1,0 +1,130 @@
+:root {
+  /* =========================== Colors =========================== */
+  --color-primary: #ff5e00;
+  --color-secondary: #00b2ff;
+  --color-background: #0a0a0a;
+  --color-text: #ffffff;
+  --color-text-muted: rgba(255, 255, 255, 0.7);
+  --color-text-dark: #0a0a0a;
+  --color-border-muted: #3b3b3b;
+  --color-border-light: #e2e8f0;
+  --color-success: #16a34a;
+  --color-success-bg: #dcfce7;
+  --color-success-icon: #22c55e;
+  --color-primary-overlay-01: rgba(255, 94, 0, 0.01);
+  --color-primary-overlay-03: rgba(255, 94, 0, 0.03);
+  --color-primary-overlay-10: rgba(255, 94, 0, 0.1);
+  --color-primary-overlay-15: rgba(255, 94, 0, 0.15);
+  --color-primary-overlay-20: rgba(255, 94, 0, 0.2);
+  --color-primary-overlay-30: rgba(255, 94, 0, 0.3);
+  --color-primary-overlay-50: rgba(255, 94, 0, 0.5);
+  --color-secondary-overlay-01: rgba(0, 178, 255, 0.01);
+  --color-secondary-overlay-03: rgba(0, 178, 255, 0.03);
+  --color-secondary-overlay-10: rgba(0, 178, 255, 0.1);
+  --color-secondary-overlay-15: rgba(0, 178, 255, 0.15);
+  --color-secondary-overlay-20: rgba(0, 178, 255, 0.2);
+  --color-secondary-overlay-30: rgba(0, 178, 255, 0.3);
+  --color-secondary-overlay-50: rgba(0, 178, 255, 0.5);
+
+  /* =========================== Layout =========================== */
+  --layout-max-width: 1200px;
+  --layout-nav-height: 80px;
+  --layout-nav-height-mobile: 70px;
+
+  /* =========================== Typography =========================== */
+  --font-family-display: "Orbitron", monospace;
+  --font-family-base: "Inter", system-ui, sans-serif;
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-md: 1.5rem; /* 24px */
+  --font-size-lg: 2rem; /* 32px */
+  --font-size-xl: 3rem; /* 48px */
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+  --line-height: 1.6;
+
+  /* =========================== Spacing =========================== */
+  --spacing-xs: 0.5rem; /* 8px */
+  --spacing-sm: 0.625rem; /* 10px */
+  --spacing-md: 1.25rem; /* 20px */
+  --spacing-lg: 2.5rem; /* 40px */
+  --spacing-xl: 3.75rem; /* 60px */
+
+  /* =========================== Border Radius =========================== */
+  --border-radius-sm: 5px;
+  --border-radius-md: 10px;
+  --border-radius-full: 50%;
+
+  /* =========================== Shadows =========================== */
+  --shadow-primary: 0 0 20px rgba(255, 94, 0, 0.3);
+  --shadow-primary-sm: 0 0 10px rgba(255, 94, 0, 0.5);
+  --shadow-primary-md: 0 0 10px rgba(255, 94, 0, 0.8);
+  --shadow-primary-sm-inset: inset 0 0 10px rgba(255, 94, 0, 0.5);
+  --shadow-text-primary: 0 0 30px rgba(255, 94, 0, 0.5);
+  --shadow-text-primary-intense: 0 0 40px rgba(255, 94, 0, 0.8);
+  --shadow-secondary: 0 0 15px rgba(0, 178, 255, 0.3);
+
+  /* =========================== Transitions =========================== */
+  --transition-default: all 0.3s ease;
+  --transition-fast: all 0.2s ease;
+  --transition-slow: all 0.5s ease;
+
+  /* =========================== Sizes =========================== */
+  --size-logo: 2.5rem; /* 40px */
+  --size-icon-sm: 1.2rem; /* 19.2px */
+  --size-icon-md: 1.5rem; /* 24px */
+  --size-icon-lg: 15.625rem; /* 250px */
+  --size-shape-circle: 18.75rem; /* 300px */
+  --size-shape-square: 9.375rem; /* 150px */
+  --size-about-visual: 25rem; /* 400px */
+  --size-feature-content-min: 26.875rem; /* 430px */
+  --size-feature-inner: 27.5rem; /* 440px */
+
+  /* =========================== Z-index Scale =========================== */
+  --z-background: -1;
+  --z-content: 1;
+  --z-navbar: 2;
+
+  /* =========================== Borders =========================== */
+  --border-width-thin: 1px;
+  --border-width-medium: 2px;
+  --border-primary: 1px solid var(--color-primary-overlay-20);
+  --border-light: 1px solid var(--color-border-light);
+  --border-transparent: 1px solid transparent;
+
+  /* =========================== Backgrounds =========================== */
+  --background-glass: rgba(255, 255, 255, 0.03);
+  --background-primary-overlay-10: rgba(255, 94, 0, 0.1);
+  --background-overlay-dark: rgba(0, 0, 0, 0.562);
+  --background-mobile-navbar-options: rgba(10, 10, 10, 0.95);
+
+  /* =========================== Opacity =========================== */
+  --opacity-transparent: 0;
+  --opacity-low: 0.2;
+  --opacity-medium: 0.5;
+  --opacity-high: 0.8;
+  --opacity-opaque: 1;
+
+  /* =========================== Blur Effects =========================== */
+  --blur-sm: 5px;
+  --blur-md: 10px;
+  --blur-lg: 20px;
+
+  /* =========================== Scrollbar =========================== */
+  --scrollbar-thumb: var(--color-primary);
+  --scrollbar-track: var(--color-background);
+  --scrollbar-size: 16px;
+  --scrollbar-thumb-border-size: 3px;
+}
+
+/* =========================== Override Taiga UI root styles =========================== */
+tui-root {
+  font-family: var(--font-family-base) !important;
+  font-size: var(--font-size-base) !important;
+  font-weight: var(--font-weight-normal) !important;
+  line-height: var(--line-height) !important;
+}
+
+tui-dropdown {
+  --tui-border-normal: var(--color-primary);
+}

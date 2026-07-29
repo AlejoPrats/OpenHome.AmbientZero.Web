@@ -1,11 +1,8 @@
 import { ApplicationRef, createComponent, EnvironmentInjector, inject, Injectable, Type } from '@angular/core';
 import { driver } from "driver.js";
 import { ONBOARDING_STEPS } from '../steps';
-import { NavBarComponent } from 'app/shared/components/nav-bar/nav-bar.component';
-import { TestComponentComponent } from '../components/test-component/test-component.component';
 import { TranslocoService } from '@jsverse/transloco';
-import { TranslocoHttpLoader } from 'app/transloco-loader';
-import { filter, Observable, switchMap, take } from 'rxjs';
+import { filter, Observable, take } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class OnboardingService {
@@ -16,13 +13,10 @@ export class OnboardingService {
   private isDriverInitialized = false;
 
   getScopedTranslations(scope: string): Observable<any> {
-    return this.transloco.selectTranslate<any>('', {}, { scope: 'onboarding' }, true).pipe(
-      // Ensure we don't accidentally grab an empty initialized object
-      filter(translations => translations && Object.keys(translations).length > 0),
-      // Automatically close and complete the stream as soon as the keys arrive
-      take(1)
+    console.log(`${scope}/${this.transloco.getActiveLang()}`);
+    return this.transloco.selectTranslate<any>('', {}, { scope: scope }, true).pipe(
+      filter(translations => translations && Object.keys(translations).length > 0)
     );
-
   }
 
   t(key: string) {
@@ -30,7 +24,8 @@ export class OnboardingService {
   }
 
   constructor(private appRef: ApplicationRef) {
-    this.getScopedTranslations('onboarding').subscribe({
+    console.log(`onboarding/${this.transloco.getActiveLang()}`);
+    this.getScopedTranslations(`onboarding/${this.transloco.getActiveLang()}`).subscribe({
       next: () => {
         this.isTranslationLoaded = true;
         this.driver = driver({
@@ -43,13 +38,13 @@ export class OnboardingService {
             element: s.element,
             popover: {
               onPopoverRender: (popoverElement, step) => {
+                console.log("it was refreshed");
                 if (s.component) {
                   const desc = popoverElement.description; // already the DOM node
                   popoverElement.nextButton.style.display = 'none';
                   popoverElement.previousButton.style.display = 'none';
                   popoverElement.closeButton.style.display = 'none';
                   popoverElement.footer.style.display = 'none';
-
 
                   desc.innerHTML = '';
 
@@ -83,13 +78,11 @@ export class OnboardingService {
       Object.assign(cmp.instance, data);
     }
 
-    // Attach to Angular CD tree
     this.appRef.attachView(cmp.hostView);
 
     host.innerHTML = '';
     host.appendChild(cmp.location.nativeElement);
 
-    // Initial render
     cmp.changeDetectorRef.detectChanges();
   }
 
@@ -99,6 +92,10 @@ export class OnboardingService {
 
   previousStep() {
     this.driver.movePrevious();
+  }
+
+  refreshPopOver() {
+    this.driver.refresh();
   }
 
   async start() {

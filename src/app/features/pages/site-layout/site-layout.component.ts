@@ -29,7 +29,6 @@ type ThemeMode = 'light' | 'dark' | 'auto';
     TuiTabs,
     RouterOutlet,
     RouterLinkWithHref,
-    LoadingIndicatorComponent,
   ],
   templateUrl: './site-layout.component.html',
   styleUrl: './site-layout.component.less',

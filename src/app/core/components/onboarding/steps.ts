@@ -42,5 +42,11 @@ export const ONBOARDING_STEPS: OnboardingStep[] = [
     position: 'bottom',
     data: null,
     component: OnboardingAdminPasswordComponent
+  },
+  {
+    element: '#navbar-home',
+    title: 'configure',
+    description: '<strong>Device setup completed succesfully.</strong><br/><br/>You can change this values from the settings section of the application using your admin user and password you just set<br/><br/>We are now going to take a quick tour around the application, you can skip the tour at any time and take it again clicking the button on the settings section',
+    position: 'bottom',
   }
 ];
