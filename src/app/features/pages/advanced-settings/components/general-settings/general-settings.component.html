@@ -2,25 +2,28 @@
 {
 
 <div class="info-block">
-    <div class="title">Update Options</div>
-    <div class="row">
-        <div class="label">
-            Check For Updates
+    <span id="advanced-settings-update-section" >
+        <div class="title">Update Options</div>
+        <div class="row">
+            <div class="label">
+                Check For Updates
+            </div>
+            <div class="value">
+                <input tuiSwitch type="checkbox" [(ngModel)]="generalSettings.checkForUpdatesEnabled" [showIcons]="true"
+                    size="m" />
+            </div>
         </div>
-        <div class="value">
-            <input tuiSwitch type="checkbox" [(ngModel)]="generalSettings.checkForUpdatesEnabled" [showIcons]="true"
-                size="m" />
+        <div class="row">
+            <div class="label">
+                Apply Updates Automatically
+            </div>
+            <div class="value">
+                <input tuiSwitch type="checkbox" [(ngModel)]="generalSettings.automaticUpdatesEnabled"
+                    [showIcons]="true" size="m" />
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="label">
-            Apply Updates Automatically
-        </div>
-        <div class="value">
-            <input tuiSwitch type="checkbox" [(ngModel)]="generalSettings.automaticUpdatesEnabled" [showIcons]="true"
-                size="m" />
-        </div>
-    </div>
+    </span>
+    <span id="advanced-settings-battery-section">
     <div class="title">Battery Settings</div>
     <div class="row">
         <div class="label">
@@ -44,8 +47,11 @@
             </tui-textfield>
         </div>
     </div>
+</span>
+<span id="advanced-settings-vesrsion-section">
     <div class="title">Version</div>
-    <div> <button iconStart="@tui.refresh-cw" size="s" tuiHint="Refresh Versions" tuiButton (click)="updateVersion()"></button>
+    <div> <button iconStart="@tui.refresh-cw" size="s" tuiHint="Refresh Versions" tuiButton
+            (click)="updateVersion()"></button>
     </div>
     <div class="flex-table">
         <div class="table-row header">
@@ -64,34 +70,36 @@
         </div>
         @for(version of versionList(); track version; let i = $index)
         {
-        <div class="table-row">
-            <div class="cell">
-                {{version.name}}
+            <div class="table-row">
+                <div class="cell">
+                    {{version.name}}
+                </div>
+                <div class="cell">
+                    {{version.localVersion}}
+                </div>
+                <div class="cell">
+                    {{version.remoteVersion}}
+                </div>
+                <div class="cell">
+                    {{version.lastUpdated | date:'dd-MM-yyyy HH:mm'}}
+                </div>
             </div>
-            <div class="cell">
-                {{version.localVersion}}
-            </div>
-            <div class="cell">
-                {{version.remoteVersion}}
-            </div>
-            <div class="cell">
-                {{version.lastUpdated | date:'dd-MM-yyyy HH:mm'}}
-            </div>
-        </div>
         }
     </div>
-
+</span>
+<span id="advanced-settings-backup-section">
     <div class="title">Backup Options</div>
     <div class="row">
         <div class="label"> <button tuiButton>
-                Export
-            </button></div>
+            Export
+        </button></div>
         <div class="value">
             <button tuiButton>
                 Import
             </button>
         </div>
     </div>
+</span>
 </div>
 <footer class="advancedSettings">
     <button tuiButton (click)="saveGeneralSettings()">

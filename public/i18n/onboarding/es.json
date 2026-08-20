@@ -2,5 +2,15 @@
     "back": "Anterior",
     "next": "Siguiente",
     "finish": "Finalizar",
-    "configure": "Vamos a configurar tu dispositivo"
+    "configure": "Vamos a configurar tu dispositivo",
+    "temperature-chart": "Grafico de Temperatura",
+    "temperature-chart-desc": "Grafico de Temperatura",
+    "sensors": "Sensores",
+    "sensors-desc": "Sensores",
+    "basic-settings": "Configuracion Basica",
+    "basic-settings-desc": "Configuracion Basica",
+    "advanced-settings": "Configuracion Avanzada",
+    "advanced-settings-desc": "Configuracion Avanzada",
+    "help": "Ayuda",
+    "help-desc": "Ayuda"
 }

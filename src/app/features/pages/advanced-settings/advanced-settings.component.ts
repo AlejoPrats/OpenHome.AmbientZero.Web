@@ -44,11 +44,11 @@ export class AdvancedSettingsComponent {
   }
 
   readonly tabs: NabVarItem[] = [
-    { id: 0, label: 'General', icon: '@tui.cog', enabled: true },
-    { id: 1, label: 'Network', icon: '@tui.router', enabled: true },
-    { id: 2, label: 'Security', icon: '@tui.shield', enabled: true },
-    { id: 3, label: 'Users', icon: '@tui.user', enabled: false, hint: 'Comming Soon' },
-    { id: 4, label: 'Dashboard', icon: '@tui.layout-dashboard', enabled: false, hint: 'Comming Soon' },
+    { id: 0, selectorId: 'advanced-settings-general-tab', label: 'General', icon: '@tui.cog', enabled: true },
+    { id: 1, selectorId: 'advanced-settings-network-tab', label: 'Network', icon: '@tui.router', enabled: true },
+    { id: 2, selectorId: 'advanced-settings-security-tab', label: 'Security', icon: '@tui.shield', enabled: true },
+    { id: 3, selectorId: 'advanced-settings-users-tab', label: 'Users', icon: '@tui.user', enabled: false, hint: 'Comming Soon' },
+    { id: 4, selectorId: 'advanced-settings-dashboard-tab', label: 'Dashboard', icon: '@tui.layout-dashboard', enabled: false, hint: 'Comming Soon' },
   ]
 
   readonly components = [

@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { OnboardingValidationResult } from '../interfaces/onboarding-validation-result';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +9,10 @@ import { Observable } from 'rxjs';
 export class OnboardingSetupService {
   private readonly http = inject(HttpClient);
   private readonly sensorApiRoot = '/api/Onboarding';
+
+  validateOnboarding(): Observable<OnboardingValidationResult> {
+    return this.http.get<OnboardingValidationResult>(`${this.sensorApiRoot}/ValidateOnboarding`);
+  }
 
   setLanguage(language: string): Observable<void> {
     const params = new HttpParams().set('language', language);
@@ -30,6 +35,16 @@ export class OnboardingSetupService {
   setAdminPassword(password: string): Observable<void> {
     const params = new HttpParams().set('password', password);
     const data = this.http.post<void>(`${this.sensorApiRoot}/SetAdminPassword`, null, { params });
+    return data;
+  }
+
+  finishOnboardingSetup(): Observable<void> {
+    const data = this.http.post<void>(`${this.sensorApiRoot}/FinishOnboardingSetup`, null);
+    return data;
+  }
+
+  finishOnboardingTour(): Observable<void> {
+    const data = this.http.post<void>(`${this.sensorApiRoot}/FinishOnboardingTour`, null);
     return data;
   }
 }

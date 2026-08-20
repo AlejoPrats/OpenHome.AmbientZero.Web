@@ -117,6 +117,42 @@
   --scrollbar-thumb-border-size: 3px;
 }
 
+
+  /* =========================== Table =========================== */
+.flex-table {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 1px solid var(--tui-border-normal);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.table-row {
+  display: flex;
+  padding: 8px 12px;
+  align-items: center;
+  background: var(--tui-background-neutral-1);
+}
+
+.header {
+  background: var(--tui-background-base-alt);
+  font-weight: 600;
+  border-bottom: 1px solid var(--tui-border-normal);
+}
+
+.cell {
+  flex: 1;
+  padding: 4px 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table-row:nth-child(even):not(.header) {
+  background: var(--tui-background-neutral-2);
+}
+
 /* =========================== Override Taiga UI root styles =========================== */
 tui-root {
   font-family: var(--font-family-base) !important;

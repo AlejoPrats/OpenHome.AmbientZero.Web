@@ -5,7 +5,7 @@
     {
     @if(tab.enabled)
     {
-    <span class="tab-item" [class.active]="index() === i" (click)="setActive(i)">
+    <span [id]="tab.selectorId" class="tab-item" [class.active]="index() === i" (click)="setActive(i)">
         <tui-icon [icon]="tab.icon" />
         <span class="tab-wrapper"></span>
         <span class="tab-text">{{tab.label}}</span>
@@ -13,7 +13,7 @@
     }
     @else
     {
-    <span [tuiHint]="tab.hint"  tuiHintDirection="bottom" class="tab-item disabled">
+    <span [id]="tab.selectorId" [tuiHint]="tab.hint"  tuiHintDirection="bottom" class="tab-item disabled">
         <tui-icon [icon]="tab.icon" />
         <span class="tab-wrapper"></span>
         <span class="tab-text">{{tab.label}}</span>

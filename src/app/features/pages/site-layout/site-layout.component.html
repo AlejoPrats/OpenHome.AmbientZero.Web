@@ -20,20 +20,20 @@
                 Home
             </button>
         </header>
-        <button [routerLink]="['chart']" iconStart="@tui.chart-no-axes-column-increasing" tuiAsideItem type="button">
+        <button id="nav-temperature-chart" [routerLink]="['chart']" iconStart="@tui.chart-no-axes-column-increasing" tuiAsideItem type="button">
             Temperature Chart
         </button>
-        <button [routerLink]="['list']" iconStart="@tui.gauge" tuiAsideItem type="button">
+        <button id="nav-sensors" [routerLink]="['list']" iconStart="@tui.gauge" tuiAsideItem type="button">
             Sensors
         </button>
-        <button [routerLink]="['settings']" iconStart="@tui.cog" tuiAsideItem type="button">
+        <button id="nav-basic-settings" [routerLink]="['settings']" iconStart="@tui.cog" tuiAsideItem type="button">
             Basic Settings
         </button>
-        <button [routerLink]="['advancedSettings']" iconStart="@tui.sliders" tuiAsideItem type="button">
+        <button id="nav-advanced-settings"  [routerLink]="['advancedSettings']" iconStart="@tui.sliders" tuiAsideItem type="button">
             Advanced Settings
         </button>
         <footer>
-            <button iconStart="@tui.help-circle" tuiAsideItem type="button">
+            <button id="nav-help"  iconStart="@tui.help-circle" tuiAsideItem type="button">
                 Help
             </button>
             <button tuiAsideItem type="button" [iconStart]="expanded() ? '@tui.chevron-left' : '@tui.chevron-right'"

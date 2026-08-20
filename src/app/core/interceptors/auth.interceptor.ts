@@ -8,7 +8,6 @@ import { AuthService } from '../../shared/services/auth.service';
 import { LocalStorageService } from '../services/local-storage.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const permissions = inject(PermissionCacheService);
   const modal = inject(LoginService);
   const routeProtection = inject(RouteProtectionService);
   const authService = inject(AuthService);

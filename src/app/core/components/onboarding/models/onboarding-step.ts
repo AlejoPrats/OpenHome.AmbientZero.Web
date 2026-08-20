@@ -1,11 +1,14 @@
 import { Type } from "@angular/core";
 
 export interface OnboardingStep {
-  element: string;
+  element?: string;
   title: string;
-  description: string;
+  description?: string;
   component?: Type<any>;
+  shouldClick?: boolean;
+  canInteract?:boolean;
   data?: any;
+  navigateTo?:string;
   position?: 'left' | 'right' | 'top' | 'bottom';
   padding?: number;
 }

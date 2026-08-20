@@ -1,6 +1,7 @@
 @if(data(); as accessPointSettings)
 {
 <div class="info-block">
+    <span id="advanced-settings-ap-section">
     <div class="title">Acces Point Settings</div>
 
     <div class="row">
@@ -34,7 +35,9 @@
             </tui-textfield>
         </div>
     </div>
+    </span>
 </div>
+
 }
 <footer class="advancedSettings">
     <button tuiButton (click)="saveNetworkSettings()">

@@ -5,12 +5,19 @@ import { AuthService } from '../../shared/services/auth.service';
 import { LoginService } from '../services/login.service';
 import { ProtectionMode } from '../enums/protection-mode';
 import { RouteProtectionService } from '../services/route-protection.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 export const authGuard: CanActivateFn = async (route, state) => {
   const permissionsCache = inject(PermissionCacheService);
   const auth = inject(AuthService);
   const modal = inject(LoginService);
+  const localStorageService = inject(LocalStorageService);
   const routeProtection = inject(RouteProtectionService);
+
+  if(localStorageService.getOnboaringTourStatus())
+  {
+    return true;
+  }
 
   let current = route;
   while (current.firstChild) {

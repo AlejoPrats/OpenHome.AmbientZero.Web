@@ -29,17 +29,14 @@ export class PasswordChangeComponent {
 
   private validateFields(): boolean {
     if (!this.password) {
-      console.log(`Password Empty`)
       return false;
     }
 
     if (this.password.length <= this.minPasswordLength()) {
-      console.log(`Password must be at least ${this.minPasswordLength} characters`)
       return false;
     }
 
     if (this.isPasswordConfirmationEnabled() && this.password !== this.passwordConfirmation) {
-      console.log(`Passwords do not match, please try again`)
       return false;
     }
 

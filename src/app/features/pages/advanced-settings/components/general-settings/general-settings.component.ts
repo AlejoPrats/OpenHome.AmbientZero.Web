@@ -33,7 +33,6 @@ export class GeneralSettingsComponent {
     this.versionService.getVersions().subscribe({
       next: (result) => {
         this.versionList.set(result);
-        console.log(result);
       }
     });
   }
@@ -42,7 +41,6 @@ export class GeneralSettingsComponent {
     this.versionService.updateVersions().subscribe({
       next: (result) => {
         this.versionList.set(result);
-        console.log(result);
       }
     });
   }

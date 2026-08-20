@@ -37,7 +37,6 @@ export class OnboardingTimezoneSelectorComponent {
   }
 
   timeZoneSelectorChanged(value: string | undefined) {
-    console.log(value);
     if (value) {
       this.selectedTimezone = value;
       this.buttonDisabled.set(false);

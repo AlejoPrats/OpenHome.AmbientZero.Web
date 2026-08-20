@@ -2,9 +2,9 @@
     <span style="left: 0;">
         <h1>Temperature Chart</h1>
     </span>
-    <span style="right: 0;">
-        <button tuiButton iconStart="@tui.chevron-left" (click)="previousDay()">Previous Date</button>
-        <tui-textfield tuiDropdownSheet="Pick a date" >
+    <span id="chart-controls" style="right: 0;">
+        <button id="chart-previous-day" tuiButton iconStart="@tui.chevron-left" (click)="previousDay()">Previous Date</button>
+        <tui-textfield id="chart-date-picker" tuiDropdownSheet="Pick a date" >
             <label tuiLabel>Date</label>
             <input tuiInputDate [(ngModel)]="displayDate" (ngModelChange)="selectedDate($event)" />
             <ng-container *tuiDropdown="let close">
@@ -14,7 +14,7 @@
                 </button>
             </ng-container>
         </tui-textfield>
-        <button tuiButton iconEnd="@tui.chevron-right" (click)="nextDay()">Next Date</button>
+        <button id="chart-next-day" tuiButton iconEnd="@tui.chevron-right" (click)="nextDay()">Next Date</button>
     </span>
 </div>
-<div echarts [options]="options()" [theme]="theme.eChartsAttr()" class="chart"></div>
+<div id="chart-canvas" echarts [options]="options()" [theme]="theme.eChartsAttr()" class="chart"></div>

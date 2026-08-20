@@ -42,7 +42,6 @@ export class TimeZoneSelectorComponent implements OnInit {
   }
 
   timezoneChanged() {
-    console.log(`value to emit: ${this.value?.id}`);
     this.valueChanged.emit(this.value?.id);
     setTimeout(() => {
       const el = this.tzInput.nativeElement;

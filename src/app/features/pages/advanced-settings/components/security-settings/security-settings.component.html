@@ -1,36 +1,39 @@
 <div class="info-block">
-    <div class="title">System Passwords</div>
+    <span id="advanced-settings-system-password-section">
+        <div class="title">System Passwords</div>
 
-    <div class="row">
-        <div class="label">Admin Password</div>
-        <div class="value">
-            <button tuiButton>
-                Change Admin Password
-            </button>
+        <div class="row">
+            <div class="label">Admin Password</div>
+            <div class="value">
+                <button tuiButton>
+                    Change Admin Password
+                </button>
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="label">SSH Password</div>
-        <div class="value">
-            <tui-textfield iconStart="@tui.search">
-                <label tuiLabel>Access Point Password</label>
-                <input tuiInput />
-            </tui-textfield>
+        <div class="row">
+            <div class="label">SSH Password</div>
+            <div class="value">
+                <tui-textfield iconStart="@tui.search">
+                    <label tuiLabel>Access Point Password</label>
+                    <input tuiInput />
+                </tui-textfield>
+            </div>
         </div>
-    </div>
+    </span>
+    <span id="advanced-settings-application-security-section">
+        <div class="title">Application Security</div>
 
-    <div class="title">Application Security</div>
-
-    <div class="row">
-        <div class="label">Application Protection</div>
-        <div class="value">
-            <tui-textfield tuiChevron tuiDropdownMobile>
-                <input placeholder="Country" tuiComboBox [(ngModel)]="test" />
-                <tui-data-list-wrapper *tuiDropdown [items]="ApSecurityList" />
-            </tui-textfield>
+        <div class="row">
+            <div class="label">Application Protection</div>
+            <div class="value">
+                <tui-textfield tuiChevron tuiDropdownMobile>
+                    <input placeholder="Country" tuiComboBox [(ngModel)]="test" />
+                    <tui-data-list-wrapper *tuiDropdown [items]="ApSecurityList" />
+                </tui-textfield>
+            </div>
         </div>
-    </div>
+    </span>
 </div>
 <footer class="advancedSettings">
     <button tuiButton>

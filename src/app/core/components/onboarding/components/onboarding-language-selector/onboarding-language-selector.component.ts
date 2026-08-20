@@ -35,7 +35,6 @@ export class OnboardingLanguageSelectorComponent {
         this.notificationService.open(translate('language.language-not-saved'), { label: translate('language.error'), appearance: 'negative', block: 'end', inline: 'end', autoClose: 5000 }).subscribe();
       }
     });
-
   }
 
   previous() {

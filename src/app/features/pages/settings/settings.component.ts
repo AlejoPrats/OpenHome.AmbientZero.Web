@@ -49,21 +49,6 @@ export class SettingsComponent {
     this.breadcrumbService.addBreadcrumb("Basic Settings")
   }
 
-  protected readonly options = [
-    {
-      text: 'Home',
-      icon: '@tui.home',
-    },
-    {
-      text: 'Photos',
-      icon: '@tui.image',
-    },
-    {
-      text: 'Navigation',
-      icon: '@tui.map-pin',
-    },
-  ];
-
   protected readonly selectedTemperatureUnit =
     parseInt(
       this.applicationSettings()!.find((x) => x.settingName == 'TemperatureSetting')!.settingValue,
