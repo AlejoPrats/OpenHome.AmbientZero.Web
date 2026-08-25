@@ -1,0 +1,73 @@
+<header tuiNavigationHeader>
+    <span tuiNavigationLogo>
+        <tui-icon icon="@tui.home" />
+        <span tuiFade>AmbientZero</span>
+    </span>
+    <hr />
+    <button iconStart="@tui.bell" tuiIconButton type="button">
+        Notifications
+        <tui-badge-notification />
+    </button>
+    <button iconStart="@tui.ellipsis" tuiIconButton type="button">
+        More
+    </button>
+    <div tuiAvatar="AI"></div>
+</header>
+<div [style.display]="'flex'">
+    <aside style="position:fixed; height: 95vh;" [tuiNavigationAside]="expanded()">
+        <header>
+            <button iconStart="@tui.home" tuiAsideItem type="button">
+                Home
+            </button>
+        </header>
+        <button id="nav-temperature-chart" [routerLink]="['chart']" iconStart="@tui.chart-no-axes-column-increasing" tuiAsideItem type="button">
+            Temperature Chart
+        </button>
+        <button id="nav-sensors" [routerLink]="['list']" iconStart="@tui.gauge" tuiAsideItem type="button">
+            Sensors
+        </button>
+        <button id="nav-basic-settings" [routerLink]="['settings']" iconStart="@tui.cog" tuiAsideItem type="button">
+            Basic Settings
+        </button>
+        <button id="nav-advanced-settings"  [routerLink]="['advancedSettings']" iconStart="@tui.sliders" tuiAsideItem type="button">
+            Advanced Settings
+        </button>
+        <footer>
+            <button id="nav-help"  iconStart="@tui.help-circle" tuiAsideItem type="button">
+                Help
+            </button>
+            <button tuiAsideItem type="button" [iconStart]="expanded() ? '@tui.chevron-left' : '@tui.chevron-right'"
+                (click)="handleToggle()">
+                {{ expanded() ? 'Collapse' : 'Expand' }}
+            </button>
+        </footer>
+    </aside>
+</div>
+<main style="margin-left: 40px;" tuiNavigationMain>
+    <nav compact tuiSubheader [style.position]="'sticky'">
+        <tui-breadcrumbs [itemsLimit]="10">
+            @for (item of breadcrumbs(); track item) {
+            @if ($last) {
+            <strong *tuiItem>
+                {{ item }}
+            </strong>
+            }
+            @if (!$last) {
+            <button *tuiItem tuiLink type="button">
+                {{ item }}
+            </button>
+            }
+            }
+        </tui-breadcrumbs>
+        <tui-tabs tuiFade>
+            <span>{{additionalInformation()}}</span>
+        </tui-tabs>
+        <tui-tabs [activeItemIndex]="modes.indexOf(theme.mode())" (activeItemIndexChange)="select($event)"
+            appearance="segmented">
+            <button tuiTab>Light</button>
+            <button tuiTab>Auto</button>
+            <button tuiTab>Dark</button>
+        </tui-tabs>
+    </nav>
+    <router-outlet />
+</main>

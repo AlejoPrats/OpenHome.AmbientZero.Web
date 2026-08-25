@@ -1,0 +1,60 @@
+@if(sensorList(); as sensors)
+{
+<div class="flex-table">
+    <div class="table-row header">
+        <div id="sensor-name" class="cell">
+            Sensor Name
+        </div>
+        <div id="sensor-battery" class="cell">
+            Battery
+        </div>
+        <div id="sensor-last-reading" class="cell">
+            Last Reading
+        </div>
+        <div id="sensor-temperature" class="cell">
+            Temperature
+        </div>
+        <div id="sensor-signaling" class="cell">
+            Signaling
+        </div>
+        <div id="sensor-tendency" class="cell">
+            Tendency
+        </div>
+        <div id="sensor-actions" class="cell">
+            Actions
+        </div>
+    </div>
+    @for (sensor of sensors; track sensor)
+    {
+    <div id="sensor-info-row" class="table-row">
+        <div id="sensor-name" class="cell">
+            {{ sensor.deviceVirtualName ?? sensor.deviceId }}
+        </div>
+        <div class="cell">
+            %{{ sensor.adcReading }}
+        </div>
+        <div class="cell">
+            {{ sensor.lastReadingTime | date:'dd-MM-yyyy HH:mm' }}
+        </div>
+        <div class="cell">
+            {{ sensor.lastReadingValue | number:'1.1-1' }}
+        </div>
+        <div class="cell">
+            {{ sensor.isSignaling }}
+        </div>
+        <div class="cell">
+            {{ sensor.temperatureTendency }}
+        </div>
+        <div class="cell">
+            <span [routerLink]="['/sensorDetail',sensor.id]">
+                <app-icon id="sensor-edit" [name]="IconName.Edit" size="medium" />
+            </span>
+            <app-icon id="sensor-chart" [name]="IconName.Chart" size="medium" />
+            <app-icon id="sensor-hide" [name]="IconName.Eye" size="medium" />
+            <app-icon id="sensor-cog" [name]="IconName.Cog" size="medium" />
+            <span (click)="openDeleteDialog(sensor.id)"><app-icon id="sensor-delete" [name]="IconName.Delete" size="medium" /></span>
+        </div>
+    </div>
+    }
+</div>
+}

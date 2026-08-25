@@ -1,0 +1,22 @@
+<tui-tabs [(activeItemIndex)]="activeTabIndex">
+    <button iconStart="@tui.settings" tuiTab type="button">
+        Basic
+    </button>
+    <button iconStart="@tui.sliders" tuiTab type="button">
+        Advanced
+    </button>
+</tui-tabs>
+
+
+<tui-textfield tuiChevron>
+    <input tuiComboBox [(ngModel)]="value" />
+
+    <tui-data-list-wrapper *tuiDropdown [items]="items | tuiFilterByInput" />
+</tui-textfield>
+
+<tui-segmented [(activeItemIndex)]="selectedTemperatureUnit" size="m">
+    @for (button of buttons; track button) {
+    <button tuiSegmentedOption [class.active]="$index === selectedTemperatureUnit">{{button}}</button>
+    }
+</tui-segmented>
+{{selectedTemperatureUnit}}

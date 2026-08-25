@@ -1,0 +1,130 @@
+@if(sensorInformation(); as sensor)
+{
+<table tuiTable style="width: 100%;">
+    <tbody tuiTbody>
+        <tr tuiTr>
+            <td tuiTd colspan="4">
+                DeviceName: {{sensor.deviceVirtualName ?? '(No Name Set)'}} <button appearance="secondary" iconStart="@tui.pencil" size="s" tuiIconButton
+                    type="button" (click)="showNameUpdateDialog()">
+                    Help
+                </button>
+            </td>
+        </tr>
+        <tr tuiTr>
+            <td tuiTd>
+                Battery:
+            </td>
+            <td tuiTd>
+                {{sensor.adcReading}}%
+            </td>
+            <td tuiTd>
+                Last Temperature Reading:
+            </td>
+            <td tuiTd>
+                {{ sensor.lastReadingValue | number:'1.1-1' }}
+            </td>
+        </tr>
+        <tr tuiTr>
+            <td tuiTd>
+                Last Reading Time:
+            </td>
+            <td tuiTd>
+                {{ sensor.lastReadingTime | date:'dd-MM-yyyy HH:mm' }}
+            </td>
+            <td tuiTd>
+                Temperature Tendency:
+            </td>
+            <td tuiTd>
+                {{ sensor.temperatureTendency }}
+            </td>
+        </tr>
+        <tr tuiTr>
+            <td tuiTd>
+                Notification Light Enabled:
+            </td>
+            <td tuiTd>
+                <input tuiSwitch type="checkbox" [(ngModel)]="sensor.sensorSetting.isLightEnabled" [showIcons]="true"
+                    size="m" />
+            </td>
+            <td tuiTd>
+                Is Signaling:
+            </td>
+            <td tuiTd>
+                {{sensor.isSignaling}}
+            </td>
+        </tr>
+        <tr tuiTr>
+            <td tuiTd>
+                Notification Light Schedule:
+            </td>
+            <td tuiTd>
+                <input tuiSwitch type="checkbox" [(ngModel)]="sensor.sensorSetting.isScheduled" [showIcons]="true"
+                    size="m" />
+            </td>
+            <td tuiTd>
+                Sensor Firmware Version:
+            </td>
+            <td tuiTd>
+                {{sensor.version}}
+            </td>
+        </tr>
+        <tr tuiTr class="table-row-anim">
+            <td tuiTd>
+                <tui-expand [expanded]="sensor.sensorSetting.isScheduled">
+                    Disable Start Time:
+                </tui-expand>
+            </td>
+            <td tuiTd>
+                <tui-expand [expanded]="sensor.sensorSetting.isScheduled">
+                    <tui-textfield>
+                        <input placeholder="Click me to open dropdown" tuiInputTime
+                            [(ngModel)]="disableStartTime" />
+                        <tui-data-list-wrapper *tuiDropdown [items]="items | tuiFilterByInput: filter" />
+                    </tui-textfield>
+                </tui-expand>
+            </td>
+            <td tuiTd>
+                <tui-expand [expanded]="sensor.sensorSetting.isScheduled">
+
+                    Disable End Time:
+                </tui-expand>
+            </td>
+            <td tuiTd>
+                <tui-expand [expanded]="sensor.sensorSetting.isScheduled">
+                    <tui-textfield>
+                        <input placeholder="Click me to open dropdown" tuiInputTime
+                            [(ngModel)]="disableEndTime" />
+                        <tui-data-list-wrapper *tuiDropdown [items]="items | tuiFilterByInput: filter" />
+                    </tui-textfield>
+                </tui-expand>
+            </td>
+        </tr>
+        <tr tuiTr>
+            <td tuiTd colspan="4">
+                <button size="m" tuiButton iconStart="@tui.x" type="button" [routerLink]="['/list']">
+                    Cancel
+                </button>
+                <button size="m" tuiButton iconStart="@tui.save" type="button" (click)="saveSensorSettings()">
+                    Apply Changes
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<ng-template [tuiDialogOptions]="{label: 'Edit Device Virtual Name'}" [(tuiDialog)]="changeNameModalOpen">  
+        <tui-textfield >
+            <label tuiLabel>Device Virtual Name</label>
+            <input tuiAutoFocus tuiInput [(ngModel)]="this.tempSensorVirtualName" />
+        </tui-textfield>
+        <footer>
+            <button appearance="secondary" tuiButton type="button" (click)="hideNameUpdateDialog()">
+                Cancel
+            </button>
+            <button tuiButton type="submit" (click)="updateVirtualName()">
+                Submit
+            </button>
+        </footer>
+</ng-template>
+
+}

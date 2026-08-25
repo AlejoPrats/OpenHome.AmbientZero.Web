@@ -1,0 +1,47 @@
+import { IconName } from './icon-name.enum';
+
+export function mapIconName(name: IconName): string {
+  const iconMap: Record<IconName, string> = {
+    [IconName.Add]: '@tui.plus',
+    [IconName.ArrowBigDownDash]: '@tui.arrow-big-down-dash',
+    [IconName.ArrowBigUpDash]: '@tui.arrow-big-up-dash',
+    [IconName.ArrowDownFromLine]: '@tui.arrow-down-from-line',
+    [IconName.ArrowUpFromLine]: '@tui.arrow-up-from-line',
+    [IconName.Chart]: '@tui.chart-no-axes-column-increasing',
+    [IconName.Check]: '@tui.check',
+    [IconName.ChevronLeft]: '@tui.chevron-left',
+    [IconName.ChevronRight]: '@tui.chevron-right',
+    [IconName.CircleCheck]: '@tui.circle-check',
+    [IconName.CircleQuestion]: '@tui.help-circle',
+    [IconName.CircleX]: '@tui.circle-x',
+    [IconName.Cog]: '@tui.cog',
+    [IconName.Component]: '@tui.component',
+    [IconName.ClosePanelRight]: '@tui.panel-right-close',
+    [IconName.Delete]: '@tui.trash',
+    [IconName.Device]: '@tui.cpu',
+    [IconName.Document]: '@tui.book',
+    [IconName.Edit]: '@tui.pencil',
+    [IconName.Eye]: '@tui.eye',
+    [IconName.Github]: '@tui.github',
+    [IconName.History]: '@tui.history',
+    [IconName.Linkedin]: '@tui.linkedin',
+    [IconName.Home]: '@tui.house',
+    [IconName.List]: '@tui.list',
+    [IconName.Logout]: '@tui.log-out',
+    [IconName.Maximize]: '@tui.maximize-2',
+    [IconName.Minimize]: '@tui.minimize-2',
+    [IconName.Modules]: '@tui.link',
+    [IconName.Publish]: '@tui.upload',
+    [IconName.Printer]: '@tui.printer',
+    [IconName.Save]: '@tui.save',
+    [IconName.ShowPanelRight]: '@tui.panel-right-open',
+    [IconName.User]: '@tui.user',
+    [IconName.X]: '@tui.x',
+    [IconName.WarningCircle]: '@tui.message-circle-warning',
+    [IconName.WarningTriangle]: '@tui.triangle-alert',
+    [IconName.Website]: '@tui.globe',
+    [IconName.ZipFile]: '@tui.file-archive',
+  };
+
+  return iconMap[name];
+}

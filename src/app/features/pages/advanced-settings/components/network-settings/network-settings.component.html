@@ -1,0 +1,46 @@
+@if(data(); as accessPointSettings)
+{
+<div class="info-block">
+    <span id="advanced-settings-ap-section">
+    <div class="title">Acces Point Settings</div>
+
+    <div class="row">
+        <div class="label">Name</div>
+        <div class="value">
+            <tui-textfield iconStart="@tui.search">
+                <label tuiLabel>Access Point Name</label>
+                <input tuiInput [(ngModel)]="accessPointSettings.accessPointName" />
+            </tui-textfield>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="label">Password</div>
+        <div class="value">
+            <tui-textfield iconStart="@tui.search">
+                <label tuiLabel>Access Point Password</label>
+                <input tuiInput [disabled]="accessPointSettings.accessPointSecurity == 0" [(ngModel)]="accessPointSettings.accessPointPassword" />
+            </tui-textfield>
+            <app-password-strength [style.display]="accessPointSettings.accessPointSecurity == 0 ? 'none' : 'block'" [passwordInput]="accessPointSettings.accessPointPassword" [minPasswordLength]="8" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="label">Authentication Method</div>
+        <div class="value">
+            <tui-textfield tuiChevron tuiDropdownMobile>
+                <input placeholder="AccessPoint Security" tuiComboBox
+                    [(ngModel)]="selectedSecurity" (ngModelChange)="selectedSecurity.set($event)" />
+                <tui-data-list-wrapper *tuiDropdown [items]="ApSecurityList" />
+            </tui-textfield>
+        </div>
+    </div>
+    </span>
+</div>
+
+}
+<footer class="advancedSettings">
+    <button tuiButton (click)="saveNetworkSettings()">
+        Save
+    </button>
+</footer>

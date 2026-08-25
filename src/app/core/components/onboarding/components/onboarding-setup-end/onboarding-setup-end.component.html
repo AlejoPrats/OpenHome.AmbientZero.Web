@@ -1,0 +1,25 @@
+<div *transloco="let t">
+    <p>{{t('language.select-your-language')}}</p>
+    <div style="width: 100%;">
+        <strong>Device setup completed succesfully.</strong>
+        <br />
+        <br />
+        You can change this values from
+        the settings section of the application using your admin user and password you just set
+        <br />
+        <br />
+        We are now
+        going to take a quick tour around the application, you can skip the tour at any time and take it again clicking
+        the button on the settings section
+    </div>
+    <footer class="onboarding-popover-footer">
+        <span class="onboarding-popover-navigation-buttons">
+            <button type="button" class="onboarding-popover-footer-button" (click)="previous()">
+                {{t('language.back')}}
+            </button>
+            <button type="button" class="onboarding-popover-footer-button" (click)="next()">
+                {{t('language.finish')}}
+            </button>
+        </span>
+    </footer>
+</div>
