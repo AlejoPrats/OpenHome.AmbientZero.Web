@@ -22,15 +22,34 @@ export class OnboardingUnitSelectorComponent {
   private selectedUnit: number | undefined;
 
   next() {
-    this.onboardingSetupService.setTemperatureUnit(this.selectedUnit!.toString()).pipe(take(1)).subscribe({
-      next: () => {
-        this.notificationService.open(translate('language.language-saved'), { label: translate('language.success'), appearance: 'positive', block: 'end', inline: 'end', autoClose: 5000 }).subscribe();
-        this.onboardService.nextStep();
-      },
-      error: () => {
-        this.notificationService.open(translate('language.language-not-saved'), { label: translate('language.error'), appearance: 'negative', block: 'end', inline: 'end', autoClose: 5000 }).subscribe();
-      }
-    });
+    this.onboardingSetupService
+      .setTemperatureUnit(this.selectedUnit!.toString())
+      .pipe(take(1))
+      .subscribe({
+        next: () => {
+          this.notificationService
+            .open(translate('language.language-saved'), {
+              label: translate('language.success'),
+              appearance: 'positive',
+              block: 'end',
+              inline: 'end',
+              autoClose: 5000,
+            })
+            .subscribe();
+          this.onboardService.nextStep();
+        },
+        error: () => {
+          this.notificationService
+            .open(translate('language.language-not-saved'), {
+              label: translate('language.error'),
+              appearance: 'negative',
+              block: 'end',
+              inline: 'end',
+              autoClose: 5000,
+            })
+            .subscribe();
+        },
+      });
   }
 
   previous() {
@@ -41,8 +60,7 @@ export class OnboardingUnitSelectorComponent {
     if (value) {
       this.selectedUnit = value;
       this.buttonDisabled.set(false);
-    }
-    else {
+    } else {
       this.buttonDisabled.set(true);
     }
   }

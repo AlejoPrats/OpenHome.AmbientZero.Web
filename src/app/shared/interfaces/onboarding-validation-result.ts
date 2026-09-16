@@ -1,4 +1,4 @@
 export interface OnboardingValidationResult {
-    isApplicationTourPending:boolean,
-    isSetupPending:boolean
+  isApplicationTourPending: boolean;
+  isSetupPending: boolean;
 }

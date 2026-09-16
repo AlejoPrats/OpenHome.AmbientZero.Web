@@ -1,17 +1,30 @@
-import { Component, ElementRef, inject, OnInit, output, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, input, OnInit, output, ViewChild } from '@angular/core';
 import { ThemeService } from 'app/core/services/theme.service';
 import { TimeZone } from 'app/shared/interfaces/time-zone';
 import { TuiDropdown, TuiFilterByInputPipe } from '@taiga-ui/core';
 import { FormsModule } from '@angular/forms';
-import { TuiChevron, TuiComboBox, TuiDataListWrapper, TuiInputChip, TuiInputNumber, TuiMultiSelect, TuiSelect } from '@taiga-ui/kit';
+import {
+  TuiChevron,
+  TuiComboBox,
+  TuiDataListWrapper,
+  TuiInputChip,
+  TuiInputNumber,
+  TuiMultiSelect,
+  TuiSelect,
+} from '@taiga-ui/kit';
 import { TranslocoModule } from '@jsverse/transloco';
 import { SystemService } from 'app/shared/services/system.service';
 import { TuiDropdownMobile } from '@taiga-ui/addon-mobile';
-import { TuiStringHandler } from '@taiga-ui/cdk';
 
 @Component({
   selector: 'app-time-zone-selector',
-  imports: [FormsModule, TuiChevron, TuiDataListWrapper, TuiSelect, TranslocoModule, TuiFilterByInputPipe,
+  imports: [
+    FormsModule,
+    TuiChevron,
+    TuiDataListWrapper,
+    TuiSelect,
+    TranslocoModule,
+    TuiFilterByInputPipe,
     TuiComboBox,
     TuiDataListWrapper,
     TuiDropdown,
@@ -20,7 +33,8 @@ import { TuiStringHandler } from '@taiga-ui/cdk';
     TuiInputChip,
     TuiInputNumber,
     TuiMultiSelect,
-    TuiSelect],
+    TuiSelect,
+  ],
   templateUrl: './time-zone-selector.component.html',
   styleUrl: './time-zone-selector.component.less',
 })
@@ -31,13 +45,17 @@ export class TimeZoneSelectorComponent implements OnInit {
   timeZones: TimeZone[] = [];
   protected value: TimeZone | null = null;
   valueChanged = output<string | undefined>();
+  selectedTimezone = input<string | undefined>();
   stringifyTimezone = (item: TimeZone) => item.name;
 
   ngOnInit() {
     this.systemService.getTimeZones().subscribe({
       next: (result) => {
         this.timeZones = result;
-      }
+        if (this.selectedTimezone() !== undefined) {
+          this.value = result.find((x) => x.id === this.selectedTimezone()) ?? null;
+        }
+      },
     });
   }
 

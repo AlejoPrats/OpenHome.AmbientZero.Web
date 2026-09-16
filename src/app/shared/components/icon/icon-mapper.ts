@@ -22,6 +22,7 @@ export function mapIconName(name: IconName): string {
     [IconName.Document]: '@tui.book',
     [IconName.Edit]: '@tui.pencil',
     [IconName.Eye]: '@tui.eye',
+    [IconName.EyeOff]: '@tui.eye-off',
     [IconName.Github]: '@tui.github',
     [IconName.History]: '@tui.history',
     [IconName.Linkedin]: '@tui.linkedin',

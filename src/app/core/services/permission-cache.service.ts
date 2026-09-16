@@ -1,7 +1,6 @@
-import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { ProtectionMode } from '../enums/protection-mode';
-import { CachedPermissions } from '../../shared/interfaces/cached-permissions'
+import { CachedPermissions } from '../../shared/interfaces/cached-permissions';
 
 @Injectable({ providedIn: 'root' })
 export class PermissionCacheService {
@@ -14,10 +13,10 @@ export class PermissionCacheService {
     return cached;
   }
 
-  setPermissionCache(protectionMode: ProtectionMode, date:number) {
+  setPermissionCache(protectionMode: ProtectionMode, date: number) {
     const data: CachedPermissions = {
       protectionMode,
-      expiresAt: date
+      expiresAt: date,
     };
 
     this.inMemory = data;
@@ -29,8 +28,7 @@ export class PermissionCacheService {
 
     if (cached) {
       return cached;
-    }
-    else {
+    } else {
       return null;
     }
   }

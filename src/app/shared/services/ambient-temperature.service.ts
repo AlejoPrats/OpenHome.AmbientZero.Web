@@ -12,7 +12,10 @@ export class AmbientTemperatureService {
   private readonly sensorApiRoot = '/api/AmbientTemperature';
 
   getDailyTemperatures(date: TuiDay = TuiDay.currentLocal()): Observable<ChartResponse> {
-    const params = new HttpParams().set('dateTime', date.toLocalNativeDate().toLocaleDateString('en-EN'));
+    const params = new HttpParams().set(
+      'dateTime',
+      date.toLocalNativeDate().toLocaleDateString('en-EN'),
+    );
     const data = this.http.get<ChartResponse>(`${this.sensorApiRoot}`, { params });
     return data ?? [];
   }

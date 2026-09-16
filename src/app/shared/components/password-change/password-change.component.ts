@@ -20,10 +20,9 @@ export class PasswordChangeComponent {
 
   protected passwordChanged() {
     if (this.validateFields()) {
-      this.passwordValidation.emit({isValid: true, password: this.password!});
-    }
-    else {
-      this.passwordValidation.emit({isValid: false, password: ''});
+      this.passwordValidation.emit({ isValid: true, password: this.password! });
+    } else {
+      this.passwordValidation.emit({ isValid: false, password: '' });
     }
   }
 

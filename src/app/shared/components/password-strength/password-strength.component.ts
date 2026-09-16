@@ -1,4 +1,3 @@
-
 import { isPlatformServer, NgClass } from '@angular/common';
 import { Component, computed, inject, input, PLATFORM_ID } from '@angular/core';
 import { TuiProgress } from '@taiga-ui/kit';
@@ -23,8 +22,9 @@ export class PasswordStrengthComponent {
   passwordInput = input.required<string | undefined>();
   minPasswordLength = input.required<number>();
   strengthLabel = computed(() => this.getStrengthLabel(this.score()));
-  protected score = computed(() => this.passwordInput() ? this.evaluate(this.passwordInput()!) : -1);
-
+  protected score = computed(() =>
+    this.passwordInput() ? this.evaluate(this.passwordInput()!) : -1,
+  );
 
   getStrengthLabel(score: number): 'Weak 😟' | 'Normal 🙂' | 'Strong 😎' {
     if (score < 40) return 'Weak 😟';

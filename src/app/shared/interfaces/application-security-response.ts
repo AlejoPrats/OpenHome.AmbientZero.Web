@@ -1,3 +1,3 @@
 export interface ApplicationSecurityResponse {
-    applicationSecurity: number;
+  applicationSecurity: number;
 }

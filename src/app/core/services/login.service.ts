@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { TuiDialogService } from '@taiga-ui/core';
 import { LoginModalComponent } from '../components/login-modal/login-modal.component';
 import { PolymorpheusComponent } from '@taiga-ui/polymorpheus';
@@ -8,16 +8,14 @@ import { PolymorpheusComponent } from '@taiga-ui/polymorpheus';
 })
 export class LoginService {
   private modalPromise?: Promise<boolean>;
-
-  constructor(private dialog: TuiDialogService) { }
+  private dialog = inject(TuiDialogService);
 
   openLoginModal(): Promise<boolean> {
-
     if (this.modalPromise) {
       return this.modalPromise;
     }
 
-    this.modalPromise = new Promise<boolean>(resolve => {
+    this.modalPromise = new Promise<boolean>((resolve) => {
       this.dialog
         .open<boolean>(new PolymorpheusComponent(LoginModalComponent), {
           label: 'Please Enter Your Credentials',
@@ -26,7 +24,7 @@ export class LoginService {
           size: 'm',
         })
         .subscribe({
-          next: result => resolve(result === true),
+          next: (result) => resolve(result === true),
           error: () => resolve(false),
           complete: () => resolve(false),
         });

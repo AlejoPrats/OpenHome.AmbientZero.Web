@@ -1,4 +1,6 @@
-import { Type } from "@angular/core";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { Type } from '@angular/core';
 
 export interface OnboardingStep {
   element?: string;
@@ -6,9 +8,9 @@ export interface OnboardingStep {
   description?: string;
   component?: Type<any>;
   shouldClick?: boolean;
-  canInteract?:boolean;
-  data?: any;
-  navigateTo?:string;
+  canInteract?: boolean;
+  data?: object;
+  navigateTo?: string;
   position?: 'left' | 'right' | 'top' | 'bottom';
   padding?: number;
 }

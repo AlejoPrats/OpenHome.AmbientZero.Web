@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-
-import { SensorListComponent } from './sensor-list';
+import { SensorListComponent } from './sensor-list.component';
 
 describe('SensorList', () => {
   let component: SensorListComponent;

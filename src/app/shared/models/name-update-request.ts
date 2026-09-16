@@ -1,10 +1,9 @@
 export class NameUpdateRequest {
-    deviceId: string;
-    virtualName: string;
+  deviceId: string;
+  virtualName: string;
 
-    constructor(sensorId:string, virtualName:string)
-    {
-        this.deviceId = sensorId;
-        this.virtualName = virtualName;
-    }
+  constructor(sensorId: string, virtualName: string) {
+    this.deviceId = sensorId;
+    this.virtualName = virtualName;
+  }
 }

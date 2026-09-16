@@ -1,4 +1,4 @@
 export interface PasswordChangeResult {
-    password:string,
-    isValid:boolean
+  password: string;
+  isValid: boolean;
 }

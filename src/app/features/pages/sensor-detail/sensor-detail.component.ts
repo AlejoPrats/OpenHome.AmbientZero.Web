@@ -1,13 +1,26 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLinkWithHref } from '@angular/router';
 import { TuiTable } from '@taiga-ui/addon-table';
 import { map } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { SensorInformationResponse } from '../../../shared/interfaces/sensor-information-response';
-import { tuiCreateTimePeriods, TuiDataListWrapper, TuiInputTime, TuiSwitch, TuiButtonCopy } from '@taiga-ui/kit';
+import { tuiCreateTimePeriods, TuiDataListWrapper, TuiInputTime, TuiSwitch } from '@taiga-ui/kit';
 import { DatePipe, DecimalPipe } from '@angular/common';
-import { TuiButton, TuiFilterByInputOptions, TuiFilterByInputPipe, TuiExpand, TuiDialog, TuiNotificationService } from '@taiga-ui/core';
+import {
+  TuiButton,
+  TuiFilterByInputOptions,
+  TuiFilterByInputPipe,
+  TuiExpand,
+  TuiDialog,
+  TuiNotificationService,
+} from '@taiga-ui/core';
 import { TuiAutoFocus, TuiTime } from '@taiga-ui/cdk';
 import { SensorService } from '../../../shared/services/sensor.service';
 import { NameUpdateRequest } from '../../../shared/models/name-update-request';
@@ -17,7 +30,8 @@ import { AdditionalPageInformationService } from '../../../core/services/additio
 
 @Component({
   selector: 'app-sensor-detail',
-  imports: [DatePipe,
+  imports: [
+    DatePipe,
     DecimalPipe,
     TuiTable,
     TuiSwitch,
@@ -29,15 +43,15 @@ import { AdditionalPageInformationService } from '../../../core/services/additio
     TuiExpand,
     TuiDialog,
     RouterLinkWithHref,
-    TuiAutoFocus],
+    TuiAutoFocus,
+  ],
   templateUrl: './sensor-detail.component.html',
   styleUrl: './sensor-detail.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SensorDetailComponent implements OnInit {
-
   private readonly route = inject(ActivatedRoute);
-  private readonly sensorService = inject(SensorService)
+  private readonly sensorService = inject(SensorService);
   private readonly breadcrumbService = inject(BreadcrumbService);
   protected readonly additionalPageInformationService = inject(AdditionalPageInformationService);
   private readonly cdr = inject(ChangeDetectorRef);
@@ -48,26 +62,26 @@ export class SensorDetailComponent implements OnInit {
   protected disableEndTime: string | null = null;
 
   protected readonly sensorInformation = toSignal(
-    this.route.data.pipe(map(({ sensorInformation }) => sensorInformation as SensorInformationResponse)),
+    this.route.data.pipe(
+      map(({ sensorInformation }) => sensorInformation as SensorInformationResponse),
+    ),
     { initialValue: null },
   );
 
   ngOnInit(): void {
-    this.breadcrumbService.addBreadcrumb("Edit Sensor");
-    this.breadcrumbService.addBreadcrumb(this.sensorInformation()?.deviceVirtualName ?? this.sensorInformation()!.deviceId);
+    this.breadcrumbService.addBreadcrumb('Edit Sensor');
+    this.breadcrumbService.addBreadcrumb(
+      this.sensorInformation()?.deviceVirtualName ?? this.sensorInformation()!.deviceId,
+    );
     this.additionalPageInformationService.clearAdditionalInformation();
     this.disableStartTime = fromApiTime(this.sensorInformation()?.sensorSetting?.disableStartTime);
     this.disableEndTime = fromApiTime(this.sensorInformation()?.sensorSetting?.disableEndTime);
   }
 
-  protected items: readonly TuiTime[] = [
-    ...tuiCreateTimePeriods(0, 23, [0, 15, 30, 45]),
-  ];
+  protected items: readonly TuiTime[] = [...tuiCreateTimePeriods(0, 23, [0, 15, 30, 45])];
 
-  protected readonly filter: TuiFilterByInputOptions<TuiTime>['filter'] = (
-    items,
-    query,
-  ) => items.filter((time) => time.toString('HH:MM').startsWith(query));
+  protected readonly filter: TuiFilterByInputOptions<TuiTime>['filter'] = (items, query) =>
+    items.filter((time) => time.toString('HH:MM').startsWith(query));
 
   protected showNameUpdateDialog() {
     this.changeNameModalOpen = true;
@@ -80,32 +94,56 @@ export class SensorDetailComponent implements OnInit {
 
   protected updateVirtualName() {
     this.changeNameModalOpen = false;
-    this.sensorService.updateSensorName(new NameUpdateRequest(this.sensorInformation()!.deviceId, this.tempSensorVirtualName)).subscribe({
-      next: () => {
-        this.sensorInformation()!.deviceVirtualName = this.tempSensorVirtualName;
-        this.notificationService.open('Device Name Saved Succesfully', { label: 'Notification', appearance: 'positive', block: 'end', inline: 'end', autoClose: 5000 }).subscribe();
-        this.cdr.detectChanges();
-      }
-    });
+    this.sensorService
+      .updateSensorName(
+        new NameUpdateRequest(this.sensorInformation()!.deviceId, this.tempSensorVirtualName),
+      )
+      .subscribe({
+        next: () => {
+          this.sensorInformation()!.deviceVirtualName = this.tempSensorVirtualName;
+          this.notificationService
+            .open('Device Name Saved Succesfully', {
+              label: 'Notification',
+              appearance: 'positive',
+              block: 'end',
+              inline: 'end',
+              autoClose: 5000,
+            })
+            .subscribe();
+          this.cdr.detectChanges();
+        },
+      });
   }
 
   protected saveSensorSettings() {
     const sensor = this.sensorInformation()!;
-    this.sensorService.saveSensorSettings(new SensorUpdateRequest(
-      sensor.deviceId,
-      sensor.sensorSetting.isLightEnabled,
-      sensor.sensorSetting.isScheduled,
-      sensor.sensorSetting.isScheduled ? toApiTime(this.disableStartTime) : null,
-      sensor.sensorSetting.isScheduled ? toApiTime(this.disableEndTime) : null)).subscribe({
+    this.sensorService
+      .saveSensorSettings(
+        new SensorUpdateRequest(
+          sensor.deviceId,
+          sensor.sensorSetting.isLightEnabled,
+          sensor.sensorSetting.isScheduled,
+          sensor.sensorSetting.isScheduled ? toApiTime(this.disableStartTime) : null,
+          sensor.sensorSetting.isScheduled ? toApiTime(this.disableEndTime) : null,
+        ),
+      )
+      .subscribe({
         next: () => {
-          this.notificationService.open('Sensor Settings Saved Succesfully', { label: 'Notification', appearance: 'positive', block: 'end', inline: 'end', autoClose: 5000 }).subscribe();
-        }
-      })
+          this.notificationService
+            .open('Sensor Settings Saved Succesfully', {
+              label: 'Notification',
+              appearance: 'positive',
+              block: 'end',
+              inline: 'end',
+              autoClose: 5000,
+            })
+            .subscribe();
+        },
+      });
   }
 }
 
-export const toApiTime = (t: string | null): string | null =>
-  t ? `${t.toString()}:00` : null;
+export const toApiTime = (t: string | null): string | null => (t ? `${t.toString()}:00` : null);
 
 export const fromApiTime = (t: string | undefined): string | null =>
   t ? `${t.split(':')[0]}:${t.split(':')[1]}` : null;

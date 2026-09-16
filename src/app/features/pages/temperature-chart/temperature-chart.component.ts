@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal, OnInit } from '@angular/core';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { ThemeService } from '../../../core/services/theme.service';
 import { ActivatedRoute } from '@angular/router';
@@ -23,12 +23,13 @@ import { AdditionalPageInformationService } from '../../../core/services/additio
     TuiInputDate,
     FormsModule,
     TuiButton,
-    NgxEchartsModule],
+    NgxEchartsModule,
+  ],
   templateUrl: './temperature-chart.component.html',
   styleUrl: './temperature-chart.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TemperatureChartComponent {
+export class TemperatureChartComponent implements OnInit {
   readonly theme = inject(ThemeService);
   private readonly route = inject(ActivatedRoute);
   protected readonly additionalPageInformationService = inject(AdditionalPageInformationService);
@@ -47,7 +48,7 @@ export class TemperatureChartComponent {
   ngOnInit() {
     this.additionalPageInformationService.clearAdditionalInformation();
     this.breadcrumbService.clearBreadcrumbs();
-    this.breadcrumbService.addBreadcrumb("Temperature Chart")
+    this.breadcrumbService.addBreadcrumb('Temperature Chart');
   }
 
   protected nextDay() {
@@ -56,11 +57,11 @@ export class TemperatureChartComponent {
   }
 
   protected previousDay() {
-    this.displayDate = this.displayDate.append({ day: -1 })
+    this.displayDate = this.displayDate.append({ day: -1 });
     this.updateChartData();
   }
 
-  protected selectedDate(value: TuiDay) {
+  protected selectedDate() {
     this.updateChartData();
   }
 

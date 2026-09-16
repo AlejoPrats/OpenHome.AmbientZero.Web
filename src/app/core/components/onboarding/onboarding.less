@@ -1,11 +1,11 @@
-.onboarding-popover-navigation-buttons {
+.driver-active .onboarding-popover-navigation-buttons {
     flex-grow: 1;
     justify-content: flex-end;
     display: flex;
     gap: 4px;
 }
 
-.onboarding-popover-footer {
+.driver-active .onboarding-popover-footer {
     text-align: right;
     zoom: 1;
     justify-content: space-between;
@@ -14,7 +14,7 @@
     display: flex
 }
 
-.onboarding-popover-footer-button {
+.driver-active .onboarding-popover-footer-button {
     all: unset;
     box-sizing: border-box;
     color: #2d2d2d;
@@ -30,19 +30,19 @@
     display: inline-block
 }
 
-.driver-overlay {
+.driver-active .driver-overlay {
     z-index: 7 !important;
 }
 
-.driver-overlay-animated {
+.driver-active .driver-overlay-animated {
     z-index: 9 !important;
 }
 
-#driver-popover-content {
+.driver-active #driver-popover-content {
     z-index: 10;
 }
 
-.onboarding-popover-footer-button:disabled {
+.driver-active .onboarding-popover-footer-button:disabled {
     background-color: #ccc;
     user-select: none;
     cursor: not-allowed;
@@ -50,15 +50,15 @@
     border-color: #bbb;
 }
 
-.onboarding-popover-footer-button:hover {
+.driver-active .onboarding-popover-footer-button:hover {
     background-color: #f7f7f7;
 }
 
-tui-popups:has(.tui-textfield-override) {
+.driver-active tui-popups:has(.tui-textfield-override) {
     z-index: 1000000001 !important;
 }
 
-tui-popups {
+.driver-active tui-popups {
     z-index: 101 !important;
 }
 
@@ -74,29 +74,29 @@ tui-popups {
     pointer-events: none !important;
 }
 
-#driver-angular-host {
+.driver-active #driver-angular-host {
     display: block !important;
 }
 
-*:is(app-language-selector, app-unit-selector)>tui-textfield>span>div>div,
-*:is(app-time-zone-selector, app-password-change)>tui-textfield>input {
+.driver-active *:is(app-language-selector, app-unit-selector)>tui-textfield>span>div>div,
+.driver-active *:is(app-time-zone-selector, app-password-change)>tui-textfield>input {
     color: black !important;
 }
 
-*:is(app-language-selector, app-unit-selector, app-time-zone-selector,app-password-change)>tui-textfield>span>button,
-*:is(app-password-change)>tui-textfield>span>tui-icon
+.driver-active *:is(app-language-selector, app-unit-selector, app-time-zone-selector,app-password-change)>tui-textfield>span>button,
+.driver-active *:is(app-password-change)>tui-textfield>span>tui-icon
 {
     filter: contrast(0);
 }
 
-*:is(app-language-selector, app-unit-selector, app-time-zone-selector, app-password-change)>.tui-interactive.tui-textfield-override {
+.driver-active *:is(app-language-selector, app-unit-selector, app-time-zone-selector, app-password-change)>.tui-interactive.tui-textfield-override {
     color: black !important;
 }
 
-*:is(app-language-selector, app-unit-selector, app-time-zone-selector, app-password-change)>.tui-interactive.tui-textfield-override input::placeholder {
+.driver-active *:is(app-language-selector, app-unit-selector, app-time-zone-selector, app-password-change)>.tui-interactive.tui-textfield-override input::placeholder {
     color: grey !important;
 }
 
-.driver-popover:has(app-time-zone-selector,app-password-change){
+.driver-active .driver-popover:has(app-time-zone-selector,app-password-change){
     min-width: 400px;
 }

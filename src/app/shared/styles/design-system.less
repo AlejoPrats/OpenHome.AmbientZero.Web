@@ -34,21 +34,31 @@
   /* =========================== Typography =========================== */
   --font-family-display: "Orbitron", monospace;
   --font-family-base: "Inter", system-ui, sans-serif;
-  --font-size-sm: 0.875rem; /* 14px */
-  --font-size-base: 1rem; /* 16px */
-  --font-size-md: 1.5rem; /* 24px */
-  --font-size-lg: 2rem; /* 32px */
-  --font-size-xl: 3rem; /* 48px */
+  --font-size-sm: 0.875rem;
+  /* 14px */
+  --font-size-base: 1rem;
+  /* 16px */
+  --font-size-md: 1.5rem;
+  /* 24px */
+  --font-size-lg: 2rem;
+  /* 32px */
+  --font-size-xl: 3rem;
+  /* 48px */
   --font-weight-normal: 400;
   --font-weight-bold: 700;
   --line-height: 1.6;
 
   /* =========================== Spacing =========================== */
-  --spacing-xs: 0.5rem; /* 8px */
-  --spacing-sm: 0.625rem; /* 10px */
-  --spacing-md: 1.25rem; /* 20px */
-  --spacing-lg: 2.5rem; /* 40px */
-  --spacing-xl: 3.75rem; /* 60px */
+  --spacing-xs: 0.5rem;
+  /* 8px */
+  --spacing-sm: 0.625rem;
+  /* 10px */
+  --spacing-md: 1.25rem;
+  /* 20px */
+  --spacing-lg: 2.5rem;
+  /* 40px */
+  --spacing-xl: 3.75rem;
+  /* 60px */
 
   /* =========================== Border Radius =========================== */
   --border-radius-sm: 5px;
@@ -70,15 +80,24 @@
   --transition-slow: all 0.5s ease;
 
   /* =========================== Sizes =========================== */
-  --size-logo: 2.5rem; /* 40px */
-  --size-icon-sm: 1.2rem; /* 19.2px */
-  --size-icon-md: 1.5rem; /* 24px */
-  --size-icon-lg: 15.625rem; /* 250px */
-  --size-shape-circle: 18.75rem; /* 300px */
-  --size-shape-square: 9.375rem; /* 150px */
-  --size-about-visual: 25rem; /* 400px */
-  --size-feature-content-min: 26.875rem; /* 430px */
-  --size-feature-inner: 27.5rem; /* 440px */
+  --size-logo: 2.5rem;
+  /* 40px */
+  --size-icon-sm: 1.2rem;
+  /* 19.2px */
+  --size-icon-md: 1.5rem;
+  /* 24px */
+  --size-icon-lg: 15.625rem;
+  /* 250px */
+  --size-shape-circle: 18.75rem;
+  /* 300px */
+  --size-shape-square: 9.375rem;
+  /* 150px */
+  --size-about-visual: 25rem;
+  /* 400px */
+  --size-feature-content-min: 26.875rem;
+  /* 430px */
+  --size-feature-inner: 27.5rem;
+  /* 440px */
 
   /* =========================== Z-index Scale =========================== */
   --z-background: -1;
@@ -118,7 +137,7 @@
 }
 
 
-  /* =========================== Table =========================== */
+/* =========================== Table =========================== */
 .flex-table {
   display: flex;
   flex-direction: column;
@@ -147,6 +166,11 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.cell.empty {
+  text-align: center;
+  font-weight: var(--font-weight-bold);
 }
 
 .table-row:nth-child(even):not(.header) {

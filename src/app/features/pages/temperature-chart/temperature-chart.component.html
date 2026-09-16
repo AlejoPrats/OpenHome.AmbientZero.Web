@@ -6,7 +6,7 @@
         <button id="chart-previous-day" tuiButton iconStart="@tui.chevron-left" (click)="previousDay()">Previous Date</button>
         <tui-textfield id="chart-date-picker" tuiDropdownSheet="Pick a date" >
             <label tuiLabel>Date</label>
-            <input tuiInputDate [(ngModel)]="displayDate" (ngModelChange)="selectedDate($event)" />
+            <input tuiInputDate [(ngModel)]="displayDate" (ngModelChange)="selectedDate()" />
             <ng-container *tuiDropdown="let close">
                 <tui-calendar />
                 <button appearance="action" size="m" tuiButton type="button" class="button" (click)="close(); today()">

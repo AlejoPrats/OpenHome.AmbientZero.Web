@@ -1,12 +1,9 @@
-import {ECBasicOption} from 'echarts/types/dist/shared';
+import { ECBasicOption } from 'echarts/types/dist/shared';
 import { ChartResponse } from '../../../../shared/interfaces/chart-response';
 import { SensorDailyTemperatureResponse } from '../../../../shared/interfaces/sensor-daily-temperature-response';
 import { EchartsSeries } from '../../../../shared/interfaces/echarts-series';
 
-export function buildTemperatureChartOption(
-  chartResponse: ChartResponse
-): ECBasicOption {
-
+export function buildTemperatureChartOption(chartResponse: ChartResponse): ECBasicOption {
   const chartValues = chartResponse.measurements as SensorDailyTemperatureResponse[];
 
   const legendData: string[] = [];
@@ -19,10 +16,7 @@ export function buildTemperatureChartOption(
       name: item.sensorVirtualName!,
       smooth: true,
       type: 'line',
-      data: item.temperatureReadings.map(x => [
-        new Date(x.date).toISOString(),
-        x.temperature,
-      ]),
+      data: item.temperatureReadings.map((x) => [new Date(x.date).toISOString(), x.temperature]),
     });
   }
 

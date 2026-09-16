@@ -5,7 +5,6 @@ import { TuiButton, TuiDataList, TuiDropdown, TuiIcon, TuiInput, TuiLink } from 
 import { TuiAvatar, TuiBadgeNotification, TuiBreadcrumbs, TuiFade, TuiTabs } from '@taiga-ui/kit';
 import { TuiNavigation } from '@taiga-ui/layout';
 import { ThemeService } from '../../../core/services/theme.service';
-import { LoadingIndicatorComponent } from '../../../shared/components/loading-indicator/loading-indicator.component';
 import { BreadcrumbService } from '../../../core/services/breadcrumb.service';
 import { AdditionalPageInformationService } from '../../../core/services/additional-page-information.service';
 
@@ -42,7 +41,9 @@ export class SiteLayoutComponent {
   protected switch = false;
   protected readonly routes: Record<string, unknown> = {};
   protected breadcrumbs = computed(() => this.breadcrumbService.getBreadcrumbs());
-  protected additionalInformation = computed(() => this.additionalPageInformationService.getAdditionalInformation());
+  protected additionalInformation = computed(() =>
+    this.additionalPageInformationService.getAdditionalInformation(),
+  );
 
   readonly theme = inject(ThemeService);
   readonly modes: ThemeMode[] = ['light', 'auto', 'dark'];

@@ -27,7 +27,7 @@ export const onboardingGuard: CanActivateFn = () => {
     }
 
     if (isSetupPending || isTourPending) {
-      onboarding.start()
+      onboarding.start();
       localStorageService.setOnboardingRunning(true);
     }
   };
@@ -43,10 +43,9 @@ export const onboardingGuard: CanActivateFn = () => {
         isSetupPending = result.isSetupPending;
         isTourPending = result.isApplicationTourPending;
         handleOnboard();
-      }
+      },
     });
-  }
-  else {
+  } else {
     handleOnboard();
   }
 

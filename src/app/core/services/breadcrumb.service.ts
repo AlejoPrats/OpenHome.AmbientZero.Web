@@ -4,7 +4,7 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root',
 })
 export class BreadcrumbService {
-  private breadcrumbs= signal<string[]>([]);
+  private breadcrumbs = signal<string[]>([]);
 
   getBreadcrumbs(): string[] {
     return this.breadcrumbs();
@@ -14,13 +14,11 @@ export class BreadcrumbService {
     this.breadcrumbs.set([]);
   }
 
-  addBreadcrumb(pageName:string)
-  {
-    this.breadcrumbs.update(list => [...list, pageName]);
+  addBreadcrumb(pageName: string) {
+    this.breadcrumbs.update((list) => [...list, pageName]);
   }
 
-  removeLastBreadcrumb()
-  {
-    this.breadcrumbs.update(list => list.slice(0, -1));
+  removeLastBreadcrumb() {
+    this.breadcrumbs.update((list) => list.slice(0, -1));
   }
 }

@@ -4,7 +4,7 @@ import { tuiScrollbarOptionsProvider } from '@taiga-ui/core/components/scrollbar
 import { TuiChevron, TuiDataListWrapper, TuiFlagPipe, TuiSelect } from '@taiga-ui/kit';
 import { LanguageInterface } from './language-interface';
 import { ThemeService } from 'app/core/services/theme.service';
-import { provideTranslocoScope, TranslocoModule, TranslocoService } from '@jsverse/transloco';
+import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-language-selector',
@@ -12,17 +12,19 @@ import { provideTranslocoScope, TranslocoModule, TranslocoService } from '@jsver
   templateUrl: './language-selector.component.html',
   styleUrl: './language-selector.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [tuiScrollbarOptionsProvider({ mode: 'hover' }),
-  provideTranslocoScope({ scope: 'components/language-selector', alias: 'languageSelector' })],
+  providers: [
+    tuiScrollbarOptionsProvider({ mode: 'hover' }),
+    provideTranslocoScope({ scope: 'components/language-selector', alias: 'languageSelector' }),
+  ],
 })
 export class LanguageSelectorComponent {
   protected theme = inject(ThemeService);
   protected value: LanguageInterface | null = null;
-  valueChanged = output<string|undefined>();
+  valueChanged = output<string | undefined>();
 
   public readonly languages: LanguageInterface[] = [
     { name: 'english', countryIsoCode: 'GB', translocoCode: 'en' },
-    { name: 'spanish', countryIsoCode: 'ES', translocoCode: 'es' }
+    { name: 'spanish', countryIsoCode: 'ES', translocoCode: 'es' },
   ];
 
   languageChanged() {
@@ -36,7 +38,4 @@ export class LanguageSelectorComponent {
 
     return value;
   }
-
 }
-
-

@@ -1,3 +1,5 @@
+@if(data(); as securitySettings)
+{
 <div class="info-block">
     <span id="advanced-settings-system-password-section">
         <div class="title">System Passwords</div>
@@ -13,10 +15,11 @@
 
         <div class="row">
             <div class="label">SSH Password</div>
-            <div class="value">
-                <tui-textfield iconStart="@tui.search">
-                    <label tuiLabel>Access Point Password</label>
-                    <input tuiInput />
+            <div class="value" style="min-width: 500px;">
+                <tui-textfield>
+                    <input tuiInput type="password" [(ngModel)]="securitySettings.sshPassword" [readOnly]="true" />
+                    <tui-icon tuiPassword />
+                    <tui-icon tuiCopy />
                 </tui-textfield>
             </div>
         </div>
@@ -28,13 +31,14 @@
             <div class="label">Application Protection</div>
             <div class="value">
                 <tui-textfield tuiChevron tuiDropdownMobile>
-                    <input placeholder="Country" tuiComboBox [(ngModel)]="test" />
+                    <input placeholder="Country" tuiComboBox [(ngModel)]="securitySettings.applicationSecurity" />
                     <tui-data-list-wrapper *tuiDropdown [items]="ApSecurityList" />
                 </tui-textfield>
             </div>
         </div>
     </span>
 </div>
+}
 <footer class="advancedSettings">
     <button tuiButton>
         Save

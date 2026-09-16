@@ -1,7 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { OnboardingService } from '../../services/driver.service';
-import { TimeZoneSelectorComponent } from "app/shared/components/time-zone-selector/time-zone-selector.component";
-import { LocalStorageService } from 'app/core/services/local-storage.service';
+import { TimeZoneSelectorComponent } from 'app/shared/components/time-zone-selector/time-zone-selector.component';
 import { OnboardingSetupService } from 'app/shared/services/onboarding-setup.service';
 import { take } from 'rxjs';
 import { TuiNotificationService } from '@taiga-ui/core';
@@ -21,15 +20,34 @@ export class OnboardingTimezoneSelectorComponent {
   private selectedTimezone: string | undefined;
 
   next() {
-    this.onboardingSetupService.setTimezone(this.selectedTimezone!).pipe(take(1)).subscribe({
-      next: () => {
-        this.notificationService.open(translate('language.language-saved'), { label: translate('language.success'), appearance: 'positive', block: 'end', inline: 'end', autoClose: 5000 }).subscribe();
-        this.onboardService.nextStep();
-      },
-      error: () => {
-        this.notificationService.open(translate('language.language-not-saved'), { label: translate('language.error'), appearance: 'negative', block: 'end', inline: 'end', autoClose: 5000 }).subscribe();
-      }
-    });
+    this.onboardingSetupService
+      .setTimezone(this.selectedTimezone!)
+      .pipe(take(1))
+      .subscribe({
+        next: () => {
+          this.notificationService
+            .open(translate('language.language-saved'), {
+              label: translate('language.success'),
+              appearance: 'positive',
+              block: 'end',
+              inline: 'end',
+              autoClose: 5000,
+            })
+            .subscribe();
+          this.onboardService.nextStep();
+        },
+        error: () => {
+          this.notificationService
+            .open(translate('language.language-not-saved'), {
+              label: translate('language.error'),
+              appearance: 'negative',
+              block: 'end',
+              inline: 'end',
+              autoClose: 5000,
+            })
+            .subscribe();
+        },
+      });
   }
 
   previous() {
@@ -40,8 +58,7 @@ export class OnboardingTimezoneSelectorComponent {
     if (value) {
       this.selectedTimezone = value;
       this.buttonDisabled.set(false);
-    }
-    else {
+    } else {
       this.buttonDisabled.set(true);
     }
   }

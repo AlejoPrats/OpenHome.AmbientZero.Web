@@ -2,7 +2,7 @@
 {
 
 <div class="info-block">
-    <span id="advanced-settings-update-section" >
+    <span id="advanced-settings-update-section">
         <div class="title">Update Options</div>
         <div class="row">
             <div class="label">
@@ -24,52 +24,61 @@
         </div>
     </span>
     <span id="advanced-settings-battery-section">
-    <div class="title">Battery Settings</div>
-    <div class="row">
-        <div class="label">
-            Max Battery Raw Reading
-        </div>
-        <div class="value">
-            <tui-textfield tuiTextfieldSize="m">
-                <label tuiLabel>Max</label>
-                <input tuiInputNumber [(ngModel)]="generalSettings.maxBatteryValue" />
-            </tui-textfield>
-        </div>
-    </div>
-    <div class="row">
-        <div class="label">
-            Min Battery Raw Reading
-        </div>
-        <div class="value">
-            <tui-textfield tuiTextfieldSize="m">
-                <label tuiLabel>Min</label>
-                <input tuiInputNumber [(ngModel)]="generalSettings.minBatteryValue" />
-            </tui-textfield>
-        </div>
-    </div>
-</span>
-<span id="advanced-settings-vesrsion-section">
-    <div class="title">Version</div>
-    <div> <button iconStart="@tui.refresh-cw" size="s" tuiHint="Refresh Versions" tuiButton
-            (click)="updateVersion()"></button>
-    </div>
-    <div class="flex-table">
-        <div class="table-row header">
-            <div class="cell">
-                Module Name
+        <div class="title">Battery Settings</div>
+        <div class="row">
+            <div class="label">
+                Max Battery Raw Reading
             </div>
-            <div class="cell">
-                Local Version
-            </div>
-            <div class="cell">
-                Remote Version
-            </div>
-            <div class="cell">
-                Last Updated
+            <div class="value">
+                <tui-textfield tuiTextfieldSize="m">
+                    <label tuiLabel>Max</label>
+                    <input tuiInputNumber [(ngModel)]="generalSettings.maxBatteryValue" />
+                </tui-textfield>
             </div>
         </div>
-        @for(version of versionList(); track version; let i = $index)
-        {
+        <div class="row">
+            <div class="label">
+                Min Battery Raw Reading
+            </div>
+            <div class="value">
+                <tui-textfield tuiTextfieldSize="m">
+                    <label tuiLabel>Min</label>
+                    <input tuiInputNumber [(ngModel)]="generalSettings.minBatteryValue" />
+                </tui-textfield>
+            </div>
+        </div>
+    </span>
+    <span id="advanced-settings-vesrsion-section">
+        <div class="title">Version</div>
+        <div class="table-top-controls"> <button iconStart="@tui.refresh-cw" size="m" tuiHint="Refresh Versions"
+                tuiButton (click)="updateVersion()">Check For Updates</button>
+            <button iconStart="@tui.refresh-cw" size="m" [appearance]="isForceUpdateEnabled ? 'positive' : 'negative'"
+                tuiHint="Refresh Versions" tuiButton (click)="toggleForceUpdate()">{{ isForceUpdateEnabled ? 'Disable' :
+                'Enable' }} Force Update</button>
+        </div>
+        <div class="flex-table">
+            <div class="table-row header">
+                <div class="cell">
+                    Module Name
+                </div>
+                <div class="cell">
+                    Local Version
+                </div>
+                <div class="cell">
+                    Remote Version
+                </div>
+                <div class="cell">
+                    Last Updated
+                </div>
+                @if(showUpdateColumn() || isForceUpdateEnabled)
+                {
+                <div class="cell">
+                    Update
+                </div>
+                }
+            </div>
+            @for(version of versionList(); track version; let i = $index)
+            {
             <div class="table-row">
                 <div class="cell">
                     {{version.name}}
@@ -83,23 +92,32 @@
                 <div class="cell">
                     {{version.lastUpdated | date:'dd-MM-yyyy HH:mm'}}
                 </div>
+                @if(showUpdateColumn() || isForceUpdateEnabled)
+                {
+                <div class="cell">
+                    @if(isRemoteGreater(version.localVersion,version.remoteVersion) || isForceUpdateEnabled)
+                    {
+                    <tui-icon icon="@tui.arrow-big-up" (click)="updateModule(version.id)"  />
+                    }
+                </div>
+                }
             </div>
-        }
-    </div>
-</span>
-<span id="advanced-settings-backup-section">
-    <div class="title">Backup Options</div>
-    <div class="row">
-        <div class="label"> <button tuiButton>
-            Export
-        </button></div>
-        <div class="value">
-            <button tuiButton>
-                Import
-            </button>
+            }
         </div>
-    </div>
-</span>
+    </span>
+    <span id="advanced-settings-backup-section">
+        <div class="title">Backup Options</div>
+        <div class="row">
+            <div class="label"> <button tuiButton>
+                    Export
+                </button></div>
+            <div class="value">
+                <button tuiButton>
+                    Import
+                </button>
+            </div>
+        </div>
+    </span>
 </div>
 <footer class="advancedSettings">
     <button tuiButton (click)="saveGeneralSettings()">

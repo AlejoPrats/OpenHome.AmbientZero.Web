@@ -2,7 +2,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SensorInformationResponse } from '../interfaces/sensor-information-response';
-import { ApplicationSettings } from '../models/application-settings';
 import { SensorUpdateRequest } from '../models/sensor-update-request';
 import { NameUpdateRequest } from '../models/name-update-request';
 
@@ -20,15 +19,14 @@ export class SensorService {
 
   getSensorById(sensorId: number): Observable<SensorInformationResponse> {
     const params = new HttpParams().set('sensorId', sensorId);
-    const data = this.http.get<SensorInformationResponse>(`${this.sensorApiRoot}/GetSensorById`, { params });
+    const data = this.http.get<SensorInformationResponse>(`${this.sensorApiRoot}/GetSensorById`, {
+      params,
+    });
     return data;
   }
 
-  saveSensorSettings(sensorUpdateRequest: SensorUpdateRequest): Observable<ApplicationSettings[]> {
-    return this.http.patch<ApplicationSettings[]>(
-      `${this.sensorApiRoot}/UpdateSensorSettings`,
-      sensorUpdateRequest,
-    );
+  saveSensorSettings(sensorUpdateRequest: SensorUpdateRequest): Observable<void> {
+    return this.http.patch<void>(`${this.sensorApiRoot}/UpdateSensorSettings`, sensorUpdateRequest);
   }
 
   deleteSensor(sensorId: number): Observable<void> {

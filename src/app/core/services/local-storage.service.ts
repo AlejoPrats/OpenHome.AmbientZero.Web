@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { STORAGE_KEYS } from '../constants/storage-keys.constants';
-import { number } from 'echarts';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocalStorageService {
-
   //#region Token
 
   getAuthenticationToken(): string | null {
@@ -59,8 +57,7 @@ export class LocalStorageService {
   setLanguage(language: string): void {
     if (language) {
       localStorage.setItem(STORAGE_KEYS.LANGUAGE, language);
-    }
-    else {
+    } else {
       localStorage.removeItem(STORAGE_KEYS.LANGUAGE);
     }
   }
@@ -118,7 +115,7 @@ export class LocalStorageService {
   //#endregion
 
   //#region Onboarding Tour Data
-  getOnboardingTourData(): any {
+  getOnboardingTourData<T>(): T | null {
     const onboarding_tour_data = localStorage.getItem(STORAGE_KEYS.ONBOARDING_TOUR_DATA);
 
     if (onboarding_tour_data) {
@@ -128,7 +125,7 @@ export class LocalStorageService {
     return null;
   }
 
-  setOnboardingTourData(object: any) {
+  setOnboardingTourData<T>(object: T) {
     localStorage.setItem(STORAGE_KEYS.ONBOARDING_TOUR_DATA, JSON.stringify(object));
   }
   //#endregion
@@ -162,20 +159,42 @@ export class LocalStorageService {
     return parseInt(onboarding_step);
   }
 
-  setOnboardingStep(onboardingStep:number)
-  {
-    localStorage.setItem(STORAGE_KEYS.ONBOARDING_STEP,onboardingStep.toString());
+  setOnboardingStep(onboardingStep: number) {
+    localStorage.setItem(STORAGE_KEYS.ONBOARDING_STEP, onboardingStep.toString());
   }
 
   //#endregion
 
   //#region ClearOnboardingTour
-  finishTourAndCleanStorage():void {
+  finishTourAndCleanStorage(): void {
     localStorage.removeItem(STORAGE_KEYS.ONBOARDING_STEP);
     localStorage.removeItem(STORAGE_KEYS.ONBOARDING_TOUR_DATA);
     localStorage.removeItem(STORAGE_KEYS.ONBOARDING_TOUR_DATAMODE);
     localStorage.removeItem(STORAGE_KEYS.ONBOARDING_RUNNING);
     localStorage.setItem(STORAGE_KEYS.ONBOARDING_TOUR_PENDING, 'false');
+  }
+  //#endregion
+
+  //#region HiddenSensors
+  getHiddenSensors(): string[] {
+    const hiddenSensorsJson = localStorage.getItem(STORAGE_KEYS.HIDDEN_SENSORS);
+    if (hiddenSensorsJson) {
+      return JSON.parse(hiddenSensorsJson) as string[];
+    } else {
+      return [];
+    }
+  }
+
+  addHiddenSensor(sensorId: string) {
+    const existentArray = this.getHiddenSensors();
+    existentArray.push(sensorId);
+    localStorage.setItem(STORAGE_KEYS.HIDDEN_SENSORS, JSON.stringify(existentArray));
+  }
+
+  removeHiddenSensor(sensorId: string) {
+    const existentArray = this.getHiddenSensors();
+    existentArray.splice(existentArray.indexOf(sensorId), 1);
+    localStorage.setItem(STORAGE_KEYS.HIDDEN_SENSORS, JSON.stringify(existentArray));
   }
   //#endregion
 }

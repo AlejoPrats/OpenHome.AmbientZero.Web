@@ -1,7 +1,6 @@
-import { SensorInformationResponse } from "app/shared/interfaces/sensor-information-response";
-import { ApplicationSettings } from "app/shared/models/application-settings";
+import { ApplicationBasicSettings } from 'app/shared/interfaces/application-basic-settings';
 
-export const APPLICATION_BASIC_SETTINGS_FIXTURE: ApplicationSettings[] = [
-    new ApplicationSettings('TemperatureSetting', '0'),
-    new ApplicationSettings('TimeZone', 'UTC')
-]
+export const APPLICATION_BASIC_SETTINGS_FIXTURE: ApplicationBasicSettings = {
+  timeZone: 'UTC',
+  displayUnit: 0,
+};

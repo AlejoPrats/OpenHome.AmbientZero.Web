@@ -10,7 +10,6 @@ import { LocalStorageService } from '../../core/services/local-storage.service';
   providedIn: 'root',
 })
 export class AuthService {
-
   private readonly http = inject(HttpClient);
   private readonly localStorageService = inject(LocalStorageService);
   private readonly sensorApiRoot = '/api/Auth';
@@ -35,5 +34,4 @@ export class AuthService {
     const data = this.http.post<LoginResponse>(`${this.sensorApiRoot}/login`, loginRequest);
     return data ?? null;
   }
-
 }

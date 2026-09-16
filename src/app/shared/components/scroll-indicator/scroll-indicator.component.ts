@@ -1,6 +1,5 @@
-import { Component, HostListener, Input, OnChanges, OnDestroy, OnInit, signal, SimpleChanges } from '@angular/core';
-import { TuiIcon } from '@taiga-ui/core';
-import { TuiBadge } from "@taiga-ui/kit";
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { TuiBadge } from '@taiga-ui/kit';
 
 @Component({
   selector: 'app-scroll-indicator',
@@ -8,7 +7,7 @@ import { TuiBadge } from "@taiga-ui/kit";
   templateUrl: './scroll-indicator.component.html',
   styleUrl: './scroll-indicator.component.less',
 })
-export class ScrollIndicatorComponent {
+export class ScrollIndicatorComponent implements OnInit, OnDestroy {
   show = signal(false);
   private resizeObserver?: ResizeObserver;
 

@@ -1,6 +1,7 @@
 export interface VersionResponse {
-    name:string,
-    localVersion:string,
-    remoteVersion:string,
-    lastUpdated:Date
+  id: string;
+  name: string;
+  localVersion: string;
+  remoteVersion: string;
+  lastUpdated: Date;
 }

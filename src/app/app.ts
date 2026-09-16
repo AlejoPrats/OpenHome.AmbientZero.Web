@@ -1,8 +1,15 @@
 import { TuiRoot } from '@taiga-ui/core';
-import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnDestroy,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ThemeService } from './core/services/theme.service';
-import { LoadingIndicatorComponent } from "./shared/components/loading-indicator/loading-indicator.component";
+import { LoadingIndicatorComponent } from './shared/components/loading-indicator/loading-indicator.component';
 import { LocalStorageService } from './core/services/local-storage.service';
 
 @Component({
@@ -17,7 +24,6 @@ export class App implements OnInit, OnDestroy {
   private readonly localStorageService = inject(LocalStorageService);
   readonly theme = inject(ThemeService);
 
-
   ngOnInit() {
     window.addEventListener('beforeunload', () => {
       this.localStorageService.setOnboardingRunning(false);
@@ -29,5 +35,4 @@ export class App implements OnInit, OnDestroy {
       this.localStorageService.setOnboardingRunning(false);
     });
   }
-
 }

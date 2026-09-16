@@ -1,7 +1,7 @@
 export enum ProtectionMode {
-    None,
-    Settings,
-    All,
-    Open,
-    Allways
+  None,
+  Settings,
+  All,
+  Open,
+  Allways,
 }

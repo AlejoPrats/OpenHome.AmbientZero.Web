@@ -19,6 +19,7 @@ export enum IconName {
   Document = 'DOCUMENT',
   Edit = 'EDIT',
   Eye = 'EYE',
+  EyeOff = 'EYE_OFF',
   Github = 'GITHUB',
   History = 'HISTORY',
   Linkedin = 'LINKEDIN',

@@ -1,0 +1,52 @@
+<app-nav-bar [tabs]="tabs" (activeItemIndexChange)="onTabChange($event)">
+</app-nav-bar>
+<div class="force-update-container">
+    @if(showFileUpload)
+    {
+    <div>
+        <label tuiInputFiles>
+            <input tuiInputFiles [disabled]="response.hasFile" (change)="onFileSelected($event)"
+                (drop)="onFileDrop($event)" [(ngModel)]="uploadedFile" />
+        </label>
+        @if (file()) {
+        <div style="display: flex; flex-direction: row; padding-top: 15px;">
+            <div style="align-items: center;display: inherit;padding-right: 5px;">
+                <tui-icon icon="@tui.file" />
+            </div>
+            <div style="display:grid">
+                <div style="grid-row: 1;grid-column: 1;gap: 12px;padding-right: 5px;">Filename:</div>
+                <div style="grid-row: 1;grid-column: 2;gap: 12px;padding-right: 5px;"> {{ file()!.name }}</div>
+                <div>Size:</div>
+                <div> {{ formatSize(['B', 'KB', 'MB'], file()!.size) }}</div>
+            </div>
+            <button tuiButtonX (click)="remove()">
+                Remove
+            </button>
+        </div>
+        }
+        @if(displayError)
+        {
+        <div style="margin-top: 10px;">
+            ⛔ The file must be a "<i>zip</i>" you tried to upload a "<i>{{actualFileExtension}}</i>" file
+        </div>
+        }
+    </div>
+    }
+    @else
+    {
+    <div>
+        This option will fetch the latest version available on the remote server of OpenHomeProject, this action will
+        execute without respecting versions or anything, so proceed with caution
+    </div>
+    }
+</div>
+<footer>
+    <div class="footer-buttons">
+        <button appearance="secondary" tuiButton type="button" (click)="context.$implicit.complete()">
+            Cancel
+        </button>
+        <button tuiButton (click)="submit()" [disabled]="showFileUpload && !response.hasFile">
+            Update
+        </button>
+    </div>
+</footer>

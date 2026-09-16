@@ -1,5 +1,5 @@
 export interface LanguageInterface {
-    name: string;
-    countryIsoCode: string;
-    translocoCode: string;
-} 
+  name: string;
+  countryIsoCode: string;
+  translocoCode: string;
+}

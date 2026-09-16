@@ -1,31 +1,33 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { TuiFilterByInputPipe } from '@taiga-ui/core';
-import { TuiChevron, TuiComboBox, TuiDataListWrapper, TuiSegmented, TuiTabs } from '@taiga-ui/kit';
+import { TuiButton } from '@taiga-ui/core';
+import { TuiComboBox, TuiDataListWrapper, TuiTabs } from '@taiga-ui/kit';
 import { TimeZone } from '../../../shared/interfaces/time-zone';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
-import { ApplicationSettings } from '../../../shared/models/application-settings';
 import { BreadcrumbService } from '../../../core/services/breadcrumb.service';
 import { AdditionalPageInformationService } from '../../../core/services/additional-page-information.service';
+import { TimeZoneSelectorComponent } from 'app/shared/components/time-zone-selector/time-zone-selector.component';
+import { UnitSelectorComponent } from 'app/shared/components/unit-selector/unit-selector.component';
+import { ApplicationBasicSettings } from 'app/shared/interfaces/application-basic-settings';
 
 @Component({
   selector: 'app-settings',
   imports: [
     FormsModule,
-    TuiChevron,
     TuiComboBox,
     TuiDataListWrapper,
-    TuiFilterByInputPipe,
-    TuiSegmented,
+    TuiButton,
     TuiTabs,
+    TimeZoneSelectorComponent,
+    UnitSelectorComponent,
   ],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SettingsComponent {
+export class SettingsComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly breadcrumbService = inject(BreadcrumbService);
   protected readonly additionalPageInformationService = inject(AdditionalPageInformationService);
@@ -38,7 +40,7 @@ export class SettingsComponent {
 
   protected readonly applicationSettings = toSignal(
     this.route.data.pipe(
-      map(({ applicationSettings }) => applicationSettings as ApplicationSettings[]),
+      map(({ applicationSettings }) => applicationSettings as ApplicationBasicSettings),
     ),
     { initialValue: null },
   );
@@ -46,20 +48,10 @@ export class SettingsComponent {
   ngOnInit() {
     this.additionalPageInformationService.clearAdditionalInformation();
     this.breadcrumbService.clearBreadcrumbs();
-    this.breadcrumbService.addBreadcrumb("Basic Settings")
+    this.breadcrumbService.addBreadcrumb('Basic Settings');
   }
 
-  protected readonly selectedTemperatureUnit =
-    parseInt(
-      this.applicationSettings()!.find((x) => x.settingName == 'TemperatureSetting')!.settingValue,
-    ) - 1;
   protected readonly items = this.timeZones()!.map((x) => x.name);
-
-  constructor() {
-    this.value = this.items[this.getIndexOfTimeZone()];
-  }
-
-  protected value: string | null = null;
 
   getIndexOfTimeZone() {
     //const timeZoneId = this.applicationSettings()?.find(x => x.settingName == 'TimeZone')?.settingValue;

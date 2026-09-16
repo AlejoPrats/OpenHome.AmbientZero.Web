@@ -1,22 +1,25 @@
-<tui-tabs [(activeItemIndex)]="activeTabIndex">
-    <button iconStart="@tui.settings" tuiTab type="button">
-        Basic
+@if(applicationSettings(); as applicationSettings)
+{
+<span style="left: 0;">
+    <h1>Basic Settings</h1>
+</span>
+<div class="info-block">
+    <div class="title">Timezone</div>
+    <div class="row">
+        <app-time-zone-selector [selectedTimezone]="applicationSettings.timeZone" style="width: 100%;"></app-time-zone-selector>
+    </div>
+    <div class="title">Display Unit</div>
+    <div class="row">
+        <app-unit-selector [selectedUnit]="applicationSettings.displayUnit" style="width: 400px"></app-unit-selector>
+    </div>
+    <div class="title">Tour</div>
+    <div class="row">
+        <button tuiButton>Take the tour</button>
+    </div>
+</div>
+<footer class="advancedSettings">
+    <button tuiButton>
+        Save
     </button>
-    <button iconStart="@tui.sliders" tuiTab type="button">
-        Advanced
-    </button>
-</tui-tabs>
-
-
-<tui-textfield tuiChevron>
-    <input tuiComboBox [(ngModel)]="value" />
-
-    <tui-data-list-wrapper *tuiDropdown [items]="items | tuiFilterByInput" />
-</tui-textfield>
-
-<tui-segmented [(activeItemIndex)]="selectedTemperatureUnit" size="m">
-    @for (button of buttons; track button) {
-    <button tuiSegmentedOption [class.active]="$index === selectedTemperatureUnit">{{button}}</button>
-    }
-</tui-segmented>
-{{selectedTemperatureUnit}}
+</footer>
+}

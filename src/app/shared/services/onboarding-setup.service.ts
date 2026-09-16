@@ -16,35 +16,35 @@ export class OnboardingSetupService {
 
   setLanguage(language: string): Observable<void> {
     const params = new HttpParams().set('language', language);
-    const data = this.http.post<void>(`${this.sensorApiRoot}/SetLanguage`, null, { params });
+    const data = this.http.patch<void>(`${this.sensorApiRoot}/SetLanguage`, null, { params });
     return data;
   }
 
   setTimezone(timezoneId: string): Observable<void> {
     const params = new HttpParams().set('timezone', timezoneId);
-    const data = this.http.post<void>(`${this.sensorApiRoot}/SetTimeZone`, null, { params });
+    const data = this.http.patch<void>(`${this.sensorApiRoot}/SetTimeZone`, null, { params });
     return data;
   }
 
   setTemperatureUnit(unitId: string): Observable<void> {
     const params = new HttpParams().set('unitId', unitId);
-    const data = this.http.post<void>(`${this.sensorApiRoot}/SetUnit`, null, { params });
+    const data = this.http.patch<void>(`${this.sensorApiRoot}/SetUnit`, null, { params });
     return data;
   }
 
   setAdminPassword(password: string): Observable<void> {
     const params = new HttpParams().set('password', password);
-    const data = this.http.post<void>(`${this.sensorApiRoot}/SetAdminPassword`, null, { params });
+    const data = this.http.patch<void>(`${this.sensorApiRoot}/SetAdminPassword`, null, { params });
     return data;
   }
 
   finishOnboardingSetup(): Observable<void> {
-    const data = this.http.post<void>(`${this.sensorApiRoot}/FinishOnboardingSetup`, null);
+    const data = this.http.patch<void>(`${this.sensorApiRoot}/FinishOnboardingSetup`, null);
     return data;
   }
 
   finishOnboardingTour(): Observable<void> {
-    const data = this.http.post<void>(`${this.sensorApiRoot}/FinishOnboardingTour`, null);
+    const data = this.http.patch<void>(`${this.sensorApiRoot}/FinishOnboardingTour`, null);
     return data;
   }
 }

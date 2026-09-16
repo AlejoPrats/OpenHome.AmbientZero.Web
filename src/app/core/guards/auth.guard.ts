@@ -7,15 +7,14 @@ import { ProtectionMode } from '../enums/protection-mode';
 import { RouteProtectionService } from '../services/route-protection.service';
 import { LocalStorageService } from '../services/local-storage.service';
 
-export const authGuard: CanActivateFn = async (route, state) => {
+export const authGuard: CanActivateFn = async (route) => {
   const permissionsCache = inject(PermissionCacheService);
   const auth = inject(AuthService);
   const modal = inject(LoginService);
   const localStorageService = inject(LocalStorageService);
   const routeProtection = inject(RouteProtectionService);
 
-  if(localStorageService.getOnboaringTourStatus())
-  {
+  if (localStorageService.getOnboaringTourStatus()) {
     return true;
   }
 
@@ -24,7 +23,7 @@ export const authGuard: CanActivateFn = async (route, state) => {
     current = current.firstChild;
   }
 
-  const requiredMode = current.data['protectionLevel'] as ProtectionMode ?? null;
+  const requiredMode = (current.data['protectionLevel'] as ProtectionMode) ?? null;
 
   if (auth.isLoggedIn()) {
     return true;
