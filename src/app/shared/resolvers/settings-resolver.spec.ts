@@ -2,11 +2,12 @@ import { TestBed } from '@angular/core/testing';
 import { ResolveFn } from '@angular/router';
 
 import { applicationSettingsResolver } from './settings-resolver';
-import { ApplicationSettings } from '../models/application-settings';
+import { ApplicationBasicSettings } from '../interfaces/application-basic-settings';
 
 describe('applicationSettingsResolver', () => {
-  const executeResolver: ResolveFn<ApplicationSettings[]> = (...resolverParameters) =>
-    TestBed.runInInjectionContext(() => applicationSettingsResolver(...resolverParameters));
+  const executeResolver: ResolveFn<ApplicationBasicSettings | undefined> = (
+    ...resolverParameters
+  ) => TestBed.runInInjectionContext(() => applicationSettingsResolver(...resolverParameters));
 
   beforeEach(() => {
     TestBed.configureTestingModule({});

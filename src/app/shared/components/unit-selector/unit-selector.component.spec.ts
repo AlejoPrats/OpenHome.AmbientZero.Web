@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslocoTestingModule } from '@jsverse/transloco';
 
 import { UnitSelectorComponent } from './unit-selector.component';
 
@@ -8,11 +9,15 @@ describe('UnitSelectorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UnitSelectorComponent],
+      imports: [
+        UnitSelectorComponent,
+        TranslocoTestingModule.forRoot({ langs: { en: {}, es: {} } }),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(UnitSelectorComponent);
     component = fixture.componentInstance;
+    fixture.detectChanges();
     await fixture.whenStable();
   });
 

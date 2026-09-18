@@ -13,6 +13,8 @@ describe('NavBarComponent', () => {
 
     fixture = TestBed.createComponent(NavBarComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('tabs', []);
+    fixture.detectChanges();
     await fixture.whenStable();
   });
 

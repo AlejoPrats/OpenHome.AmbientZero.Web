@@ -7,13 +7,29 @@ describe('ScrollIndicatorComponent', () => {
   let fixture: ComponentFixture<ScrollIndicatorComponent>;
 
   beforeEach(async () => {
+    vi.stubGlobal(
+      'ResizeObserver',
+      class {
+        constructor(_callback: ResizeObserverCallback) {}
+        observe() {}
+        unobserve() {}
+        disconnect() {}
+      },
+    );
+
     await TestBed.configureTestingModule({
       imports: [ScrollIndicatorComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ScrollIndicatorComponent);
     component = fixture.componentInstance;
+    fixture.detectChanges();
     await fixture.whenStable();
+  });
+
+  afterEach(() => {
+    fixture.destroy();
+    vi.unstubAllGlobals();
   });
 
   it('should create', () => {

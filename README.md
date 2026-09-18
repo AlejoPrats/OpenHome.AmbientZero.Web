@@ -7,16 +7,17 @@
 
 ## Quick-reference table
 
-| Topic | Consumer | Contributor |
-|---|---|---|
-| Goal | Self-host the dashboard | Improve the platform |
-| Prerequisites | Node ≥ 22, pnpm ≥ 11 | Same + Git |
-| Install | `pnpm install` | `pnpm install` |
-| Run locally | `pnpm start` | `pnpm start` |
-| Run tests | `pnpm test` | `pnpm test` |
-| Lint | — | `pnpm lint` |
-| Build for production | `pnpm build` | `pnpm build` |
-| API proxy target | `proxy.conf.json` | `proxy.conf.json` |
+| Topic                | Consumer                | Contributor          |
+| -------------------- | ----------------------- | -------------------- |
+| Goal                 | Self-host the dashboard | Improve the platform |
+| Prerequisites        | Node ≥ 22, pnpm ≥ 11    | Same + Git           |
+| Install              | `pnpm install`          | `pnpm install`       |
+| Run locally          | `pnpm start`            | `pnpm start`         |
+| Run tests            | `pnpm test`             | `pnpm test`          |
+| Lint                 | —                       | `pnpm lint`          |
+| Type-check           | —                       | `pnpm typecheck`     |
+| Build for production | `pnpm build`            | `pnpm build`         |
+| API proxy target     | `proxy.conf.json`       | `proxy.conf.json`    |
 
 ---
 
@@ -41,10 +42,10 @@ Consumers download the built artefact and host it behind any static HTTP server 
 
 ### Prerequisites
 
-| Tool | Minimum version |
-|---|---|
-| Node.js | 22 LTS |
-| pnpm | 11 |
+| Tool    | Minimum version |
+| ------- | --------------- |
+| Node.js | 22 LTS          |
+| pnpm    | 11              |
 
 ### Build for production
 
@@ -124,13 +125,19 @@ src/
 
 ### Development commands
 
-| Command | Description |
-|---|---|
-| `pnpm start` | Dev server at `http://localhost:4200` with API proxy |
-| `pnpm build` | Production build |
-| `pnpm test` | Unit tests via Vitest (Angular build runner) |
-| `pnpm lint` | ESLint + Prettier checks |
-| `pnpm watch` | Incremental dev build |
+| Command             | Description                                          |
+| ------------------- | ---------------------------------------------------- |
+| `pnpm start`        | Dev server at `http://localhost:4200` with API proxy |
+| `pnpm build`        | Production build                                     |
+| `pnpm test`         | Unit tests via Vitest (Angular build runner)         |
+| `pnpm lint`         | ESLint + Prettier checks                             |
+| `pnpm typecheck`    | Type-check application and unit-test projects        |
+| `pnpm quality:gate` | Run every local CI quality check                     |
+| `pnpm build:stats`  | Production build with bundle statistics              |
+| `pnpm watch`        | Incremental dev build                                |
+
+Production builds enforce the Angular budgets in `angular.json`: the initial bundle warns at
+500 kB and fails at 1 MB, while individual component styles warn at 4 kB and fail at 8 kB.
 
 ### Code conventions
 
@@ -139,7 +146,8 @@ src/
 - **Lazy loading** — every route uses `loadComponent` with a dynamic `import()`. Keep resolvers lightweight.
 - **Styling** — LESS only (`.less`). No SCSS.
 - **Signals** — prefer Angular signals (`signal`, `computed`, `toSignal`) over imperative subscriptions.
-- **Exact dependency versions** — `package.json` uses pinned versions (no `^` or `~`).
+- **Reproducible installs** — CI uses the committed pnpm lockfile with
+  `--frozen-lockfile`; dependency ranges in `package.json` are changed intentionally.
 - **Single quotes, 100-char print width** — enforced by Prettier (`.prettierrc`).
 
 ### Running and writing tests
@@ -170,14 +178,14 @@ pnpm lint --fix
 
 1. Create a feature branch: `git checkout -b feat/my-feature`
 2. Make your changes, keeping commits atomic and descriptive.
-3. Ensure `pnpm test` and `pnpm lint` both pass.
+3. Ensure `pnpm lint`, `pnpm typecheck`, `pnpm test`, and `pnpm build` pass.
 4. Push and open a PR against `main`.
 5. Fill in the PR description (what changed and why).
 
 ### Security
 
 - Do **not** commit secrets, API keys, or credentials.
-- Keep dependencies up-to-date; all versions are pinned — bump them intentionally via PR.
+- Keep dependencies up-to-date and commit lockfile changes with intentional dependency updates.
 
 ---
 

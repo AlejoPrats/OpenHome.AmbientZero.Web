@@ -5,10 +5,13 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:stats": "ng build --configuration production --stats-json",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test --watch=false",
+    "test": "ng test --watch=false --no-progress",
     "test:watch": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "typecheck": "tsc -b --noEmit",
+    "quality:gate": "pnpm lint && pnpm typecheck && pnpm test && pnpm build"
   },
   "private": true,
   "packageManager": "pnpm@11.1.1",
