@@ -16,7 +16,6 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     const token = this.localStorageService.getAuthenticationToken();
-
     if (!token) return false;
 
     const payload = JSON.parse(atob(token.split('.')[1]));

@@ -6,11 +6,11 @@
 <div class="info-block">
     <div class="title">Timezone</div>
     <div class="row">
-        <app-time-zone-selector [selectedTimezone]="applicationSettings.timeZone" style="width: 100%;"></app-time-zone-selector>
+        <app-time-zone-selector [selectedTimezone]="applicationSettings.timeZone" (valueChanged)="setTimeZone($event)" style="width: 100%;"></app-time-zone-selector>
     </div>
     <div class="title">Display Unit</div>
     <div class="row">
-        <app-unit-selector [selectedUnit]="applicationSettings.displayUnit" style="width: 400px"></app-unit-selector>
+        <app-unit-selector [selectedUnit]="applicationSettings.displayUnit" (valueChanged)="setTemperatureUnit($event)" style="width: 400px"></app-unit-selector>
     </div>
     <div class="title">Tour</div>
     <div class="row">
@@ -18,7 +18,7 @@
     </div>
 </div>
 <footer class="advancedSettings">
-    <button tuiButton>
+    <button tuiButton [disabled]="saveButtonDisabled()" (click)="saveSettings()">
         Save
     </button>
 </footer>

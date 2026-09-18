@@ -1,21 +1,25 @@
 @if(data(); as securitySettings)
 {
-<div class="info-block">
-    <span id="advanced-settings-system-password-section">
-        <div class="title">System Passwords</div>
-
-        <div class="row">
-            <div class="label">Admin Password</div>
-            <div class="value">
+<span id="advanced-settings-system-password-section">
+    <div class="flex-table-form">
+        <div class="table-row-form header-form">
+            <div>System Passwords</div>
+        </div>
+        <div class="table-row-form">
+            <div class="cell-title">
+                Admin Password:
+            </div>
+            <div class="cell-field">
                 <button tuiButton>
                     Change Admin Password
                 </button>
             </div>
         </div>
-
-        <div class="row">
-            <div class="label">SSH Password</div>
-            <div class="value" style="min-width: 500px;">
+        <div class="table-row-form">
+            <div class="cell-title">
+                SSH Password:
+            </div>
+            <div class="cell-field">
                 <tui-textfield>
                     <input tuiInput type="password" [(ngModel)]="securitySettings.sshPassword" [readOnly]="true" />
                     <tui-icon tuiPassword />
@@ -23,24 +27,27 @@
                 </tui-textfield>
             </div>
         </div>
-    </span>
-    <span id="advanced-settings-application-security-section">
-        <div class="title">Application Security</div>
-
-        <div class="row">
-            <div class="label">Application Protection</div>
-            <div class="value">
+    </div>
+</span>
+<span id="advanced-settings-application-security-section">
+    <div class="flex-table-form">
+        <div class="table-row-form header-form">
+            <div>Application Security</div>
+        </div>
+        <div class="table-row-form">
+            <div class="cell-title">Application Protection:</div>
+            <div class="cell-field">
                 <tui-textfield tuiChevron tuiDropdownMobile>
-                    <input placeholder="Country" tuiComboBox [(ngModel)]="securitySettings.applicationSecurity" />
+                    <input placeholder="Country" tuiComboBox [(ngModel)]="selectedSecurity" />
                     <tui-data-list-wrapper *tuiDropdown [items]="ApSecurityList" />
                 </tui-textfield>
             </div>
         </div>
-    </span>
-</div>
+    </div>
+</span>
 }
 <footer class="advancedSettings">
-    <button tuiButton>
+    <button iconStart="@tui.save" tuiButton>
         Save
     </button>
 </footer>

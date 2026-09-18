@@ -85,15 +85,15 @@ export class ForceUpdateModalComponent {
             this.displayError = false;
             this.notificationService
               .Message('File Uploaded Sucessfuly', 'Success')
-              .DownRight()
-              .NotificationType('positive')
+              .SuccessType()
+              .BottomRight()
               .Show();
           },
           error: () => {
             this.notificationService
               .Message('Failed to upload the file', 'Error')
-              .DownRight()
-              .NotificationType('negative')
+              .ErrorType()
+              .BottomRight()
               .Show();
           },
         });

@@ -1,37 +1,44 @@
-.info-block {
+.flex-table-form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  width: 100%;
+  border: 1px solid var(--tui-border-normal);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 20px;
 }
 
-.title {
-  font-size: 1.1rem;
-  padding-top: 45px;
-  margin-bottom: 15px;
-  font-weight: 600;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #ddd;
-}
-
-.row {
+.table-row-form {
   display: flex;
+  padding: 8px 12px;
   align-items: center;
-  justify-content: flex-start;
-  gap: 16px;
 }
 
-.label {
-  font-weight: 500;
-  color: #555;
-  width: 160px;
+.header-form {
+  font-weight: 600;
+  background-color: var(--tui-background-neutral-1);
+  border-bottom: 1px solid var(--tui-border-normal);
 }
 
-.value {
-  color: #222;
-  text-align: left;
-  width: 240px;
-  max-width: 240px;
+.cell-title {
+  flex: 1;
+  padding: 4px 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   flex-shrink: 0;
+  flex-grow: 0;
+  flex-basis: 16%;
+}
+
+.cell-field {
+  padding: 4px 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-basis: 0px;
+  flex-grow: 0.3;
+  flex-shrink: 0.5;
 }
 
 footer.advancedSettings {
@@ -40,7 +47,7 @@ footer.advancedSettings {
   right: 0;
   display: flex;
   justify-content: end;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid var(--tui-border-normal);
   background: var(--tui-background-base);
   z-index: 999;
   margin-bottom: -100px;

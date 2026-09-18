@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, OnInit, signal } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TuiDropdownMobile } from '@taiga-ui/addon-mobile';
 import { TuiButton, TuiDropdown, TuiIcon, TuiInput, TuiTextfieldComponent } from '@taiga-ui/core';
@@ -24,8 +24,12 @@ import { SecuritySettingsResponse } from 'app/shared/interfaces/security-setting
   templateUrl: './security-settings.component.html',
   styleUrl: './security-settings.component.less',
 })
-export class SecuritySettingsComponent {
+export class SecuritySettingsComponent implements OnInit {
   protected data = input.required<SecuritySettingsResponse>();
   protected ApSecurityList = ['Open', 'Settings', 'All'];
-  protected test = '';
+  protected selectedSecurity = signal<string>('');
+
+  ngOnInit() {
+    this.selectedSecurity.set(this.ApSecurityList[this.data().applicationSecurity]);
+  }
 }

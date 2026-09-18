@@ -11,6 +11,9 @@ import { AdditionalPageInformationService } from '../../../core/services/additio
 import { TimeZoneSelectorComponent } from 'app/shared/components/time-zone-selector/time-zone-selector.component';
 import { UnitSelectorComponent } from 'app/shared/components/unit-selector/unit-selector.component';
 import { ApplicationBasicSettings } from 'app/shared/interfaces/application-basic-settings';
+import { SettingsService } from 'app/shared/services/settings.service';
+import { NotificationService } from 'app/core/services/notification-service.service';
+import { BasicApplicationSettingsRequest } from 'app/shared/models/basic-application-settings-request';
 
 @Component({
   selector: 'app-settings',
@@ -30,6 +33,9 @@ import { ApplicationBasicSettings } from 'app/shared/interfaces/application-basi
 export class SettingsComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly breadcrumbService = inject(BreadcrumbService);
+  private readonly applicationSettingsService = inject(SettingsService);
+  private readonly notificationService = inject(NotificationService);
+  private basicApplicationSettingsRequest = new BasicApplicationSettingsRequest();
   protected readonly additionalPageInformationService = inject(AdditionalPageInformationService);
   protected readonly buttons = ['Celcius', 'Farenheit', 'Kelvin'];
   protected readonly activeTabIndex = 0;
@@ -53,15 +59,45 @@ export class SettingsComponent implements OnInit {
 
   protected readonly items = this.timeZones()!.map((x) => x.name);
 
-  getIndexOfTimeZone() {
-    //const timeZoneId = this.applicationSettings()?.find(x => x.settingName == 'TimeZone')?.settingValue;
-    //const timeZoneName = this.timeZones()!.find(x => x.id == timeZoneId)!.name;
-    return 0; // this.items.indexOf(timeZoneName);
-  }
-
   selected = signal<number>(2);
 
-  setTemperatureUnit(unit: number) {
-    this.selected.set(unit);
+  setTemperatureUnit(unit: number | undefined) {
+    this.basicApplicationSettingsRequest.displayUnit = unit;
+  }
+
+  setTimeZone(timeZone: string | undefined) {
+    this.basicApplicationSettingsRequest.timeZone = timeZone;
+  }
+
+  saveSettings() {
+    this.applicationSettingsService
+      .saveApplicationSettings(this.basicApplicationSettingsRequest)
+      .subscribe({
+        next: () => {
+          this.notificationService
+            .Message('Settings Saved Succesfully', 'Success')
+            .SuccessType()
+            .BottomRight()
+            .Show();
+        },
+        error: () => {
+          this.notificationService
+            .Message('Failed To Save Settings', 'Error')
+            .ErrorType()
+            .BottomRight()
+            .Show();
+        },
+      });
+  }
+
+  saveButtonDisabled(): boolean {
+    if (
+      this.basicApplicationSettingsRequest.displayUnit !== undefined ||
+      this.basicApplicationSettingsRequest.timeZone !== undefined
+    ) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }
