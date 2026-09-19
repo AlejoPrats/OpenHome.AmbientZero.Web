@@ -13,6 +13,11 @@ describe('SecuritySettingsComponent', () => {
 
     fixture = TestBed.createComponent(SecuritySettingsComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('data', {
+      applicationSecurity: 0,
+      sshPassword: 'test-password',
+    });
+    fixture.detectChanges();
     await fixture.whenStable();
   });
 

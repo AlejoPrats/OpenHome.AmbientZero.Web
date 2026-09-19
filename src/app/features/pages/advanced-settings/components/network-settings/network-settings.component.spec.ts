@@ -13,6 +13,12 @@ describe('NetworkSettingsComponent', () => {
 
     fixture = TestBed.createComponent(NetworkSettingsComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('data', {
+      accessPointName: 'Test access point',
+      accessPointPassword: 'test-password',
+      accessPointSecurity: 1,
+    });
+    fixture.detectChanges();
     await fixture.whenStable();
   });
 

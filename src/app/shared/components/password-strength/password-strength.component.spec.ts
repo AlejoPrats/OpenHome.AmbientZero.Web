@@ -13,6 +13,9 @@ describe('PasswordStrengthComponent', () => {
 
     fixture = TestBed.createComponent(PasswordStrengthComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('passwordInput', '');
+    fixture.componentRef.setInput('minPasswordLength', 8);
+    fixture.detectChanges();
     await fixture.whenStable();
   });
 
