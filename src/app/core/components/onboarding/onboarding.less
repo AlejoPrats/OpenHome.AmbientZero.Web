@@ -1,0 +1,102 @@
+.driver-active .onboarding-popover-navigation-buttons {
+    flex-grow: 1;
+    justify-content: flex-end;
+    display: flex;
+    gap: 4px;
+}
+
+.driver-active .onboarding-popover-footer {
+    text-align: right;
+    zoom: 1;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    display: flex
+}
+
+.driver-active .onboarding-popover-footer-button {
+    all: unset;
+    box-sizing: border-box;
+    color: #2d2d2d;
+    cursor: pointer;
+    zoom: 1;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    outline: 0;
+    padding: 3px 7px;
+    font: 12px/1.3 sans-serif;
+    text-decoration: none;
+    display: inline-block
+}
+
+.driver-active .driver-overlay {
+    z-index: 7 !important;
+}
+
+.driver-active .driver-overlay-animated {
+    z-index: 9 !important;
+}
+
+.driver-active #driver-popover-content {
+    z-index: 10;
+}
+
+.driver-active .onboarding-popover-footer-button:disabled {
+    background-color: #ccc;
+    user-select: none;
+    cursor: not-allowed;
+    color: #666;
+    border-color: #bbb;
+}
+
+.driver-active .onboarding-popover-footer-button:hover {
+    background-color: #f7f7f7;
+}
+
+.driver-active tui-popups:has(.tui-textfield-override) {
+    z-index: 1000000001 !important;
+}
+
+.driver-active tui-popups {
+    z-index: 101 !important;
+}
+
+/* Only the actual dropdown panel gets pointer events */
+.driver-active tui-popups .tui-textfield-override,
+.driver-active tui-popups .tui-textfield-override *,
+.driver-active tui-popups tui-scrollbar,
+.driver-active tui-popups tui-scrollbar div tui-data-list-wrapper tui-data-list button {
+    pointer-events: auto !important;
+}
+
+.driver-active:has(tui-popups .tui-textfield-override) .driver-overlay {
+    pointer-events: none !important;
+}
+
+.driver-active #driver-angular-host {
+    display: block !important;
+}
+
+.driver-active *:is(app-language-selector, app-unit-selector)>tui-textfield>span>div>div,
+.driver-active *:is(app-time-zone-selector, app-password-change)>tui-textfield>input {
+    color: black !important;
+}
+
+.driver-active *:is(app-language-selector, app-unit-selector, app-time-zone-selector,app-password-change)>tui-textfield>span>button,
+.driver-active *:is(app-password-change)>tui-textfield>span>tui-icon
+{
+    filter: contrast(0);
+}
+
+.driver-active *:is(app-language-selector, app-unit-selector, app-time-zone-selector, app-password-change)>.tui-interactive.tui-textfield-override {
+    color: black !important;
+}
+
+.driver-active *:is(app-language-selector, app-unit-selector, app-time-zone-selector, app-password-change)>.tui-interactive.tui-textfield-override input::placeholder {
+    color: grey !important;
+}
+
+.driver-active .driver-popover:has(app-time-zone-selector,app-password-change){
+    min-width: 400px;
+}

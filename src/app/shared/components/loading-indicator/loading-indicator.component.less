@@ -1,0 +1,121 @@
+:host .background {
+  background-color: var(--background-overlay-dark);
+  z-index: 10000;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  background-color: var(--color-background);
+  border-radius: var(--border-radius-md);
+  border: var(--border-width-thin) solid var(--color-border-muted);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.indicator {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hexagon {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+  opacity: 0.3;
+  clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+}
+
+.hexagon:nth-child(1) {
+  width: 75px;
+  height: 75px;
+  animation: hexagon-rotate 8s linear infinite;
+}
+
+.hexagon:nth-child(2) {
+  width: 25px;
+  height: 25px;
+  animation: hexagon-rotate 12s linear infinite reverse;
+  opacity: 0.5;
+}
+
+.hexagon:nth-child(3) {
+  width: 125px;
+  height: 125px;
+  animation: hexagon-rotate 15s linear infinite;
+  opacity: 0.2;
+}
+
+@keyframes hexagon-rotate {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  50% {
+    transform: rotate(180deg) scale(1.1);
+  }
+
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+.matrix-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.matrix-text {
+  margin: 0;
+  color: var(--color-primary);
+  font-size: var(--font-size-lg);
+  position: relative;
+  text-shadow: var(--shadow-text-primary);
+}
+
+.matrix-text::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  animation: glitch 2s infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  transform: translate(-2px, -2px);
+  color: var(--color-secondary);
+  text-shadow: var(--shadow-secondary);
+}
+
+@keyframes glitch {
+  0%,
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    transform: translate(0);
+  }
+
+  33% {
+    clip-path: polygon(0 0, 100% 0, 100% 15%, 0 15%);
+    transform: translate(-5px, -5px);
+  }
+
+  66% {
+    clip-path: polygon(0 85%, 100% 85%, 100% 100%, 0 100%);
+    transform: translate(5px, 5px);
+  }
+}

@@ -1,0 +1,21 @@
+<tui-textfield *transloco="let t" class="tui-textfield-override" tuiChevron style="width: 100%;"
+  [content]="units && content">
+  <input [attr.tuiTheme]="theme.attr()" placeholder="{{t('languageSelector.select-a-language')}}" tuiSelect
+    [(ngModel)]="value" (ngModelChange)="unitChanged()" />
+  <tui-data-list-wrapper [attr.tuiTheme]="theme.attr()" class="tui-textfield-override" *tuiDropdown
+    [itemContent]="content" [items]="units" />
+</tui-textfield>
+
+
+<ng-template #content let-unit>
+  <div *transloco="let t"
+    style="display:flex; flex-direction: row; gap: 15px; align-items: center; color: var(--tui-text-primary);"
+    [attr.tuiTheme]="theme.attr()" class="card">
+    <div>
+      {{unit.name}}
+    </div>
+    <div style="color: var(--tui-text-primary);" [attr.tuiTheme]="theme.attr()">
+      {{ unit.name }}
+    </div>
+  </div>
+</ng-template>

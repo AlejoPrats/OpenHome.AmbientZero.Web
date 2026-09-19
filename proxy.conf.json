@@ -1,0 +1,29 @@
+{
+  "/api": {
+    "target": "https://localhost:7127",
+    "secure": false,
+    "pathRewrite": {
+      "^/api": ""
+    },
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/favicon.ico": {
+    "target": "https://openhomeproject.com",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/assets/images": {
+    "target": "https://openhomeproject.com",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/uploadedImages": {
+    "target": "https://openhomeproject.com",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

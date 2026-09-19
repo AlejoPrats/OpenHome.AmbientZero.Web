@@ -1,0 +1,103 @@
+import { ChangeDetectionStrategy, Component, inject, signal, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { TuiButton } from '@taiga-ui/core';
+import { TuiComboBox, TuiDataListWrapper, TuiTabs } from '@taiga-ui/kit';
+import { TimeZone } from '../../../shared/interfaces/time-zone';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
+import { BreadcrumbService } from '../../../core/services/breadcrumb.service';
+import { AdditionalPageInformationService } from '../../../core/services/additional-page-information.service';
+import { TimeZoneSelectorComponent } from 'app/shared/components/time-zone-selector/time-zone-selector.component';
+import { UnitSelectorComponent } from 'app/shared/components/unit-selector/unit-selector.component';
+import { ApplicationBasicSettings } from 'app/shared/interfaces/application-basic-settings';
+import { SettingsService } from 'app/shared/services/settings.service';
+import { NotificationService } from 'app/core/services/notification-service.service';
+import { BasicApplicationSettingsRequest } from 'app/shared/models/basic-application-settings-request';
+
+@Component({
+  selector: 'app-settings',
+  imports: [
+    FormsModule,
+    TuiComboBox,
+    TuiDataListWrapper,
+    TuiButton,
+    TuiTabs,
+    TimeZoneSelectorComponent,
+    UnitSelectorComponent,
+  ],
+  templateUrl: './settings.component.html',
+  styleUrl: './settings.component.less',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class SettingsComponent implements OnInit {
+  private readonly route = inject(ActivatedRoute);
+  private readonly breadcrumbService = inject(BreadcrumbService);
+  private readonly applicationSettingsService = inject(SettingsService);
+  private readonly notificationService = inject(NotificationService);
+  private basicApplicationSettingsRequest = new BasicApplicationSettingsRequest();
+  protected readonly additionalPageInformationService = inject(AdditionalPageInformationService);
+  protected readonly buttons = ['Celcius', 'Farenheit', 'Kelvin'];
+  protected readonly activeTabIndex = 0;
+  protected readonly timeZones = toSignal(
+    this.route.data.pipe(map(({ timeZones }) => timeZones as TimeZone[])),
+    { initialValue: null },
+  );
+
+  protected readonly applicationSettings = toSignal(
+    this.route.data.pipe(
+      map(({ applicationSettings }) => applicationSettings as ApplicationBasicSettings),
+    ),
+    { initialValue: null },
+  );
+
+  ngOnInit() {
+    this.additionalPageInformationService.clearAdditionalInformation();
+    this.breadcrumbService.clearBreadcrumbs();
+    this.breadcrumbService.addBreadcrumb('Basic Settings');
+  }
+
+  protected readonly items = this.timeZones()!.map((x) => x.name);
+
+  selected = signal<number>(2);
+
+  setTemperatureUnit(unit: number | undefined) {
+    this.basicApplicationSettingsRequest.displayUnit = unit;
+  }
+
+  setTimeZone(timeZone: string | undefined) {
+    this.basicApplicationSettingsRequest.timeZone = timeZone;
+  }
+
+  saveSettings() {
+    this.applicationSettingsService
+      .saveApplicationSettings(this.basicApplicationSettingsRequest)
+      .subscribe({
+        next: () => {
+          this.notificationService
+            .Message('Settings Saved Succesfully', 'Success')
+            .SuccessType()
+            .BottomRight()
+            .Show();
+        },
+        error: () => {
+          this.notificationService
+            .Message('Failed To Save Settings', 'Error')
+            .ErrorType()
+            .BottomRight()
+            .Show();
+        },
+      });
+  }
+
+  saveButtonDisabled(): boolean {
+    if (
+      this.basicApplicationSettingsRequest.displayUnit !== undefined ||
+      this.basicApplicationSettingsRequest.timeZone !== undefined
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+}

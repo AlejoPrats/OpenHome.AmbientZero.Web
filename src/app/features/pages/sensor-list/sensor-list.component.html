@@ -1,0 +1,109 @@
+<span style="left: 0;">
+    <h1>Sensors</h1>
+</span>
+@if(sensorList(); as sensors)
+{
+<div style="display: flex; flex-direction: row-reverse; margin-bottom: 15px;">
+    <button appearance="primary" iconStart="@tui.chevron-left" size="m" tuiButton tuiDropdownAlign="end" type="button"
+        [tuiAppearanceState]="openDropDown ? 'active' : null" [tuiDropdown]="dropdown" [tuiDropdownSided]="true"
+        [(tuiDropdownOpen)]="openDropDown">
+        Sensor Display Options
+    </button>
+    <ng-template #dropdown let-close>
+        <tui-data-list>
+            <button tuiOption [iconStart]="showRawBatteryReadings ? '@tui.check' : null" type="button" (click)="toggleRawBattery()">
+                Show Raw Battery Readings
+            </button>
+            <button tuiOption [iconStart]="showHiddenSensors ? '@tui.check' : null" type="button" (click)="toggleHiddenSensors()">
+                Show Hidden Sensors
+            </button>
+        </tui-data-list>
+    </ng-template>
+</div>
+
+<div class="flex-table">
+    <div class="table-row header">
+        <div id="sensor-name" class="cell">
+            Sensor Name
+        </div>
+        <div id="sensor-battery" class="cell">
+            Battery{{ showRawBatteryReadings ? ' Raw Reading' : ' Percentage' }}
+        </div>
+        <div id="sensor-last-reading" class="cell">
+            Last Reading
+        </div>
+        <div id="sensor-temperature" class="cell">
+            Temperature
+        </div>
+        <div id="sensor-signaling" class="cell">
+            Signaling
+        </div>
+        <div id="sensor-tendency" class="cell">
+            Tendency
+        </div>
+        <div id="sensor-actions" class="cell">
+            Actions
+        </div>
+    </div>
+    @if(sensors.length > 0)
+    {
+        @for (sensor of sensors; track sensor)
+        {
+            @if(!hiddenSensorsArray.includes(sensor.deviceId) || showHiddenSensors)
+            {
+            <div id="sensor-info-row" class="table-row">
+                <div id="sensor-name" class="cell">
+                    {{ sensor.deviceVirtualName ?? sensor.deviceId }}
+                </div>
+                <div class="cell">
+                    @if(showRawBatteryReadings)
+                    {
+                        {{sensor.rawADCReading}}
+                    }
+                    @else
+                    {
+                        %{{ sensor.batteryPercentage }}
+                    }
+                </div>
+                <div class="cell">
+                    {{ sensor.lastReadingTime | date:'dd-MM-yyyy HH:mm' }}
+                </div>
+                <div class="cell">
+                    {{ sensor.lastReadingValue | number:'1.1-1' }}
+                </div>
+                <div class="cell">
+                    {{ sensor.isSignaling }}
+                </div>
+                <div class="cell">
+                    {{ sensor.temperatureTendency }}
+                </div>
+                <div class="cell">
+                    <span [routerLink]="['/sensorDetail',sensor.id]">
+                        <app-icon id="sensor-edit" [name]="IconName.Edit" size="medium" />
+                    </span>
+                    <app-icon id="sensor-chart" [name]="IconName.Chart" size="medium" />
+                    @if(hiddenSensorsArray.includes(sensor.deviceId))
+                    {
+                        <app-icon id="sensor-hide" [name]="IconName.Eye" (OnClick)="unHideSensor(sensor.deviceId)" size="medium" />
+                    }
+                    @else 
+                    {
+                        <app-icon id="sensor-hide" [name]="IconName.EyeOff" (OnClick)="hideSensor(sensor.deviceId)" size="medium" />
+                    }
+                    <app-icon id="sensor-cog" [name]="IconName.Cog" size="medium" />
+                    <span (click)="openDeleteDialog(sensor.id)"><app-icon id="sensor-delete" [name]="IconName.Delete"
+                            size="medium" /></span>
+                </div>
+            </div>
+            }
+        }
+    }
+    @else {
+    <div id="sensor-info-row" class="table-row">
+        <div class="cell empty">
+            There Are No Sensors Registered In The Node
+        </div>
+    </div>
+    }
+</div>
+}
