@@ -10,6 +10,7 @@ import { TuiBadge } from '@taiga-ui/kit';
 export class ScrollIndicatorComponent implements OnInit, OnDestroy {
   show = signal(false);
   private resizeObserver?: ResizeObserver;
+  private updateTimeout?: ReturnType<typeof setTimeout>;
 
   ngOnInit(): void {
     const root = document.documentElement;
@@ -24,6 +25,7 @@ export class ScrollIndicatorComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.resizeObserver?.disconnect();
     window.removeEventListener('scroll', this.onScroll);
+    clearTimeout(this.updateTimeout);
   }
 
   private onScroll = () => this.update(document.documentElement);
@@ -47,6 +49,7 @@ export class ScrollIndicatorComponent implements OnInit, OnDestroy {
       behavior: 'smooth',
     });
 
-    setTimeout(() => this.update(root), 400);
+    clearTimeout(this.updateTimeout);
+    this.updateTimeout = setTimeout(() => this.update(root), 400);
   }
 }

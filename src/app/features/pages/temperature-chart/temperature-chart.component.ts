@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, inject, signal, OnInit } from '@ang
 import { NgxEchartsModule } from 'ngx-echarts';
 import { ThemeService } from '../../../core/services/theme.service';
 import { ActivatedRoute } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Subject, switchMap } from 'rxjs';
 import { ECBasicOption } from 'echarts/types/dist/shared';
 import { ChartResponse } from '../../../shared/interfaces/chart-response';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -42,12 +44,23 @@ export class TemperatureChartComponent implements OnInit {
   private readonly ambientTemperatureService = inject(AmbientTemperatureService);
   readonly options = signal<ECBasicOption>(EMPTY_ECHARTS_OPTION);
   protected displayDate = TuiDay.currentLocal();
+  private readonly dateChanges = new Subject<TuiDay>();
 
   constructor() {
-    this.route.data.subscribe(({ temperatureReadings }) => {
+    this.route.data.pipe(takeUntilDestroyed()).subscribe(({ temperatureReadings }) => {
       const chartResponse = temperatureReadings as ChartResponse;
       this.options.set(buildTemperatureChartOption(chartResponse));
     });
+
+    this.dateChanges
+      .pipe(
+        switchMap((day) => this.ambientTemperatureService.getDailyTemperatures(day)),
+        takeUntilDestroyed(),
+      )
+      .subscribe((temperatureReadings) => {
+        const chartResponse = temperatureReadings as ChartResponse;
+        this.options.set(buildTemperatureChartOption(chartResponse));
+      });
   }
 
   ngOnInit() {
@@ -76,11 +89,6 @@ export class TemperatureChartComponent implements OnInit {
   }
 
   private updateChartData() {
-    this.ambientTemperatureService.getDailyTemperatures(this.displayDate).subscribe({
-      next: (temperatureReadings) => {
-        const chartResponse = temperatureReadings as ChartResponse;
-        this.options.set(buildTemperatureChartOption(chartResponse));
-      },
-    });
+    this.dateChanges.next(this.displayDate);
   }
 }
