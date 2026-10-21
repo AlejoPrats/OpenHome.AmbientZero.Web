@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 
 import { SensorService } from 'app/shared/services/sensor.service';
 import { SensorDetailComponent } from './sensor-detail.component';
+import { getTranslationModuleMock } from 'app/shared/mocks/translation-module.mock';
 
 describe('SensorDetailComponent', () => {
   let component: SensorDetailComponent;
@@ -12,7 +13,7 @@ describe('SensorDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SensorDetailComponent],
+      imports: [SensorDetailComponent, getTranslationModuleMock()],
       providers: [
         {
           provide: ActivatedRoute,

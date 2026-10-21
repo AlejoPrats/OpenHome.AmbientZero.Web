@@ -13,6 +13,11 @@ describe('SystemInformationComponent', () => {
 
     fixture = TestBed.createComponent(SystemInformationComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput(
+      'data',
+      //TODO: move to a real mock
+      { memory: { free: '100 MiB' }, swap: { used: '0' }, cpu: { temperature: '10' } },
+    );
     await fixture.whenStable();
   });
 
