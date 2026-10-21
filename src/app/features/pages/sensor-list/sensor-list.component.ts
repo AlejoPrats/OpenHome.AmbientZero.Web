@@ -13,6 +13,7 @@ import { BreadcrumbService } from '../../../core/services/breadcrumb.service';
 import { AdditionalPageInformationService } from '../../../core/services/additional-page-information.service';
 import { TuiButton, TuiDataList, TuiDropdown } from '@taiga-ui/core';
 import { LocalStorageService } from 'app/core/services/local-storage.service';
+import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-sensor-list',
@@ -25,7 +26,9 @@ import { LocalStorageService } from 'app/core/services/local-storage.service';
     TuiButton,
     TuiDataList,
     TuiDropdown,
+    TranslocoModule,
   ],
+  providers: [provideTranslocoScope({ scope: 'pages/sensor-list', alias: 'sensor-list' })],
   templateUrl: './sensor-list.component.html',
   styleUrl: './sensor-list.component.less',
 })

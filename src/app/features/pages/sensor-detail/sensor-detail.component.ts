@@ -27,6 +27,7 @@ import { NameUpdateRequest } from '../../../shared/models/name-update-request';
 import { SensorUpdateRequest } from '../../../shared/models/sensor-update-request';
 import { BreadcrumbService } from '../../../core/services/breadcrumb.service';
 import { AdditionalPageInformationService } from '../../../core/services/additional-page-information.service';
+import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-sensor-detail',
@@ -44,7 +45,9 @@ import { AdditionalPageInformationService } from '../../../core/services/additio
     TuiDialog,
     RouterLinkWithHref,
     TuiAutoFocus,
+    TranslocoModule,
   ],
+  providers: [provideTranslocoScope({ scope: 'pages/sensor-detail', alias: 'sensor' })],
   templateUrl: './sensor-detail.component.html',
   styleUrl: './sensor-detail.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,

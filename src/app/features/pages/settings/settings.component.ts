@@ -14,6 +14,7 @@ import { ApplicationBasicSettings } from 'app/shared/interfaces/application-basi
 import { SettingsService } from 'app/shared/services/settings.service';
 import { NotificationService } from 'app/core/services/notification-service.service';
 import { BasicApplicationSettingsRequest } from 'app/shared/models/basic-application-settings-request';
+import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-settings',
@@ -25,7 +26,9 @@ import { BasicApplicationSettingsRequest } from 'app/shared/models/basic-applica
     TuiTabs,
     TimeZoneSelectorComponent,
     UnitSelectorComponent,
+    TranslocoModule,
   ],
+  providers: [provideTranslocoScope({ scope: 'pages/settings', alias: 'settings' })],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,

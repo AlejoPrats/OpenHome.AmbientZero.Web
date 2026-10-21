@@ -16,6 +16,8 @@ import { map } from 'rxjs';
 import { BreadcrumbService } from '../../../core/services/breadcrumb.service';
 import { AdditionalPageInformationService } from '../../../core/services/additional-page-information.service';
 import { ScrollIndicatorComponent } from '../../../shared/components/scroll-indicator/scroll-indicator.component';
+import { SystemInformationComponent } from './components/system-information/system-information.component';
+import { DeviceStatusResult } from 'app/shared/interfaces/device-status-result';
 
 @Component({
   selector: 'app-advanced-settings',
@@ -34,6 +36,10 @@ export class AdvancedSettingsComponent implements OnInit {
     this.route.data.pipe(
       map(({ advancedSettings }) => advancedSettings as AdvancedSettingsResponse),
     ),
+    { initialValue: null },
+  );
+  protected readonly systemStatus = toSignal(
+    this.route.data.pipe(map(({ systemStatus }) => systemStatus as DeviceStatusResult)),
     { initialValue: null },
   );
 
@@ -82,6 +88,13 @@ export class AdvancedSettingsComponent implements OnInit {
       enabled: false,
       hint: 'Comming Soon',
     },
+    {
+      id: 5,
+      selectorId: 'advanced-settings-system-tab',
+      label: 'System',
+      icon: '@tui.monitor-cog',
+      enabled: true,
+    },
   ];
 
   readonly components = [
@@ -90,6 +103,7 @@ export class AdvancedSettingsComponent implements OnInit {
     SecuritySettingsComponent,
     UserSettingsComponent,
     DashboardSettingsComponent,
+    SystemInformationComponent,
   ];
 
   currentInputs = computed(() => {
@@ -104,6 +118,8 @@ export class AdvancedSettingsComponent implements OnInit {
         return { data: this.advancedSettings()?.generalSettings };
       case 4:
         return { data: this.advancedSettings()?.generalSettings };
+      case 5:
+        return { data: this.systemStatus() };
       default:
         return {};
     }
@@ -127,6 +143,9 @@ export class AdvancedSettingsComponent implements OnInit {
         break;
       case 4:
         newBreadcrumb = 'Dashboard Settings';
+        break;
+      case 5:
+        newBreadcrumb = 'System Information';
         break;
       default:
         newBreadcrumb = 'Not Indexed';

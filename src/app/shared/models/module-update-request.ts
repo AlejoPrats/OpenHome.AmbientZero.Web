@@ -1,5 +1,5 @@
 export class ModuleUpdateRequest {
-  moduleId: string;
+  moduleId: string | undefined;
   isForcedUpdate: boolean;
   hasFile: boolean;
 

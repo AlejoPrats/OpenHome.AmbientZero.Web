@@ -14,6 +14,7 @@ import { buildTemperatureChartOption } from './mapper/temperature-chart.mapper';
 import { EMPTY_ECHARTS_OPTION } from './constants/empty-echarts-option.constant';
 import { BreadcrumbService } from '../../../core/services/breadcrumb.service';
 import { AdditionalPageInformationService } from '../../../core/services/additional-page-information.service';
+import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-temperature-chart',
@@ -24,6 +25,10 @@ import { AdditionalPageInformationService } from '../../../core/services/additio
     FormsModule,
     TuiButton,
     NgxEchartsModule,
+    TranslocoModule,
+  ],
+  providers: [
+    provideTranslocoScope({ scope: 'pages/temperature-chart', alias: 'temperature-chart' }),
   ],
   templateUrl: './temperature-chart.component.html',
   styleUrl: './temperature-chart.component.less',

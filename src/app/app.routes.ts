@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { sensorInfrmationResolver, sensorsResolver } from './shared/resolvers/sensors-resolver';
 import { temperatureChartResolver } from './shared/resolvers/temperature-chart-resolver';
-import { systemTimeZonesResolver } from './shared/resolvers/system-resolver';
+import { systemStatusResolver, systemTimeZonesResolver } from './shared/resolvers/system-resolver';
 import { applicationSettingsResolver } from './shared/resolvers/settings-resolver';
 import { ProtectionMode } from './core/enums/protection-mode';
 import { authGuard } from './core/guards/auth.guard';
@@ -66,6 +66,7 @@ export const routes: Routes = [
           ),
         resolve: {
           advancedSettings: advancedSettingsResolver,
+          systemStatus: systemStatusResolver,
         },
         data: { protectionLevel: ProtectionMode.Allways },
       },

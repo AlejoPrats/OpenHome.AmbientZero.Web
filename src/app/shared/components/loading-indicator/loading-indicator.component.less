@@ -23,6 +23,23 @@
   transform: translateX(-50%) translateY(-50%);
 }
 
+.container-longLoading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  background-color: var(--color-background);
+  border-radius: var(--border-radius-md);
+  border: var(--border-width-thin) solid var(--color-border-muted);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 40%;
+  height: 35%;
+}
+
 .indicator {
   width: 150px;
   height: 150px;
@@ -103,6 +120,7 @@
 }
 
 @keyframes glitch {
+
   0%,
   100% {
     clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
@@ -118,4 +136,40 @@
     clip-path: polygon(0 85%, 100% 85%, 100% 100%, 0 100%);
     transform: translate(5px, 5px);
   }
+}
+
+.label-wrapper {
+  width: 100%;
+}
+
+.progress-container {
+  width: 90%
+}
+
+.long-loading-information-container {
+  color: var(--tui-text-primary);
+  display: flex;
+  align-self: last baseline;
+  flex-direction: row;
+}
+
+.long-loading-information-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.long-loading-information-container>div {
+  flex: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.long-loading-information-container>div.time-elapsed {
+  text-align: right !important;
+}
+
+.long-loading-information-container>div:first-child {
+  text-align: left;
 }
