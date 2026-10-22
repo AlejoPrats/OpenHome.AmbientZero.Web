@@ -1,0 +1,20 @@
+{
+    "deviceName": "Device Name",
+    "deviceNoName": "No Name Set",
+    "help": "Help",
+    "battery": "Battery",
+    "last-temperature-reading": "Last Temperature Reading",
+    "last-reading-time": "Last Reading Time",
+    "temperature-tendency": "Temperature Tendency",
+    "notification-light-setting":"Notification Light Enabled",
+    "signaling":"Is Signaling",
+    "notification-light-schedule":"Notification Light Schedule",
+    "firmware-version":"Sensor Firmware Version",
+    "notification-light-schedule-disable-start":"Disable Start Time",
+    "notification-light-schedule-disable-end":"Disable End Time",
+    "cancel":"Cancel",
+    "apply": "Apply Changes",
+    "save": "Save",
+    "edit": "Edit",
+    "sensor-virtual-name":"Device Virtual Name"
+}

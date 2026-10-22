@@ -1,0 +1,5 @@
+<p>Select your Timezone</p>
+<tui-textfield class="tui-textfield-override" tuiChevron tuiDropdownMobile [stringify]="stringifyTimezone">
+    <input #tzInput placeholder="Timezone" class="selected-timezone" tuiComboBox [(ngModel)]="value" (ngModelChange)="timezoneChanged()" />
+    <tui-data-list-wrapper class="tui-textfield-override" *tuiDropdown [items]="timeZones | tuiFilterByInput" />
+</tui-textfield>

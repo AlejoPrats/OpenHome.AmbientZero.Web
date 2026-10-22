@@ -1,0 +1,143 @@
+<span id="advanced-settings-system-password-section">
+    <div class="flex-table-form">
+        <div class="table-row-form header-form">
+            <div>System Status</div>
+        </div>
+        <div class="table-row-form" style="gap: 30px;">
+            @if(systemStatus(); as systemStatus)
+            {
+            <section class="card" tuiCardLarge="compact" [tuiCardCollapsed]="ramCollapsed()">
+                <header tuiHeader="body-m">
+                    <hgroup tuiTitle>
+                        <h2>Ram Status</h2>
+                    </hgroup>
+                    <aside tuiAccessories>
+                        <tui-icon icon="@tui.info" />
+                    </aside>
+                </header>
+                <div tuiCardRow class="brief-status">
+                    <div tuiTitle>
+                        <div tuiSubtitle>Status</div>
+                        <div>
+                            <tui-icon [className]="ramStatusClass" icon="@tui.circle-filled" />
+                            {{ramStatusLabel}}
+                        </div>
+                    </div>
+                    <div tuiTitle>
+                        <div tuiSubtitle>Clean Cache</div>
+                        <button appearance="secondary" tuiButton size='s' iconStart="@tui.database-zap"
+                            (click)="cleanCache()"></button>
+                    </div>
+                    <div tuiTitle>
+                        <div tuiSubtitle>Force Free Memory</div>
+                        <button appearance="secondary" tuiButton size='s' iconStart="@tui.trash-2"></button>
+                    </div>
+                    <button appearance="secondary" class="expand-details-button" size="s" tuiIconButton type="button"
+                        [tuiChevron]="!ramCollapsed()" (click)="ramCollapsed.set(!ramCollapsed())">
+                        Expand
+                    </button>
+                </div>
+                <tui-expand [expanded]="!ramCollapsed()">
+                    <div class="flex-table-form">
+                        <div class="table-row header-form">
+                            <div>Ram Details</div>
+                        </div>
+                        <div class="table-row">
+                            <div class="cell-title">
+                                Available
+                            </div>
+                            <div class="cell-field">
+                                {{systemStatus?.memory!.available}}
+                            </div>
+                        </div>
+                        <div class="table-row-form">
+                            <div class="cell-title">
+                                Free
+                            </div>
+                            <div class="cell-field">
+                                {{systemStatus!.memory!.free}}
+                            </div>
+                        </div>
+                    </div>
+                </tui-expand>
+            </section>
+            <section class="card" tuiCardLarge="compact" [tuiCardCollapsed]="swapCollapsed()">
+                <header tuiHeader="body-m">
+                    <hgroup tuiTitle>
+                        <h2>Swap Status</h2>
+                    </hgroup>
+                    <aside tuiAccessories>
+                        <tui-icon icon="@tui.info" />
+                    </aside>
+                </header>
+                <div tuiCardRow class="brief-status">
+                    <div tuiTitle>
+                        <div tuiSubtitle>Status</div>
+                        <div>
+                            <tui-icon [className]="swapStatusClass" icon="@tui.circle-filled" />
+                            {{swapStatusLabel}}
+                        </div>
+                    </div>
+                    <button appearance="secondary" class="expand-details-button" size="s" tuiIconButton type="button"
+                        [tuiChevron]="!swapCollapsed()" (click)="swapCollapsed.set(!swapCollapsed())">
+                        Expand
+                    </button>
+                </div>
+                <tui-expand [expanded]="!swapCollapsed()">
+                    <div class="flex-table-form">
+                        <div class="table-row header-form">
+                            <div>Swap Details</div>
+                        </div>
+                        <div class="table-row">
+                            <div class="cell-title">
+                                Used
+                            </div>
+                            <div class="cell-field">
+                                {{systemStatus?.swap!.used}}
+                            </div>
+                        </div>
+                    </div>
+                </tui-expand>
+            </section>
+            <section class="card" tuiCardLarge="compact" [tuiCardCollapsed]="cpuCollapsed()">
+                <header tuiHeader="body-m">
+                    <hgroup tuiTitle>
+                        <h2>Cpu Status</h2>
+                    </hgroup>
+                    <aside tuiAccessories>
+                        <tui-icon icon="@tui.info" tuiHint="sadasdasda" />
+                    </aside>
+                </header>
+                <div tuiCardRow class="brief-status">
+                    <div tuiTitle>
+                        <div tuiSubtitle>Status</div>
+                        <div>
+                            <tui-icon [className]="cpuStatusClass" icon="@tui.circle-filled" />
+                            {{cpuStatusLabel}}
+                        </div>
+                    </div>
+                    <button appearance="secondary" class="expand-details-button" size="s" tuiIconButton type="button"
+                        [tuiChevron]="!cpuCollapsed()" (click)="cpuCollapsed.set(!cpuCollapsed())">
+                        Expand
+                    </button>
+                </div>
+                <tui-expand [expanded]="!cpuCollapsed()">
+                    <div class="flex-table-form">
+                        <div class="table-row header-form">
+                            <div>Cpu Details</div>
+                        </div>
+                        <div class="table-row">
+                            <div class="cell-title">
+                                Temperature
+                            </div>
+                            <div class="cell-field">
+                                {{systemStatus?.cpu!.temperature}}
+                            </div>
+                        </div>
+                    </div>
+                </tui-expand>
+            </section>
+            }
+        </div>
+    </div>
+</span>

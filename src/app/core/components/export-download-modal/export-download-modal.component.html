@@ -1,0 +1,18 @@
+<p>to export the information from the database you must click on the "Generate" button, be aware that this is a resource
+    consuming process, you may loss sensor reports and the application will not be operational until it finishes</p>
+<p>if you decide to generate the backup, it can take some time depending in how much data it needs to export, you will
+    have a progress bar displaying on the screen, if you reload the page the process will not stop, but the
+    application will not work correctly until the process finishes</p>
+<footer>
+    <div class="footer-buttons">
+        <button tuiButton (click)="downloadBackup()" [disabled]="!lastBackupDate">
+            Download
+        </button>        
+        <button tuiButton (click)="generateBackup()" [disabled]="isProcessRunning()">
+            Generate
+        </button>
+        <button appearance="secondary" tuiButton type="button" (click)="context.$implicit.complete()">
+            Cancel
+        </button>
+    </div>
+</footer>
