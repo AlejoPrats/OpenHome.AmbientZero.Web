@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { driver } from 'driver.js';
 import { TranslocoService } from '@jsverse/transloco';
-import { filter, Observable } from 'rxjs';
+import { take } from 'rxjs';
 import { OnboardingStep } from '../models/onboarding-step';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'app/core/services/local-storage.service';
@@ -30,22 +30,17 @@ export class OnboardingService {
   private onboardingSetupService = inject(OnboardingSetupService);
   private appRef = inject(ApplicationRef);
 
-  getScopedTranslations(scope: string): Observable<any> {
-    return this.transloco
-      .selectTranslate<any>('', {}, { scope: scope }, true)
-      .pipe(filter((translations) => translations && Object.keys(translations).length > 0));
-  }
-
   t(key: string) {
     return this.transloco.translate(key, {}, 'onboarding');
   }
 
   constructor() {
-    this.getScopedTranslations(`onboarding/${this.transloco.getActiveLang()}`).subscribe({
-      next: () => {
+    this.transloco
+      .selectTranslation(`onboarding/${this.transloco.getActiveLang()}`)
+      .pipe(take(1))
+      .subscribe(() => {
         this.isTranslationLoaded = true;
-      },
-    });
+      });
   }
 
   mountAngularComponent(component: Type<any>, data?: any) {
