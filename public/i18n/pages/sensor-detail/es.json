@@ -1,0 +1,20 @@
+{
+    "deviceName": "Nombre del Dispositivo",
+    "deviceNoName": "Sin Nombre",
+    "help": "Ayuda",
+    "battery": "Batería",
+    "last-temperature-reading": "Última Lectura de Temperatura",
+    "last-reading-time": "Hora de la Última Lectura",
+    "temperature-tendency": "Tendencia de Temperatura",
+    "notification-light-setting":"Luz de Notificación Activada",
+    "signaling":"Señalizando",
+    "notification-light-schedule":"Horario de la Luz de Notificación",
+    "firmware-version":"Versión del Firmware del Sensor",
+    "notification-light-schedule-disable-start":"Hora de Inicio de Desactivación",
+    "notification-light-schedule-disable-end":"Hora de Fin de Desactivación",
+    "cancel":"Cancelar",
+    "apply": "Aplicar Cambios",
+    "save": "Guardar",
+    "edit": "Editar",
+    "virtual-name":"Nombre Virtual del Dispositivo"
+}

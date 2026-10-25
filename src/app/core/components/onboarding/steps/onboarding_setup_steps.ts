@@ -8,8 +8,8 @@ import { OnboardingStep } from '../models/onboarding-step';
 export const ONBOARDING_SETUP_STEPS: OnboardingStep[] = [
   {
     element: '#settings-button',
-    title: 'Settings',
-    description: 'Configure your preferences here.',
+    title: 'setup-welcome',
+    description: 'setup-welcome-desc',
     position: 'left',
   },
   {
