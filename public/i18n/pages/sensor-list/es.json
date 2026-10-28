@@ -1,0 +1,16 @@
+{
+    "sensors":"Sensores",
+    "sensors-display-options":"Opciones de Visualización",
+    "show-raw-battery-readings":"Mostrar Lecturas de Batería en Bruto",
+    "show-hidden-sensors":"Mostrar Sensores Ocultos",
+    "sensor-name":"Nombre del Sensor",
+    "battery-remaining":"Batería Restante",
+    "last-reading":"Última Lectura",
+    "temperature":"Temperatura",
+    "signaling":"Señalizando",
+    "tendency":"Tendencia",
+    "actions":"Acciones",
+    "no-sensor-message":"No Hay Sensores Registrados en el Nodo",
+    "Descending":"Descendiendo",
+    "Rising":"Subiendo"
+}

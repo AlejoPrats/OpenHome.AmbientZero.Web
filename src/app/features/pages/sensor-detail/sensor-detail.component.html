@@ -1,0 +1,129 @@
+@if(sensorInformation(); as sensor)
+{
+<table *transloco="let t" tuiTable style="width: 100%;">
+    <tbody tuiTbody>
+        <tr tuiTr>
+            <td tuiTd colspan="4">
+                {{ t('sensor.deviceName') }}: {{ sensor.deviceVirtualName ?? `(${t('sensor.deviceNoName')})` }}
+                <button appearance="secondary" iconStart="@tui.pencil" size="s" tuiIconButton type="button"
+                    (click)="showNameUpdateDialog()">
+                    {{t('sensor.help')}}
+                </button>
+            </td>
+        </tr>
+        <tr tuiTr>
+            <td tuiTd>
+                {{t('sensor.battery')}}:
+            </td>
+            <td tuiTd>
+                {{sensor.batteryPercentage}}%
+            </td>
+            <td tuiTd>
+                {{t('sensor.last-temperature-reading')}}:
+            </td>
+            <td tuiTd>
+                {{ sensor.lastReadingValue | number:'1.1-1' }}
+            </td>
+        </tr>
+        <tr tuiTr>
+            <td tuiTd>
+                {{t('sensor.last-reading-time')}}:
+            </td>
+            <td tuiTd>
+                {{ sensor.lastReadingTime | date:'dd-MM-yyyy HH:mm' }}
+            </td>
+            <td tuiTd>
+                {{t('sensor.temperature-tendency')}}:
+            </td>
+            <td tuiTd>
+                {{ sensor.temperatureTendency }}
+            </td>
+        </tr>
+        <tr tuiTr>
+            <td tuiTd>
+                {{t('sensor.notification-light-setting')}}:
+            </td>
+            <td tuiTd>
+                <input tuiSwitch type="checkbox" [(ngModel)]="sensor.sensorSetting.isLightEnabled" [showIcons]="true"
+                    size="m" />
+            </td>
+            <td tuiTd>
+                {{t('sensor.signaling')}}:
+            </td>
+            <td tuiTd>
+                {{sensor.isSignaling}}
+            </td>
+        </tr>
+        <tr tuiTr>
+            <td tuiTd>
+                {{t('sensor.notification-light-schedule')}}:
+            </td>
+            <td tuiTd>
+                <input tuiSwitch type="checkbox" [(ngModel)]="sensor.sensorSetting.isScheduled" [showIcons]="true"
+                    size="m" />
+            </td>
+            <td tuiTd>
+                {{t('sensor.firmware-version')}}:
+            </td>
+            <td tuiTd>
+                {{sensor.version}}
+            </td>
+        </tr>
+        <tr tuiTr class="table-row-anim">
+            <td tuiTd>
+                <tui-expand [expanded]="sensor.sensorSetting.isScheduled">
+                    {{t('sensor.notification-light-schedule-disable-start')}}:
+                </tui-expand>
+            </td>
+            <td tuiTd>
+                <tui-expand [expanded]="sensor.sensorSetting.isScheduled">
+                    <tui-textfield>
+                        <input placeholder="Click me to open dropdown" tuiInputTime [(ngModel)]="disableStartTime" />
+                        <tui-data-list-wrapper *tuiDropdown [items]="items | tuiFilterByInput: filter" />
+                    </tui-textfield>
+                </tui-expand>
+            </td>
+            <td tuiTd>
+                <tui-expand [expanded]="sensor.sensorSetting.isScheduled">
+                    {{t('sensor.notification-light-schedule-disable-end')}}:
+                </tui-expand>
+            </td>
+            <td tuiTd>
+                <tui-expand [expanded]="sensor.sensorSetting.isScheduled">
+                    <tui-textfield>
+                        <input placeholder="Click me to open dropdown" tuiInputTime [(ngModel)]="disableEndTime" />
+                        <tui-data-list-wrapper *tuiDropdown [items]="items | tuiFilterByInput: filter" />
+                    </tui-textfield>
+                </tui-expand>
+            </td>
+        </tr>
+        <tr tuiTr>
+            <td tuiTd colspan="4">
+                <button size="m" tuiButton iconStart="@tui.x" type="button" [routerLink]="['/list']">
+                    {{t('sensor.cancel')}}
+                </button>
+                <button size="m" tuiButton iconStart="@tui.save" type="button" (click)="saveSensorSettings()">
+                    {{t('sensor.apply')}}
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<ng-template *transloco="let t" [tuiDialogOptions]="{label: `${t('sensor.edit')} ${t('sensor.virtual-name')}`}"
+    [(tuiDialog)]="changeNameModalOpen">
+    <tui-textfield>
+        <label tuiLabel>{{t('sensor.virtual-name')}}</label>
+        <input tuiAutoFocus tuiInput [(ngModel)]="this.tempSensorVirtualName" />
+    </tui-textfield>
+    <footer>
+        <button appearance="secondary" tuiButton type="button" (click)="hideNameUpdateDialog()">
+            {{t('sensor.cancel')}}
+        </button>
+        <button tuiButton type="submit" (click)="updateVirtualName()">
+            {{t('sensor.save')}}
+        </button>
+    </footer>
+</ng-template>
+
+}

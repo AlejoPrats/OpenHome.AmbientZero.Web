@@ -1,0 +1,14 @@
+@if (showTooltip()) {
+  <tui-icon
+    [icon]="iconName()"
+    [class]="iconClasses()"
+    [style.color]="color()"
+    [tuiTooltip]="tooltipText()"
+    [appearance]="appearance()"
+    [tuiHintAppearance]="tooltipAppearance()"
+    [tuiHintDirection]="tooltipDirection()"
+    (click)="onIconClick()"
+  />
+} @else {
+  <tui-icon [icon]="iconName()" [class]="iconClasses()" (click)="onIconClick()" />
+}

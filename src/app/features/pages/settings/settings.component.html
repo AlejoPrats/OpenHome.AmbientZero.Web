@@ -1,0 +1,29 @@
+<div *transloco="let t">
+    @if(applicationSettings(); as applicationSettings)
+    {
+    <span style="left: 0;">
+        <h1>{{t('settings.basic-settings')}}</h1>
+    </span>
+    <div class="info-block">
+        <div class="title">{{t('settings.timezone')}}</div>
+        <div class="row">
+            <app-time-zone-selector [selectedTimezone]="applicationSettings.timeZone"
+                (valueChanged)="setTimeZone($event)" style="width: 100%;"></app-time-zone-selector>
+        </div>
+        <div class="title">{{t('settings.display-unit')}}</div>
+        <div class="row">
+            <app-unit-selector [selectedUnit]="applicationSettings.displayUnit"
+                (valueChanged)="setTemperatureUnit($event)" style="width: 400px"></app-unit-selector>
+        </div>
+        <div class="title">{{t('settings.tour')}}</div>
+        <div class="row">
+            <button tuiButton>{{t('settings.take-the-tour')}}</button>
+        </div>
+    </div>
+    <footer class="advancedSettings">
+        <button tuiButton [disabled]="saveButtonDisabled()" (click)="saveSettings()">
+            {{t('settings.save')}}
+        </button>
+    </footer>
+    }
+</div>
