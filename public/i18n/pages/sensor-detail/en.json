@@ -16,5 +16,5 @@
     "apply": "Apply Changes",
     "save": "Save",
     "edit": "Edit",
-    "sensor-virtual-name":"Device Virtual Name"
+    "virtual-name":"Device Virtual Name"
 }
