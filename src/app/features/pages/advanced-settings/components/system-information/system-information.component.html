@@ -1,11 +1,9 @@
-<span id="advanced-settings-system-password-section">
+<span id="advanced-settings-system-password-section" *transloco="let t">
     <div class="flex-table-form">
         <div class="table-row-form header-form">
             <div>System Status</div>
         </div>
         <div class="table-row-form" style="gap: 30px;">
-            @if(systemStatus(); as systemStatus)
-            {
             <section class="card" tuiCardLarge="compact" [tuiCardCollapsed]="ramCollapsed()">
                 <header tuiHeader="body-m">
                     <hgroup tuiTitle>
@@ -19,8 +17,8 @@
                     <div tuiTitle>
                         <div tuiSubtitle>Status</div>
                         <div>
-                            <tui-icon [className]="ramStatusClass" icon="@tui.circle-filled" />
-                            {{ramStatusLabel}}
+                            <tui-icon [className]="ramStatus()?.className ?? 'status-unknown'" icon="@tui.circle-filled" />
+                            {{ ramStatus()?.label ?? t('system-information.not-available') }}
                         </div>
                     </div>
                     <div tuiTitle>
@@ -47,7 +45,7 @@
                                 Available
                             </div>
                             <div class="cell-field">
-                                {{systemStatus?.memory!.available}}
+                                {{ systemStatus()?.memory?.available ?? t('system-information.not-available') }}
                             </div>
                         </div>
                         <div class="table-row-form">
@@ -55,7 +53,7 @@
                                 Free
                             </div>
                             <div class="cell-field">
-                                {{systemStatus!.memory!.free}}
+                                {{ systemStatus()?.memory?.free ?? t('system-information.not-available') }}
                             </div>
                         </div>
                     </div>
@@ -74,8 +72,8 @@
                     <div tuiTitle>
                         <div tuiSubtitle>Status</div>
                         <div>
-                            <tui-icon [className]="swapStatusClass" icon="@tui.circle-filled" />
-                            {{swapStatusLabel}}
+                            <tui-icon [className]="swapStatus()?.className ?? 'status-unknown'" icon="@tui.circle-filled" />
+                            {{ swapStatus()?.label ?? t('system-information.not-available') }}
                         </div>
                     </div>
                     <button appearance="secondary" class="expand-details-button" size="s" tuiIconButton type="button"
@@ -93,7 +91,7 @@
                                 Used
                             </div>
                             <div class="cell-field">
-                                {{systemStatus?.swap!.used}}
+                                {{ systemStatus()?.swap?.used ?? t('system-information.not-available') }}
                             </div>
                         </div>
                     </div>
@@ -112,8 +110,8 @@
                     <div tuiTitle>
                         <div tuiSubtitle>Status</div>
                         <div>
-                            <tui-icon [className]="cpuStatusClass" icon="@tui.circle-filled" />
-                            {{cpuStatusLabel}}
+                            <tui-icon [className]="cpuStatus()?.className ?? 'status-unknown'" icon="@tui.circle-filled" />
+                            {{ cpuStatus()?.label ?? t('system-information.not-available') }}
                         </div>
                     </div>
                     <button appearance="secondary" class="expand-details-button" size="s" tuiIconButton type="button"
@@ -131,13 +129,12 @@
                                 Temperature
                             </div>
                             <div class="cell-field">
-                                {{systemStatus?.cpu!.temperature}}
+                                {{ systemStatus()?.cpu?.temperature ?? t('system-information.not-available') }}
                             </div>
                         </div>
                     </div>
                 </tui-expand>
             </section>
-            }
         </div>
     </div>
 </span>
