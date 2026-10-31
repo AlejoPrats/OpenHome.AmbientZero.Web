@@ -4,7 +4,7 @@ import { DeviceStatusResult } from 'app/shared/interfaces/device-status-result';
 import { getTranslationModuleMock } from 'app/shared/mocks/translation-module.mock';
 import { SystemInformationComponent } from './system-information.component';
 
-const NOT_AVAILABLE = 'system-information.not-available';
+const NOT_AVAILABLE = 'not-available';
 
 describe('SystemInformationComponent', () => {
   let component: SystemInformationComponent;
@@ -84,7 +84,7 @@ describe('SystemInformationComponent', () => {
       ${'ram'}  | ${0}
       ${'swap'} | ${1}
       ${'cpu'}  | ${2}
-    `('should show the  status and values as not available', ({ index }) => {
+    `('should show the $resource status and values as not available', ({ index }) => {
       expect(statusLabel(index)).toContain(NOT_AVAILABLE);
       expect(values(index).every((value) => value.includes(NOT_AVAILABLE))).toBe(true);
     });

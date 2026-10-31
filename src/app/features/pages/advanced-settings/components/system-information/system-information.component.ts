@@ -1,5 +1,5 @@
 import { Component, computed, inject, input, linkedSignal, signal } from '@angular/core';
-import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
+import { provideTranslocoScope, translateSignal } from '@jsverse/transloco';
 import { TuiTable } from '@taiga-ui/addon-table';
 import { TuiButton, TuiExpand, TuiIcon, TuiTitle, TuiHintDirective } from '@taiga-ui/core';
 import { TuiChevron } from '@taiga-ui/kit';
@@ -21,7 +21,6 @@ const parseMebibytes = (value: string | undefined): number | null => {
 @Component({
   selector: 'app-system-information',
   imports: [
-    TranslocoModule,
     TuiButton,
     TuiCard,
     TuiChevron,
@@ -32,9 +31,7 @@ const parseMebibytes = (value: string | undefined): number | null => {
     TuiTitle,
     TuiHintDirective,
   ],
-  providers: [
-    provideTranslocoScope({ scope: 'pages/system-information', alias: 'system-information' }),
-  ],
+  providers: [provideTranslocoScope('pages/system-information')],
   templateUrl: './system-information.component.html',
   styleUrl: './system-information.component.less',
 })
@@ -46,11 +43,27 @@ export class SystemInformationComponent {
   public readonly ramCollapsed = signal(true);
   public readonly swapCollapsed = signal(true);
   public readonly cpuCollapsed = signal(true);
+  private readonly notAvailable = translateSignal('not-available');
+  private readonly unknownStatus = computed<StatusIndicator>(() => ({
+    className: 'status-unknown',
+    label: this.notAvailable(),
+  }));
 
-  protected readonly ramStatus = computed<StatusIndicator | null>(() => {
+  protected readonly details = computed(() => {
+    const systemStatus = this.systemStatus();
+    const notAvailable = this.notAvailable();
+    return {
+      ramAvailable: systemStatus?.memory?.available ?? notAvailable,
+      ramFree: systemStatus?.memory?.free ?? notAvailable,
+      swapUsed: systemStatus?.swap?.used ?? notAvailable,
+      cpuTemperature: systemStatus?.cpu?.temperature ?? notAvailable,
+    };
+  });
+
+  protected readonly ramStatus = computed<StatusIndicator>(() => {
     const freeRam = parseMebibytes(this.systemStatus()?.memory?.free);
     if (freeRam === null) {
-      return null;
+      return this.unknownStatus();
     }
     if (freeRam >= 70) {
       return { className: 'status-good', label: 'Nominal' };
@@ -61,10 +74,10 @@ export class SystemInformationComponent {
     return { className: 'status-risk', label: 'Very low and at risk' };
   });
 
-  protected readonly swapStatus = computed<StatusIndicator | null>(() => {
+  protected readonly swapStatus = computed<StatusIndicator>(() => {
     const usedSwap = parseMebibytes(this.systemStatus()?.swap?.used);
     if (usedSwap === null) {
-      return null;
+      return this.unknownStatus();
     }
     if (usedSwap === 0) {
       return { className: 'status-good', label: 'Nominal' };
@@ -75,10 +88,10 @@ export class SystemInformationComponent {
     return { className: 'status-risk', label: 'Warning! this can bottleneck your cpu' };
   });
 
-  protected readonly cpuStatus = computed<StatusIndicator | null>(() => {
+  protected readonly cpuStatus = computed<StatusIndicator>(() => {
     const cpuTemperature = this.systemStatus()?.cpu?.temperature;
     if (cpuTemperature === undefined || cpuTemperature === null) {
-      return null;
+      return this.unknownStatus();
     }
     if (cpuTemperature < 50) {
       return { className: 'status-good', label: 'Nominal' };
