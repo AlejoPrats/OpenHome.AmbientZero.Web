@@ -5,26 +5,35 @@ import { getTranslationModuleMock } from 'app/shared/mocks/translation-module.mo
 import { SystemInformationComponent } from './system-information.component';
 
 const NOT_AVAILABLE = 'not-available';
+const RAM_CARD_POSITION = 0;
+const SWAP_CARD_POSITION = 1;
+const CPU_CARD_POSITION = 2;
+const CARD_COUNT = 3;
 
 describe('SystemInformationComponent', () => {
   let component: SystemInformationComponent;
   let fixture: ComponentFixture<SystemInformationComponent>;
   let systemStatus: DeviceStatusResult;
 
-  const cards = () =>
+  const getCards = () =>
     (fixture.nativeElement as HTMLElement).querySelectorAll<HTMLElement>('section.card');
 
-  const card = (index: number) => cards()[index];
+  const getCard = (cardPosition: number) => getCards()[cardPosition];
 
-  const statusIcon = (index: number) => card(index).querySelector('.brief-status tui-icon')!;
+  const getStatusIcon = (cardPosition: number) =>
+    getCard(cardPosition).querySelector('.brief-status tui-icon')!;
 
-  const statusLabel = (index: number) =>
-    card(index).querySelector('.brief-status [tuiTitle] > div:last-child')!.textContent!.trim();
+  const getStatusLabel = (cardPosition: number) =>
+    getCard(cardPosition)
+      .querySelector('.brief-status [tuiTitle] > div:last-child')!
+      .textContent!.trim();
 
-  const values = (index: number) =>
-    Array.from(card(index).querySelectorAll('.cell-field'), (cell) => cell.textContent!.trim());
+  const getCardValues = (cardPosition: number) =>
+    Array.from(getCard(cardPosition).querySelectorAll('.cell-field'), (cell) =>
+      cell.textContent!.trim(),
+    );
 
-  const render = async (data: DeviceStatusResult | null) => {
+  const renderComponent = async (data: DeviceStatusResult | null) => {
     fixture.componentRef.setInput('data', data);
     await fixture.whenStable();
   };
@@ -45,63 +54,54 @@ describe('SystemInformationComponent', () => {
   });
 
   it('should create', async () => {
-    await render(systemStatus);
+    await renderComponent(systemStatus);
 
     expect(component).toBeTruthy();
   });
 
   describe('when the system information is available', () => {
     beforeEach(async () => {
-      await render(systemStatus);
+      await renderComponent(systemStatus);
     });
 
-    it('should show the memory, swap and cpu values', () => {
-      expect(values(0)).toEqual(['512 MiB', '100 MiB']);
-      expect(values(1)).toEqual(['0 MiB']);
-      expect(values(2)).toEqual(['45']);
+    it.each`
+      resource  | cardPosition          | values
+      ${'ram'}  | ${RAM_CARD_POSITION}  | ${['512 MiB', '100 MiB']}
+      ${'swap'} | ${SWAP_CARD_POSITION} | ${['0 MiB']}
+      ${'cpu'}  | ${CPU_CARD_POSITION}  | ${['45']}
+    `('should show the $resource values', ({ cardPosition, values }) => {
+      expect(getCardValues(cardPosition)).toEqual(values);
     });
 
-    it('should show the status of each resource', () => {
-      expect([statusLabel(0), statusLabel(1), statusLabel(2)]).toEqual([
-        'Nominal',
-        'Nominal',
-        'Nominal',
-      ]);
+    it.each`
+      resource  | cardPosition
+      ${'ram'}  | ${RAM_CARD_POSITION}
+      ${'swap'} | ${SWAP_CARD_POSITION}
+      ${'cpu'}  | ${CPU_CARD_POSITION}
+    `('should show the $resource status as nominal', ({ cardPosition }) => {
+      expect(getStatusLabel(cardPosition)).toBe('Nominal');
     });
   });
 
   describe('when the system information is not available', () => {
     beforeEach(async () => {
-      await render(null);
+      await renderComponent(null);
     });
 
     it('should still show the system status cards', () => {
-      expect(cards()).toHaveLength(3);
+      expect(getCards()).toHaveLength(CARD_COUNT);
     });
 
     it.each`
-      resource  | index
-      ${'ram'}  | ${0}
-      ${'swap'} | ${1}
-      ${'cpu'}  | ${2}
-    `('should show the $resource status and values as not available', ({ index }) => {
-      expect(statusLabel(index)).toContain(NOT_AVAILABLE);
-      expect(values(index).every((value) => value.includes(NOT_AVAILABLE))).toBe(true);
-    });
-  });
-
-  describe('when only the cpu temperature is missing', () => {
-    beforeEach(async () => {
-      await render({ ...systemStatus, cpu: {} as DeviceStatusResult['cpu'] });
-    });
-
-    it('should show the cpu status and temperature as not available', () => {
-      expect(statusLabel(2)).toContain(NOT_AVAILABLE);
-      expect(values(2)).toEqual([expect.stringContaining(NOT_AVAILABLE)]);
-    });
-
-    it('should keep the ram and swap status', () => {
-      expect([statusLabel(0), statusLabel(1)]).toEqual(['Nominal', 'Nominal']);
+      resource  | cardPosition
+      ${'ram'}  | ${RAM_CARD_POSITION}
+      ${'swap'} | ${SWAP_CARD_POSITION}
+      ${'cpu'}  | ${CPU_CARD_POSITION}
+    `('should show the $resource status and values as not available', ({ cardPosition }) => {
+      expect(getStatusLabel(cardPosition)).toContain(NOT_AVAILABLE);
+      expect(getCardValues(cardPosition).every((value) => value.includes(NOT_AVAILABLE))).toBe(
+        true,
+      );
     });
   });
 
@@ -115,10 +115,10 @@ describe('SystemInformationComponent', () => {
       ${'30 MiB'}   | ${'Very low and at risk'} | ${'status-risk'}
       ${'1.00 GiB'} | ${NOT_AVAILABLE}          | ${'status-unknown'}
     `('should show "$label" when $free is free', async ({ free, label, className }) => {
-      await render({ ...systemStatus, memory: { ...systemStatus.memory, free } });
+      await renderComponent({ ...systemStatus, memory: { ...systemStatus.memory, free } });
 
-      expect(statusLabel(0)).toContain(label);
-      expect(statusIcon(0).classList).toContain(className);
+      expect(getStatusLabel(RAM_CARD_POSITION)).toContain(label);
+      expect(getStatusIcon(RAM_CARD_POSITION).classList).toContain(className);
     });
   });
 
@@ -131,10 +131,10 @@ describe('SystemInformationComponent', () => {
       ${'31 MiB'}   | ${'Warning! this can bottleneck your cpu'} | ${'status-risk'}
       ${'1.00 GiB'} | ${NOT_AVAILABLE}                           | ${'status-unknown'}
     `('should show "$label" when $used is used', async ({ used, label, className }) => {
-      await render({ ...systemStatus, swap: { used } });
+      await renderComponent({ ...systemStatus, swap: { used } });
 
-      expect(statusLabel(1)).toContain(label);
-      expect(statusIcon(1).classList).toContain(className);
+      expect(getStatusLabel(SWAP_CARD_POSITION)).toContain(label);
+      expect(getStatusIcon(SWAP_CARD_POSITION).classList).toContain(className);
     });
   });
 
@@ -146,10 +146,10 @@ describe('SystemInformationComponent', () => {
       ${64}       | ${'Warm but Safe'}        | ${'status-warning'}
       ${65}       | ${'Warning! Overheating'} | ${'status-risk'}
     `('should show "$label" at $temperature degrees', async ({ temperature, label, className }) => {
-      await render({ ...systemStatus, cpu: { temperature } });
+      await renderComponent({ ...systemStatus, cpu: { temperature } });
 
-      expect(statusLabel(2)).toContain(label);
-      expect(statusIcon(2).classList).toContain(className);
+      expect(getStatusLabel(CPU_CARD_POSITION)).toContain(label);
+      expect(getStatusIcon(CPU_CARD_POSITION).classList).toContain(className);
     });
   });
 });

@@ -53,15 +53,15 @@ export class SystemInformationComponent {
     const systemStatus = this.systemStatus();
     const notAvailable = this.notAvailable();
     return {
-      ramAvailable: systemStatus?.memory?.available ?? notAvailable,
-      ramFree: systemStatus?.memory?.free ?? notAvailable,
-      swapUsed: systemStatus?.swap?.used ?? notAvailable,
-      cpuTemperature: systemStatus?.cpu?.temperature ?? notAvailable,
+      ramAvailable: systemStatus?.memory.available ?? notAvailable,
+      ramFree: systemStatus?.memory.free ?? notAvailable,
+      swapUsed: systemStatus?.swap.used ?? notAvailable,
+      cpuTemperature: systemStatus?.cpu.temperature ?? notAvailable,
     };
   });
 
   protected readonly ramStatus = computed<StatusIndicator>(() => {
-    const freeRam = parseMebibytes(this.systemStatus()?.memory?.free);
+    const freeRam = parseMebibytes(this.systemStatus()?.memory.free);
     if (freeRam === null) {
       return this.unknownStatus();
     }
@@ -75,7 +75,7 @@ export class SystemInformationComponent {
   });
 
   protected readonly swapStatus = computed<StatusIndicator>(() => {
-    const usedSwap = parseMebibytes(this.systemStatus()?.swap?.used);
+    const usedSwap = parseMebibytes(this.systemStatus()?.swap.used);
     if (usedSwap === null) {
       return this.unknownStatus();
     }
@@ -89,8 +89,8 @@ export class SystemInformationComponent {
   });
 
   protected readonly cpuStatus = computed<StatusIndicator>(() => {
-    const cpuTemperature = this.systemStatus()?.cpu?.temperature;
-    if (cpuTemperature === undefined || cpuTemperature === null) {
+    const cpuTemperature = this.systemStatus()?.cpu.temperature;
+    if (cpuTemperature === undefined) {
       return this.unknownStatus();
     }
     if (cpuTemperature < 50) {
