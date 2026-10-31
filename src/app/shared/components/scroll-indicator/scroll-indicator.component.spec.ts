@@ -13,7 +13,6 @@ describe('ScrollIndicatorComponent', () => {
     vi.useFakeTimers();
     vi.spyOn(window, 'scrollTo').mockImplementation(() => {});
     scrollHeight = vi.spyOn(document.documentElement, 'scrollHeight', 'get').mockReturnValue(2000);
-    vi.spyOn(document.documentElement, 'clientHeight', 'get').mockReturnValue(800);
     vi.stubGlobal(
       'ResizeObserver',
       class {
