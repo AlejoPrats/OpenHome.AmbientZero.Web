@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { Mock, vi } from 'vitest';
 import { SensorListComponent } from './sensor-list.component';
 import { POLYMORPHEUS_CONTEXT } from '@taiga-ui/polymorpheus';
@@ -85,6 +85,14 @@ describe('SensorList', () => {
       vi.advanceTimersByTime(40 * MINUTE);
 
       expect(getAllSensors).not.toHaveBeenCalled();
+    });
+
+    it('should keep reloading sensors after a failed reload', () => {
+      getAllSensors.mockReturnValueOnce(throwError(() => new Error('Request failed')));
+
+      vi.advanceTimersByTime(40 * MINUTE);
+
+      expect(getAllSensors).toHaveBeenCalledTimes(2);
     });
   });
 

@@ -1,6 +1,7 @@
 import { Component, DestroyRef, DOCUMENT, inject, signal, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
 import {
+  catchError,
   distinctUntilChanged,
   EMPTY,
   fromEvent,
@@ -78,7 +79,7 @@ export class SensorListComponent implements OnInit {
 
     this.refreshRequests
       .pipe(
-        switchMap(() => this.sensorService.getAllSensors()),
+        switchMap(() => this.sensorService.getAllSensors().pipe(catchError(() => EMPTY))),
         takeUntilDestroyed(this.destroyRef),
       )
       .subscribe((result) => {
