@@ -10,6 +10,8 @@ import { getTranslationModuleMock } from 'app/shared/mocks/translation-module.mo
 import { SensorService } from '../../../shared/services/sensor.service';
 import { SensorInformationResponse } from '../../../shared/interfaces/sensor-information-response';
 
+const BATTERY_CELL_POSITION = 1;
+
 describe('SensorList', () => {
   let component: SensorListComponent;
   let harness: RouterTestingHarness;
@@ -17,8 +19,18 @@ describe('SensorList', () => {
   let confirmDelete: Mock<() => ReturnType<TuiResponsiveDialogService['open']>>;
   let deleteSensor: Mock<(sensorId: number) => ReturnType<SensorService['deleteSensor']>>;
 
-  const clickDelete = () =>
-    harness.routeNativeElement!.querySelector<HTMLElement>('#sensor-delete')!.click();
+  const getPage = () => harness.routeNativeElement!;
+
+  const getSensorRows = () => getPage().querySelectorAll<HTMLElement>('#sensor-info-row');
+
+  const getSensorNames = () =>
+    Array.from(getPage().querySelectorAll('#sensor-info-row #sensor-name'), (cell) =>
+      cell.textContent!.trim(),
+    );
+
+  const getBatteryCell = () => getSensorRows()[0].querySelectorAll('.cell')[BATTERY_CELL_POSITION];
+
+  const clickDelete = () => getPage().querySelector<HTMLElement>('#sensor-delete')!.click();
 
   beforeEach(async () => {
     sensor = {
@@ -83,10 +95,25 @@ describe('SensorList', () => {
       expect(deleteSensor).toHaveBeenCalledWith(sensor.id);
     });
 
+    it('should remove the sensor from the list when confirmed', async () => {
+      confirmDelete.mockReturnValue(of(true));
+
+      clickDelete();
+      harness.detectChanges();
+
+      expect(getSensorNames()).not.toContain(sensor.deviceVirtualName);
+    });
+
     it('should keep the sensor when declined', () => {
       clickDelete();
 
       expect(deleteSensor).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('battery', () => {
+    it('should show the percentage sign after the number', () => {
+      expect(getBatteryCell().textContent!.trim()).toBe('100%');
     });
   });
 });

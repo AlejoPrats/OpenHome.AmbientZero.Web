@@ -82,11 +82,8 @@ export class SensorListComponent implements OnInit, OnDestroy {
   }
 
   deleteDevice(id: number) {
-    this.sensorService.deleteSensor(id).subscribe({
-      next: () => {
-        const index = this.sensorList()?.findIndex((x) => x.id == id);
-        this.sensorList()?.splice(index!, 1);
-      },
+    this.sensorService.deleteSensor(id).subscribe(() => {
+      this.sensorList.update((sensors) => sensors?.filter((sensor) => sensor.id !== id) ?? null);
     });
   }
 
