@@ -18,7 +18,7 @@
                 </button>
                 <button tuiOption [iconStart]="showHiddenSensors ? '@tui.check' : null" type="button"
                     (click)="toggleHiddenSensors()">
-                    {{t('sensor-list.show-raw-battery-readings')}}
+                    {{t('sensor-list.show-hidden-sensors')}}
                 </button>
             </tui-data-list>
         </ng-template>
@@ -65,7 +65,7 @@
                 }
                 @else
                 {
-                %{{ sensor.batteryPercentage }}
+                {{ sensor.batteryPercentage }}%
                 }
             </div>
             <div class="cell">
