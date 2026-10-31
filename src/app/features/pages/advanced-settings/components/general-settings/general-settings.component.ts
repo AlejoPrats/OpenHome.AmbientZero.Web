@@ -49,7 +49,10 @@ export class GeneralSettingsComponent {
   private readonly loadingService = inject(LoadingService);
 
   showUpdateColumn = computed(() => {
-    return this.versionList()?.some((v) => v.remoteVersion > v.localVersion) ?? false;
+    return (
+      this.versionList()?.some((v) => this.isRemoteGreater(v.localVersion, v.remoteVersion)) ??
+      false
+    );
   });
 
   constructor() {
