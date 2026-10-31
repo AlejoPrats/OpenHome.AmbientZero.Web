@@ -78,7 +78,7 @@ export class SettingsComponent implements OnInit {
       .subscribe({
         next: () => {
           this.notificationService
-            .Message('Settings Saved Succesfully', 'Success')
+            .Message('Settings Saved Successfully', 'Success')
             .SuccessType()
             .BottomRight()
             .Show();

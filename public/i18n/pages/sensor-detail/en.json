@@ -1,7 +1,7 @@
 {
     "deviceName": "Device Name",
     "deviceNoName": "No Name Set",
-    "help": "Help",
+    "rename": "Rename",
     "battery": "Battery",
     "last-temperature-reading": "Last Temperature Reading",
     "last-reading-time": "Last Reading Time",
