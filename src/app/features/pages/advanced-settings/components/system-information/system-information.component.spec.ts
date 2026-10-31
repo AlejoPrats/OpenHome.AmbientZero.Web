@@ -1,8 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslocoTestingModule } from '@jsverse/transloco';
 
 import { DeviceStatusResult } from 'app/shared/interfaces/device-status-result';
+import { getTranslationModuleMock } from 'app/shared/mocks/translation-module.mock';
 import { SystemInformationComponent } from './system-information.component';
+
+const NOT_AVAILABLE = 'system-information.not-available';
 
 describe('SystemInformationComponent', () => {
   let component: SystemInformationComponent;
@@ -10,6 +12,8 @@ describe('SystemInformationComponent', () => {
   let systemStatus: DeviceStatusResult;
 
   const pageText = () => (fixture.nativeElement as HTMLElement).textContent ?? '';
+
+  const notAvailableCount = () => pageText().split(NOT_AVAILABLE).length - 1;
 
   const card = (index: number) =>
     (fixture.nativeElement as HTMLElement).querySelectorAll<HTMLElement>('section.card')[index];
@@ -29,16 +33,7 @@ describe('SystemInformationComponent', () => {
     };
 
     await TestBed.configureTestingModule({
-      imports: [
-        SystemInformationComponent,
-        TranslocoTestingModule.forRoot({
-          langs: {
-            en: {},
-            'pages/system-information/en': { 'not-available': 'Not available' },
-          },
-          translocoConfig: { availableLangs: ['en'], defaultLang: 'en' },
-        }),
-      ],
+      imports: [SystemInformationComponent, getTranslationModuleMock()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SystemInformationComponent);
@@ -65,7 +60,7 @@ describe('SystemInformationComponent', () => {
 
     it('should show the status of each resource', () => {
       expect(pageText()).toContain('Nominal');
-      expect(pageText()).not.toContain('Not available');
+      expect(pageText()).not.toContain(NOT_AVAILABLE);
     });
   });
 
@@ -78,8 +73,8 @@ describe('SystemInformationComponent', () => {
       expect(fixture.nativeElement.querySelectorAll('section.card')).toHaveLength(3);
     });
 
-    it('should show "Not available" instead of each value and status', () => {
-      expect(pageText().match(/Not available/g)).toHaveLength(7);
+    it('should show the not available text instead of each value and status', () => {
+      expect(notAvailableCount()).toBe(7);
     });
   });
 
@@ -88,8 +83,8 @@ describe('SystemInformationComponent', () => {
       await render({ ...systemStatus, cpu: {} as DeviceStatusResult['cpu'] });
     });
 
-    it('should show "Not available" only for the cpu status and temperature', () => {
-      expect(pageText().match(/Not available/g)).toHaveLength(2);
+    it('should show the not available text only for the cpu status and temperature', () => {
+      expect(notAvailableCount()).toBe(2);
     });
   });
 
@@ -101,7 +96,7 @@ describe('SystemInformationComponent', () => {
       ${'69 MiB'}   | ${'Low but safe'}         | ${'status-warning'}
       ${'31 MiB'}   | ${'Low but safe'}         | ${'status-warning'}
       ${'30 MiB'}   | ${'Very low and at risk'} | ${'status-risk'}
-      ${'1.00 GiB'} | ${'Not available'}        | ${'status-unknown'}
+      ${'1.00 GiB'} | ${NOT_AVAILABLE}          | ${'status-unknown'}
     `('should show "$label" when $free is free', async ({ free, label, className }) => {
       await render({ ...systemStatus, memory: { ...systemStatus.memory, free } });
 
@@ -117,7 +112,7 @@ describe('SystemInformationComponent', () => {
       ${'1 MiB'}    | ${'Some swap used but safe'}               | ${'status-warning'}
       ${'30 MiB'}   | ${'Some swap used but safe'}               | ${'status-warning'}
       ${'31 MiB'}   | ${'Warning! this can bottleneck your cpu'} | ${'status-risk'}
-      ${'1.00 GiB'} | ${'Not available'}                         | ${'status-unknown'}
+      ${'1.00 GiB'} | ${NOT_AVAILABLE}                           | ${'status-unknown'}
     `('should show "$label" when $used is used', async ({ used, label, className }) => {
       await render({ ...systemStatus, swap: { used } });
 
