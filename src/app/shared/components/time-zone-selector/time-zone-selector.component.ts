@@ -1,4 +1,13 @@
-import { Component, ElementRef, inject, input, OnInit, output, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  input,
+  OnInit,
+  output,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import { ThemeService } from 'app/core/services/theme.service';
 import { TimeZone } from 'app/shared/interfaces/time-zone';
 import { TuiDropdown, TuiFilterByInputPipe } from '@taiga-ui/core';
@@ -42,8 +51,8 @@ export class TimeZoneSelectorComponent implements OnInit {
   @ViewChild('tzInput', { static: false }) tzInput!: ElementRef<HTMLInputElement>;
   systemService = inject(SystemService);
   theme = inject(ThemeService);
-  timeZones: TimeZone[] = [];
-  protected value: TimeZone | null = null;
+  protected readonly timeZones = signal<TimeZone[]>([]);
+  protected readonly value = signal<TimeZone | null>(null);
   valueChanged = output<string | undefined>();
   selectedTimezone = input<string | undefined>();
   stringifyTimezone = (item: TimeZone) => item.name;
@@ -51,16 +60,17 @@ export class TimeZoneSelectorComponent implements OnInit {
   ngOnInit() {
     this.systemService.getTimeZones().subscribe({
       next: (result) => {
-        this.timeZones = result;
+        this.timeZones.set(result);
         if (this.selectedTimezone() !== undefined) {
-          this.value = result.find((x) => x.id === this.selectedTimezone()) ?? null;
+          this.value.set(result.find((x) => x.id === this.selectedTimezone()) ?? null);
         }
       },
     });
   }
 
-  timezoneChanged() {
-    this.valueChanged.emit(this.value?.id);
+  timezoneChanged(timeZone: TimeZone | null) {
+    this.value.set(timeZone);
+    this.valueChanged.emit(timeZone?.id);
     setTimeout(() => {
       const el = this.tzInput.nativeElement;
       el.focus();
