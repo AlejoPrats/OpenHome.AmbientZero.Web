@@ -75,7 +75,7 @@ export class GeneralSettingsComponent {
   protected saveGeneralSettings() {
     this.advancedSettingsService.updateGeneralSettings(this.data()).subscribe({
       next: () => {
-        this.showNotification('General Settings Saved Succesfully', 'positive', 'Notification');
+        this.showNotification('General Settings Saved Successfully', 'positive', 'Notification');
       },
     });
   }
@@ -123,7 +123,7 @@ export class GeneralSettingsComponent {
           next: (result) => {
             this.versionService.updateModule(result).subscribe({
               next: () => {
-                this.showNotification('Module Updated Succesfully', 'positive', 'Notification');
+                this.showNotification('Module Updated Successfully', 'positive', 'Notification');
                 if (moduleName === 'API') {
                   this.dialog
                     .open(new PolymorpheusComponent(TimedAutoRefreshModalComponent), {
@@ -149,7 +149,7 @@ export class GeneralSettingsComponent {
         .updateModule(new ModuleUpdateRequest(moduleId, this.isForceUpdateEnabled, false))
         .subscribe({
           next: () => {
-            this.showNotification('Module Updated Succesfully', 'positive', 'Notification');
+            this.showNotification('Module Updated Successfully', 'positive', 'Notification');
           },
           error: () => {
             this.showNotification('Module Failed to Update', 'negative', 'Error');

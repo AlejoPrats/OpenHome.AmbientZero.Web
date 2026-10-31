@@ -62,7 +62,7 @@ export class NetworkSettingsComponent implements OnInit {
     this.advancedSettingsService.updateNetowrkSettings(networkSettingsRequest).subscribe({
       next: () => {
         this.notificationService
-          .Message('Network Settings Saved Succesfully', 'Success')
+          .Message('Network Settings Saved Successfully', 'Success')
           .SuccessType()
           .BottomRight()
           .Show();

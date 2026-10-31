@@ -40,7 +40,7 @@ export class LoginModalComponent implements OnInit {
         this.timerService.clearTimer('login');
         this.localStorageService.clearLoginAttempts();
         this.notificationService
-          .open('Login Succesful', {
+          .open('Login Successful', {
             label: 'Access Granted',
             appearance: 'positive',
             block: 'end',
