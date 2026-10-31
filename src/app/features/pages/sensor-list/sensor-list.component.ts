@@ -1,6 +1,6 @@
 import { Component, inject, signal, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
-import { interval, map, Subscription } from 'rxjs';
+import { filter, interval, map, Subscription } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { SensorInformationResponse } from '../../../shared/interfaces/sensor-information-response';
 import { DatePipe, DecimalPipe } from '@angular/common';
@@ -77,11 +77,8 @@ export class SensorListComponent implements OnInit, OnDestroy {
         size: 's',
         data,
       })
-      .subscribe({
-        next: () => {
-          this.deleteDevice(id);
-        },
-      });
+      .pipe(filter(Boolean))
+      .subscribe(() => this.deleteDevice(id));
   }
 
   deleteDevice(id: number) {
