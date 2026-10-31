@@ -1,6 +1,6 @@
 <tui-textfield *transloco="let t" class="tui-textfield-override" tuiChevron style="width: 100%;"
   [content]="units && content">
-  <input [attr.tuiTheme]="theme.attr()" placeholder="{{t('languageSelector.select-a-language')}}" tuiSelect
+  <input [attr.tuiTheme]="theme.attr()" placeholder="{{t('unitSelector.select-a-unit')}}" tuiSelect
     [(ngModel)]="value" (ngModelChange)="unitChanged()" />
   <tui-data-list-wrapper [attr.tuiTheme]="theme.attr()" class="tui-textfield-override" *tuiDropdown
     [itemContent]="content" [items]="units" />
