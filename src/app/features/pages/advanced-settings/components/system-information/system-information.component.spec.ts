@@ -11,14 +11,18 @@ describe('SystemInformationComponent', () => {
   let fixture: ComponentFixture<SystemInformationComponent>;
   let systemStatus: DeviceStatusResult;
 
-  const pageText = () => (fixture.nativeElement as HTMLElement).textContent ?? '';
+  const cards = () =>
+    (fixture.nativeElement as HTMLElement).querySelectorAll<HTMLElement>('section.card');
 
-  const notAvailableCount = () => pageText().split(NOT_AVAILABLE).length - 1;
-
-  const card = (index: number) =>
-    (fixture.nativeElement as HTMLElement).querySelectorAll<HTMLElement>('section.card')[index];
+  const card = (index: number) => cards()[index];
 
   const statusIcon = (index: number) => card(index).querySelector('.brief-status tui-icon')!;
+
+  const statusLabel = (index: number) =>
+    card(index).querySelector('.brief-status [tuiTitle] > div:last-child')!.textContent!.trim();
+
+  const values = (index: number) =>
+    Array.from(card(index).querySelectorAll('.cell-field'), (cell) => cell.textContent!.trim());
 
   const render = async (data: DeviceStatusResult | null) => {
     fixture.componentRef.setInput('data', data);
@@ -52,15 +56,17 @@ describe('SystemInformationComponent', () => {
     });
 
     it('should show the memory, swap and cpu values', () => {
-      expect(pageText()).toContain('512 MiB');
-      expect(pageText()).toContain('100 MiB');
-      expect(pageText()).toContain('0 MiB');
-      expect(pageText()).toContain('45');
+      expect(values(0)).toEqual(['512 MiB', '100 MiB']);
+      expect(values(1)).toEqual(['0 MiB']);
+      expect(values(2)).toEqual(['45']);
     });
 
     it('should show the status of each resource', () => {
-      expect(pageText()).toContain('Nominal');
-      expect(pageText()).not.toContain(NOT_AVAILABLE);
+      expect([statusLabel(0), statusLabel(1), statusLabel(2)]).toEqual([
+        'Nominal',
+        'Nominal',
+        'Nominal',
+      ]);
     });
   });
 
@@ -70,11 +76,17 @@ describe('SystemInformationComponent', () => {
     });
 
     it('should still show the system status cards', () => {
-      expect(fixture.nativeElement.querySelectorAll('section.card')).toHaveLength(3);
+      expect(cards()).toHaveLength(3);
     });
 
-    it('should show the not available text instead of each value and status', () => {
-      expect(notAvailableCount()).toBe(7);
+    it.each`
+      resource  | index
+      ${'ram'}  | ${0}
+      ${'swap'} | ${1}
+      ${'cpu'}  | ${2}
+    `('should show the  status and values as not available', ({ index }) => {
+      expect(statusLabel(index)).toContain(NOT_AVAILABLE);
+      expect(values(index).every((value) => value.includes(NOT_AVAILABLE))).toBe(true);
     });
   });
 
@@ -83,8 +95,13 @@ describe('SystemInformationComponent', () => {
       await render({ ...systemStatus, cpu: {} as DeviceStatusResult['cpu'] });
     });
 
-    it('should show the not available text only for the cpu status and temperature', () => {
-      expect(notAvailableCount()).toBe(2);
+    it('should show the cpu status and temperature as not available', () => {
+      expect(statusLabel(2)).toContain(NOT_AVAILABLE);
+      expect(values(2)).toEqual([expect.stringContaining(NOT_AVAILABLE)]);
+    });
+
+    it('should keep the ram and swap status', () => {
+      expect([statusLabel(0), statusLabel(1)]).toEqual(['Nominal', 'Nominal']);
     });
   });
 
@@ -100,7 +117,7 @@ describe('SystemInformationComponent', () => {
     `('should show "$label" when $free is free', async ({ free, label, className }) => {
       await render({ ...systemStatus, memory: { ...systemStatus.memory, free } });
 
-      expect(card(0).textContent).toContain(label);
+      expect(statusLabel(0)).toContain(label);
       expect(statusIcon(0).classList).toContain(className);
     });
   });
@@ -116,7 +133,7 @@ describe('SystemInformationComponent', () => {
     `('should show "$label" when $used is used', async ({ used, label, className }) => {
       await render({ ...systemStatus, swap: { used } });
 
-      expect(card(1).textContent).toContain(label);
+      expect(statusLabel(1)).toContain(label);
       expect(statusIcon(1).classList).toContain(className);
     });
   });
@@ -131,7 +148,7 @@ describe('SystemInformationComponent', () => {
     `('should show "$label" at $temperature degrees', async ({ temperature, label, className }) => {
       await render({ ...systemStatus, cpu: { temperature } });
 
-      expect(card(2).textContent).toContain(label);
+      expect(statusLabel(2)).toContain(label);
       expect(statusIcon(2).classList).toContain(className);
     });
   });
