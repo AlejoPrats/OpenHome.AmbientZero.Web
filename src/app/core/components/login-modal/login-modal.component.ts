@@ -1,4 +1,6 @@
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { interval } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { TuiAutoFocus } from '@taiga-ui/cdk';
 import { TuiButton, TuiDialogContext, TuiInput, TuiNotificationService } from '@taiga-ui/core';
@@ -20,6 +22,7 @@ export class LoginModalComponent implements OnInit {
   protected readonly context = injectContext<TuiDialogContext<boolean, boolean>>();
   private readonly authService = inject(AuthService);
   private readonly cdr = inject(ChangeDetectorRef);
+  private readonly destroyRef = inject(DestroyRef);
   private readonly localStorageService = inject(LocalStorageService);
   private readonly notificationService = inject(TuiNotificationService);
   protected readonly timerService = inject(TimerService);
@@ -29,7 +32,9 @@ export class LoginModalComponent implements OnInit {
   protected value = this.context.data;
 
   ngOnInit() {
-    setInterval(() => this.cdr.markForCheck(), 1000);
+    interval(1000)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.cdr.markForCheck());
   }
 
   login() {

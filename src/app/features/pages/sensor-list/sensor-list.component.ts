@@ -1,7 +1,19 @@
-import { Component, inject, signal, OnInit, OnDestroy } from '@angular/core';
+import { Component, DestroyRef, DOCUMENT, inject, signal, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
-import { interval, map, Subscription } from 'rxjs';
-import { toSignal } from '@angular/core/rxjs-interop';
+import {
+  catchError,
+  distinctUntilChanged,
+  EMPTY,
+  fromEvent,
+  map,
+  merge,
+  Observable,
+  startWith,
+  Subject,
+  switchMap,
+  timer,
+} from 'rxjs';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { SensorInformationResponse } from '../../../shared/interfaces/sensor-information-response';
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { IconComponent } from '../../../shared/components/icon/icon.component';
@@ -14,6 +26,8 @@ import { AdditionalPageInformationService } from '../../../core/services/additio
 import { TuiButton, TuiDataList, TuiDropdown } from '@taiga-ui/core';
 import { LocalStorageService } from 'app/core/services/local-storage.service';
 import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
+
+const AUTO_REFRESH_MS = 20 * 60 * 1000;
 
 @Component({
   selector: 'app-sensor-list',
@@ -32,14 +46,17 @@ import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
   templateUrl: './sensor-list.component.html',
   styleUrl: './sensor-list.component.less',
 })
-export class SensorListComponent implements OnInit, OnDestroy {
+export class SensorListComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly dialogs = inject(TuiResponsiveDialogService);
   protected readonly additionalPageInformationService = inject(AdditionalPageInformationService);
   private readonly sensorService = inject(SensorService);
   private readonly breadcrumbService = inject(BreadcrumbService);
   private readonly localStorageService = inject(LocalStorageService);
-  private autoRefreshSub!: Subscription;
+  private readonly destroyRef = inject(DestroyRef);
+  private readonly document = inject(DOCUMENT);
+  private readonly refreshRequests = new Subject<void>();
+  private lastRefreshAt = Date.now();
   protected readonly IconName = IconName;
   protected readonly sensorList = signal<SensorInformationResponse[] | null>(null);
   protected showRawBatteryReadings: boolean = false;
@@ -59,9 +76,43 @@ export class SensorListComponent implements OnInit, OnDestroy {
       `Last Updated: ${this.getTimeAsString()}`,
     );
     this.sensorList.set(this.resolvedSensors());
-    this.autoRefreshSub = interval(20 * 60 * 1000).subscribe(() => {
-      this.refreshData();
-    });
+
+    this.refreshRequests
+      .pipe(
+        switchMap(() => this.sensorService.getAllSensors().pipe(catchError(() => EMPTY))),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe((result) => {
+        this.lastRefreshAt = Date.now();
+        this.additionalPageInformationService.setAdditionalInformation(
+          `Last Updated: ${this.getTimeAsString()}`,
+        );
+        this.sensorList.set(result);
+      });
+
+    this.pageActive()
+      .pipe(
+        switchMap((active) =>
+          active
+            ? timer(Math.max(0, this.lastRefreshAt + AUTO_REFRESH_MS - Date.now()), AUTO_REFRESH_MS)
+            : EMPTY,
+        ),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe(() => this.refreshData());
+  }
+
+  private pageActive(): Observable<boolean> {
+    const view = this.document.defaultView!;
+    return merge(
+      fromEvent(this.document, 'visibilitychange'),
+      fromEvent(view, 'online'),
+      fromEvent(view, 'offline'),
+    ).pipe(
+      startWith(null),
+      map(() => this.document.visibilityState === 'visible' && view.navigator.onLine),
+      distinctUntilChanged(),
+    );
   }
 
   openDeleteDialog(id: number): void {
@@ -103,14 +154,7 @@ export class SensorListComponent implements OnInit, OnDestroy {
   }
 
   refreshData() {
-    this.sensorService.getAllSensors().subscribe({
-      next: (result) => {
-        this.additionalPageInformationService.setAdditionalInformation(
-          `Last Updated: ${this.getTimeAsString()}`,
-        );
-        this.sensorList.set(result);
-      },
-    });
+    this.refreshRequests.next();
   }
 
   toggleRawBattery() {
@@ -131,9 +175,5 @@ export class SensorListComponent implements OnInit, OnDestroy {
   unHideSensor(sensorId: string) {
     this.localStorageService.removeHiddenSensor(sensorId);
     this.hiddenSensorsArray = this.localStorageService.getHiddenSensors();
-  }
-
-  ngOnDestroy() {
-    this.autoRefreshSub?.unsubscribe();
   }
 }

@@ -1,4 +1,13 @@
-import { Component, ElementRef, inject, input, OnInit, output, ViewChild } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  ElementRef,
+  inject,
+  input,
+  OnInit,
+  output,
+  ViewChild,
+} from '@angular/core';
 import { ThemeService } from 'app/core/services/theme.service';
 import { TimeZone } from 'app/shared/interfaces/time-zone';
 import { TuiDropdown, TuiFilterByInputPipe } from '@taiga-ui/core';
@@ -48,6 +57,12 @@ export class TimeZoneSelectorComponent implements OnInit {
   selectedTimezone = input<string | undefined>();
   stringifyTimezone = (item: TimeZone) => item.name;
 
+  private focusTimeout?: ReturnType<typeof setTimeout>;
+
+  constructor() {
+    inject(DestroyRef).onDestroy(() => clearTimeout(this.focusTimeout));
+  }
+
   ngOnInit() {
     this.systemService.getTimeZones().subscribe({
       next: (result) => {
@@ -61,7 +76,8 @@ export class TimeZoneSelectorComponent implements OnInit {
 
   timezoneChanged() {
     this.valueChanged.emit(this.value?.id);
-    setTimeout(() => {
+    clearTimeout(this.focusTimeout);
+    this.focusTimeout = setTimeout(() => {
       const el = this.tzInput.nativeElement;
       el.focus();
       el.setSelectionRange(0, 0); // move cursor to the beginning
