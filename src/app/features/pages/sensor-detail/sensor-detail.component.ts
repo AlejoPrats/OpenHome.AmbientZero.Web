@@ -19,6 +19,7 @@ import {
   TuiFilterByInputPipe,
   TuiExpand,
   TuiDialog,
+  TuiError,
   TuiNotificationService,
 } from '@taiga-ui/core';
 import { TuiAutoFocus, TuiTime } from '@taiga-ui/cdk';
@@ -43,6 +44,7 @@ import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
     TuiButton,
     TuiExpand,
     TuiDialog,
+    TuiError,
     RouterLinkWithHref,
     TuiAutoFocus,
     TranslocoModule,

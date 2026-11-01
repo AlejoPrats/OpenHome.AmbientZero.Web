@@ -118,7 +118,7 @@ describe('SensorDetailComponent', () => {
       await typeName('Garage');
 
       expect(buttonNamed('en.sensor.save').disabled).toBe(false);
-      expect(document.querySelector('#sensor-name-required')).toBeNull();
+      expect(document.querySelector('#sensor-name-required')?.textContent?.trim()).toBe('');
     });
 
     it('should save the name without surrounding spaces', async () => {
