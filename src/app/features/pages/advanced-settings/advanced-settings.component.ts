@@ -39,7 +39,7 @@ export class AdvancedSettingsComponent implements OnInit {
     { initialValue: null },
   );
   protected readonly systemStatus = toSignal(
-    this.route.data.pipe(map(({ systemStatus }) => systemStatus as DeviceStatusResult)),
+    this.route.data.pipe(map(({ systemStatus }) => systemStatus as DeviceStatusResult | null)),
     { initialValue: null },
   );
 
