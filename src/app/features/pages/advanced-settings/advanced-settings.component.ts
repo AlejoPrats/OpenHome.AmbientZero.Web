@@ -39,7 +39,7 @@ export class AdvancedSettingsComponent implements OnInit {
     { initialValue: null },
   );
   protected readonly systemStatus = toSignal(
-    this.route.data.pipe(map(({ systemStatus }) => systemStatus as DeviceStatusResult)),
+    this.route.data.pipe(map(({ systemStatus }) => systemStatus as DeviceStatusResult | null)),
     { initialValue: null },
   );
 
@@ -78,7 +78,7 @@ export class AdvancedSettingsComponent implements OnInit {
       label: 'Users',
       icon: '@tui.user',
       enabled: false,
-      hint: 'Comming Soon',
+      hint: 'Coming Soon',
     },
     {
       id: 4,
@@ -86,7 +86,7 @@ export class AdvancedSettingsComponent implements OnInit {
       label: 'Dashboard',
       icon: '@tui.layout-dashboard',
       enabled: false,
-      hint: 'Comming Soon',
+      hint: 'Coming Soon',
     },
     {
       id: 5,

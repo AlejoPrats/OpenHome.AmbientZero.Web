@@ -1,7 +1,7 @@
 {
     "deviceName": "Nombre del Dispositivo",
     "deviceNoName": "Sin Nombre",
-    "help": "Ayuda",
+    "rename": "Renombrar",
     "battery": "Batería",
     "last-temperature-reading": "Última Lectura de Temperatura",
     "last-reading-time": "Hora de la Última Lectura",
