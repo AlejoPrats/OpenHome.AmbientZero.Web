@@ -97,11 +97,6 @@ export class SensorDetailComponent implements OnInit {
 
   protected updateVirtualName() {
     const virtualName = this.tempSensorVirtualName.trim();
-
-    if (!virtualName) {
-      return;
-    }
-
     this.changeNameModalOpen = false;
     this.sensorService
       .updateSensorName(new NameUpdateRequest(this.sensorInformation()!.deviceId, virtualName))

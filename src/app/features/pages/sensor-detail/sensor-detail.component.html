@@ -120,7 +120,7 @@
         <button appearance="secondary" tuiButton type="button" (click)="hideNameUpdateDialog()">
             {{t('sensor.cancel')}}
         </button>
-        <button tuiButton type="submit" [disabled]="!tempSensorVirtualName.trim()" (click)="updateVirtualName()">
+        <button tuiButton type="submit" (click)="updateVirtualName()">
             {{t('sensor.save')}}
         </button>
     </footer>

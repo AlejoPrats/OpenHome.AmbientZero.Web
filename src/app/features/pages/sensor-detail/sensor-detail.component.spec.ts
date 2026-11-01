@@ -101,16 +101,6 @@ describe('SensorDetailComponent', () => {
       await openRenameDialog();
     });
 
-    it.each`
-      name
-      ${''}
-      ${'   '}
-    `('should not allow saving the blank name "$name"', async ({ name }) => {
-      await typeName(name);
-
-      expect(buttonNamed('en.sensor.save').disabled).toBe(true);
-    });
-
     it('should save the name without surrounding spaces', async () => {
       await typeName('  Garage  ');
 
