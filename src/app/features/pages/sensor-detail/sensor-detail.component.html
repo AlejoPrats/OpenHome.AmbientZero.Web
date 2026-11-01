@@ -4,7 +4,7 @@
     <tbody tuiTbody>
         <tr tuiTr>
             <td tuiTd colspan="4">
-                {{ t('sensor.deviceName') }}: {{ sensor.deviceVirtualName | sensorName: `(${t('sensor.deviceNoName')})` }}
+                {{ t('sensor.deviceName') }}: {{ sensor.deviceVirtualName ?? `(${t('sensor.deviceNoName')})` }}
                 <button appearance="secondary" iconStart="@tui.pencil" size="s" tuiIconButton type="button"
                     (click)="showNameUpdateDialog()">
                     {{t('sensor.rename')}}

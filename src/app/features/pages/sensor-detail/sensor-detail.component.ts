@@ -28,12 +28,10 @@ import { SensorUpdateRequest } from '../../../shared/models/sensor-update-reques
 import { BreadcrumbService } from '../../../core/services/breadcrumb.service';
 import { AdditionalPageInformationService } from '../../../core/services/additional-page-information.service';
 import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
-import { sensorName, SensorNamePipe } from 'app/shared/pipes/sensor-name.pipe';
 
 @Component({
   selector: 'app-sensor-detail',
   imports: [
-    SensorNamePipe,
     DatePipe,
     DecimalPipe,
     TuiTable,
@@ -76,7 +74,7 @@ export class SensorDetailComponent implements OnInit {
   ngOnInit(): void {
     this.breadcrumbService.addBreadcrumb('Edit Sensor');
     this.breadcrumbService.addBreadcrumb(
-      sensorName(this.sensorInformation()?.deviceVirtualName, this.sensorInformation()!.deviceId),
+      this.sensorInformation()?.deviceVirtualName ?? this.sensorInformation()!.deviceId,
     );
     this.additionalPageInformationService.clearAdditionalInformation();
     this.disableStartTime = fromApiTime(this.sensorInformation()?.sensorSetting?.disableStartTime);
