@@ -21,11 +21,6 @@ export class ThemeService {
     return m === 'auto' ? null : m;
   }
 
-  eChartsAttr(): 'light' | 'dark' {
-    const m = this.mode();
-    return m === 'auto' ? 'dark' : m;
-  }
-
   private readStoredTheme(): ThemeMode {
     const stored = localStorage.getItem('theme') as ThemeMode;
     return VALID_THEME_MODES.includes(stored) ? stored : 'auto';

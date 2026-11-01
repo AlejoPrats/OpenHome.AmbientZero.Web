@@ -17,4 +17,4 @@
         <button id="chart-next-day" tuiButton iconEnd="@tui.chevron-right" (click)="nextDay()">Next Date</button>
     </span>
 </div>
-<div id="chart-canvas" echarts [options]="options()" [theme]="theme.eChartsAttr()" class="chart"></div>
+<div id="chart-canvas" echarts [options]="options()" [theme]="chartTheme()" class="chart"></div>

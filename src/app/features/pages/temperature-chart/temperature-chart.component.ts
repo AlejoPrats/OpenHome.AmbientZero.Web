@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, signal, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  signal,
+  OnInit,
+} from '@angular/core';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { ThemeService } from '../../../core/services/theme.service';
 import { ActivatedRoute } from '@angular/router';
@@ -8,7 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TuiDropdownSheet } from '@taiga-ui/addon-mobile';
 import { TuiDay } from '@taiga-ui/cdk';
 import { TuiInputDate } from '@taiga-ui/kit';
-import { TuiButton } from '@taiga-ui/core';
+import { TUI_DARK_MODE, TuiButton } from '@taiga-ui/core';
 import { AmbientTemperatureService } from '../../../shared/services/ambient-temperature.service';
 import { buildTemperatureChartOption } from './mapper/temperature-chart.mapper';
 import { EMPTY_ECHARTS_OPTION } from './constants/empty-echarts-option.constant';
@@ -36,6 +43,10 @@ import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
 })
 export class TemperatureChartComponent implements OnInit {
   readonly theme = inject(ThemeService);
+  private readonly systemDarkMode = inject(TUI_DARK_MODE);
+  protected readonly chartTheme = computed(
+    () => this.theme.attr() ?? (this.systemDarkMode() ? 'dark' : 'light'),
+  );
   private readonly route = inject(ActivatedRoute);
   protected readonly additionalPageInformationService = inject(AdditionalPageInformationService);
   private readonly breadcrumbService = inject(BreadcrumbService);
