@@ -4,6 +4,7 @@ import {
   catchError,
   distinctUntilChanged,
   EMPTY,
+  filter,
   fromEvent,
   map,
   merge,
@@ -128,19 +129,13 @@ export class SensorListComponent implements OnInit {
         size: 's',
         data,
       })
-      .subscribe({
-        next: () => {
-          this.deleteDevice(id);
-        },
-      });
+      .pipe(filter(Boolean))
+      .subscribe(() => this.deleteDevice(id));
   }
 
   deleteDevice(id: number) {
-    this.sensorService.deleteSensor(id).subscribe({
-      next: () => {
-        const index = this.sensorList()?.findIndex((x) => x.id == id);
-        this.sensorList()?.splice(index!, 1);
-      },
+    this.sensorService.deleteSensor(id).subscribe(() => {
+      this.sensorList.update((sensors) => sensors?.filter((sensor) => sensor.id !== id) ?? null);
     });
   }
 

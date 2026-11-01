@@ -1,6 +1,6 @@
 import { Component, inject, input, OnInit, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TranslocoModule } from '@jsverse/transloco';
+import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
 import { TuiChevron, TuiDataListWrapper, TuiSelect } from '@taiga-ui/kit';
 import { UnitInterface } from './unit-interface';
 import { ThemeService } from 'app/core/services/theme.service';
@@ -8,6 +8,7 @@ import { ThemeService } from 'app/core/services/theme.service';
 @Component({
   selector: 'app-unit-selector',
   imports: [FormsModule, TuiChevron, TuiDataListWrapper, TuiSelect, TranslocoModule],
+  providers: [provideTranslocoScope({ scope: 'components/unit-selector', alias: 'unitSelector' })],
   templateUrl: './unit-selector.component.html',
   styleUrl: './unit-selector.component.less',
 })
