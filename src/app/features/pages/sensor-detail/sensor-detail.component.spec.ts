@@ -101,6 +101,26 @@ describe('SensorDetailComponent', () => {
       await openRenameDialog();
     });
 
+    it.each`
+      name
+      ${''}
+      ${'   '}
+    `('should not allow saving the blank name "$name"', async ({ name }) => {
+      await typeName(name);
+
+      expect(buttonNamed('en.sensor.save').disabled).toBe(true);
+      expect(document.querySelector('#sensor-name-required')?.textContent?.trim()).toBe(
+        'en.sensor.name-required',
+      );
+    });
+
+    it('should allow saving once a name is entered', async () => {
+      await typeName('Garage');
+
+      expect(buttonNamed('en.sensor.save').disabled).toBe(false);
+      expect(document.querySelector('#sensor-name-required')).toBeNull();
+    });
+
     it('should save the name without surrounding spaces', async () => {
       await typeName('  Garage  ');
 

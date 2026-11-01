@@ -114,13 +114,17 @@
     [(tuiDialog)]="changeNameModalOpen">
     <tui-textfield>
         <label tuiLabel>{{t('sensor.virtual-name')}}</label>
-        <input tuiAutoFocus tuiInput [(ngModel)]="this.tempSensorVirtualName" />
+        <input tuiAutoFocus tuiInput required [(ngModel)]="this.tempSensorVirtualName"
+            [attr.aria-describedby]="tempSensorVirtualName.trim() ? null : 'sensor-name-required'" />
     </tui-textfield>
+    @if (!tempSensorVirtualName.trim()) {
+    <p id="sensor-name-required" class="name-required">{{t('sensor.name-required')}}</p>
+    }
     <footer>
         <button appearance="secondary" tuiButton type="button" (click)="hideNameUpdateDialog()">
             {{t('sensor.cancel')}}
         </button>
-        <button tuiButton type="submit" (click)="updateVirtualName()">
+        <button tuiButton type="submit" [disabled]="!tempSensorVirtualName.trim()" (click)="updateVirtualName()">
             {{t('sensor.save')}}
         </button>
     </footer>
