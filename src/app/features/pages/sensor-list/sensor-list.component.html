@@ -56,7 +56,7 @@
         {
         <div id="sensor-info-row" class="table-row">
             <div id="sensor-name" class="cell">
-                {{ sensor.deviceVirtualName ?? sensor.deviceId }}
+                {{ sensor.deviceVirtualName | sensorName: sensor.deviceId }}
             </div>
             <div class="cell">
                 @if(showRawBatteryReadings)

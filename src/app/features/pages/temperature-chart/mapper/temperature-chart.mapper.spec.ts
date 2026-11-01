@@ -23,7 +23,7 @@ describe('buildTemperatureChartOption', () => {
     };
     unnamedSensor = {
       deviceId: 'test-device-2',
-      sensorVirtualName: null,
+      sensorVirtualName: '',
       temperatureReadings: [],
     };
     chartResponse = {
@@ -33,7 +33,7 @@ describe('buildTemperatureChartOption', () => {
     };
   });
 
-  it('should name each sensor in the legend, falling back to its device id', () => {
+  it('should name each sensor in the legend, falling back to its device id when blank', () => {
     expect(getLegendNames()).toEqual(['Test Sensor 1', 'test-device-2']);
   });
 

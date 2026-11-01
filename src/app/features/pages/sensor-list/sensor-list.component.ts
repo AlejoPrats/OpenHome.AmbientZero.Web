@@ -14,10 +14,12 @@ import { AdditionalPageInformationService } from '../../../core/services/additio
 import { TuiButton, TuiDataList, TuiDropdown } from '@taiga-ui/core';
 import { LocalStorageService } from 'app/core/services/local-storage.service';
 import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
+import { SensorNamePipe } from 'app/shared/pipes/sensor-name.pipe';
 
 @Component({
   selector: 'app-sensor-list',
   imports: [
+    SensorNamePipe,
     DatePipe,
     DecimalPipe,
     IconComponent,

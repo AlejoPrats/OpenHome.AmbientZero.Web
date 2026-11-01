@@ -28,10 +28,12 @@ import { SensorUpdateRequest } from '../../../shared/models/sensor-update-reques
 import { BreadcrumbService } from '../../../core/services/breadcrumb.service';
 import { AdditionalPageInformationService } from '../../../core/services/additional-page-information.service';
 import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
+import { sensorName, SensorNamePipe } from 'app/shared/pipes/sensor-name.pipe';
 
 @Component({
   selector: 'app-sensor-detail',
   imports: [
+    SensorNamePipe,
     DatePipe,
     DecimalPipe,
     TuiTable,
@@ -74,7 +76,7 @@ export class SensorDetailComponent implements OnInit {
   ngOnInit(): void {
     this.breadcrumbService.addBreadcrumb('Edit Sensor');
     this.breadcrumbService.addBreadcrumb(
-      this.sensorInformation()?.deviceVirtualName ?? this.sensorInformation()!.deviceId,
+      sensorName(this.sensorInformation()?.deviceVirtualName, this.sensorInformation()!.deviceId),
     );
     this.additionalPageInformationService.clearAdditionalInformation();
     this.disableStartTime = fromApiTime(this.sensorInformation()?.sensorSetting?.disableStartTime);
@@ -96,14 +98,18 @@ export class SensorDetailComponent implements OnInit {
   }
 
   protected updateVirtualName() {
+    const virtualName = this.tempSensorVirtualName.trim();
+
+    if (!virtualName) {
+      return;
+    }
+
     this.changeNameModalOpen = false;
     this.sensorService
-      .updateSensorName(
-        new NameUpdateRequest(this.sensorInformation()!.deviceId, this.tempSensorVirtualName),
-      )
+      .updateSensorName(new NameUpdateRequest(this.sensorInformation()!.deviceId, virtualName))
       .subscribe({
         next: () => {
-          this.sensorInformation()!.deviceVirtualName = this.tempSensorVirtualName;
+          this.sensorInformation()!.deviceVirtualName = virtualName;
           this.notificationService
             .open('Device Name Saved Successfully', {
               label: 'Notification',

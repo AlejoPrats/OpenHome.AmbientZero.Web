@@ -13,6 +13,7 @@ describe('SensorList', () => {
   let component: SensorListComponent;
   let fixture: ComponentFixture<SensorListComponent>;
   let sensor: SensorInformationResponse;
+  let unnamedSensor: SensorInformationResponse;
   let confirmDelete: Mock<() => ReturnType<TuiResponsiveDialogService['open']>>;
   let deleteSensor: Mock<(sensorId: number) => ReturnType<SensorService['deleteSensor']>>;
 
@@ -44,6 +45,7 @@ describe('SensorList', () => {
         disableEndTime: '00:00',
       },
     };
+    unnamedSensor = { ...sensor, id: 2, deviceId: 'test-device-2', deviceVirtualName: '' };
     confirmDelete = vi.fn(() => of(false));
     deleteSensor = vi.fn(() => of(undefined));
 
@@ -58,7 +60,7 @@ describe('SensorList', () => {
           },
         },
         provideRouter([]),
-        { provide: ActivatedRoute, useValue: { data: of({ sensors: [sensor] }) } },
+        { provide: ActivatedRoute, useValue: { data: of({ sensors: [sensor, unnamedSensor] }) } },
         { provide: TuiResponsiveDialogService, useValue: { open: confirmDelete } },
         { provide: SensorService, useValue: { deleteSensor } },
       ],
@@ -71,6 +73,10 @@ describe('SensorList', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should show the device id for a sensor with a blank name', () => {
+    expect(getSensorNames()).toEqual([sensor.deviceVirtualName, unnamedSensor.deviceId]);
   });
 
   describe('when deleting a sensor', () => {

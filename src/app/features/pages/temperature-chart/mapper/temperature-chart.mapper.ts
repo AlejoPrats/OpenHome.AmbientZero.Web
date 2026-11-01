@@ -2,6 +2,7 @@ import { ECBasicOption } from 'echarts/types/dist/shared';
 import { ChartResponse } from '../../../../shared/interfaces/chart-response';
 import { SensorDailyTemperatureResponse } from '../../../../shared/interfaces/sensor-daily-temperature-response';
 import { EchartsSeries } from '../../../../shared/interfaces/echarts-series';
+import { sensorName as displayName } from '../../../../shared/pipes/sensor-name.pipe';
 
 export function buildTemperatureChartOption(chartResponse: ChartResponse): ECBasicOption {
   const chartValues = chartResponse.measurements as SensorDailyTemperatureResponse[];
@@ -10,7 +11,7 @@ export function buildTemperatureChartOption(chartResponse: ChartResponse): ECBas
   const legendSeries: EchartsSeries[] = [];
 
   for (const item of chartValues) {
-    const sensorName = item.sensorVirtualName ?? item.deviceId;
+    const sensorName = displayName(item.sensorVirtualName, item.deviceId);
     legendData.push(sensorName);
 
     legendSeries.push({

@@ -4,7 +4,7 @@
     <tbody tuiTbody>
         <tr tuiTr>
             <td tuiTd colspan="4">
-                {{ t('sensor.deviceName') }}: {{ sensor.deviceVirtualName ?? `(${t('sensor.deviceNoName')})` }}
+                {{ t('sensor.deviceName') }}: {{ sensor.deviceVirtualName | sensorName: `(${t('sensor.deviceNoName')})` }}
                 <button appearance="secondary" iconStart="@tui.pencil" size="s" tuiIconButton type="button"
                     (click)="showNameUpdateDialog()">
                     {{t('sensor.rename')}}
@@ -120,7 +120,7 @@
         <button appearance="secondary" tuiButton type="button" (click)="hideNameUpdateDialog()">
             {{t('sensor.cancel')}}
         </button>
-        <button tuiButton type="submit" (click)="updateVirtualName()">
+        <button tuiButton type="submit" [disabled]="!tempSensorVirtualName.trim()" (click)="updateVirtualName()">
             {{t('sensor.save')}}
         </button>
     </footer>
