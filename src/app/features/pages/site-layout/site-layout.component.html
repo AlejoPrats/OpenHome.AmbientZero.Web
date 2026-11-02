@@ -13,28 +13,30 @@
     </button>
     <div tuiAvatar="AI"></div>
 </header>
-<div [style.display]="'flex'">
+<div *transloco="let t" [style.display]="'flex'">
     <aside style="position:fixed; height: 95vh;" [tuiNavigationAside]="expanded()">
         <header>
             <button iconStart="@tui.home" tuiAsideItem type="button">
-                Home
+                {{t('siteLayout.home')}}
             </button>
         </header>
-        <button id="nav-temperature-chart" [routerLink]="['chart']" iconStart="@tui.chart-no-axes-column-increasing" tuiAsideItem type="button">
-            Temperature Chart
+        <button id="nav-temperature-chart" [routerLink]="['chart']" iconStart="@tui.chart-no-axes-column-increasing"
+            tuiAsideItem type="button">
+            {{t('siteLayout.temperature-chart')}}
         </button>
         <button id="nav-sensors" [routerLink]="['list']" iconStart="@tui.gauge" tuiAsideItem type="button">
-            Sensors
+            {{t('siteLayout.sensors')}}
         </button>
         <button id="nav-basic-settings" [routerLink]="['settings']" iconStart="@tui.cog" tuiAsideItem type="button">
-            Basic Settings
+            {{t('siteLayout.basic-settings')}}
         </button>
-        <button id="nav-advanced-settings"  [routerLink]="['advancedSettings']" iconStart="@tui.sliders" tuiAsideItem type="button">
-            Advanced Settings
+        <button id="nav-advanced-settings" [routerLink]="['advancedSettings']" iconStart="@tui.sliders" tuiAsideItem
+            type="button">
+            {{t('siteLayout.advanced-settings')}}
         </button>
         <footer>
-            <button id="nav-help"  iconStart="@tui.help-circle" tuiAsideItem type="button">
-                Help
+            <button id="nav-help" iconStart="@tui.help-circle" tuiAsideItem type="button">
+                {{t('siteLayout.help')}}
             </button>
             <button tuiAsideItem type="button" [iconStart]="expanded() ? '@tui.chevron-left' : '@tui.chevron-right'"
                 (click)="handleToggle()">
@@ -43,7 +45,7 @@
         </footer>
     </aside>
 </div>
-<main style="margin-left: 40px;" tuiNavigationMain>
+<main *transloco="let t" style="margin-left: 40px;" tuiNavigationMain>
     <nav compact tuiSubheader [style.position]="'sticky'">
         <tui-breadcrumbs [itemsLimit]="10">
             @for (item of breadcrumbs(); track item) {
@@ -64,9 +66,9 @@
         </tui-tabs>
         <tui-tabs [activeItemIndex]="modes.indexOf(theme.mode())" (activeItemIndexChange)="select($event)"
             appearance="segmented">
-            <button tuiTab>Light</button>
-            <button tuiTab>Auto</button>
-            <button tuiTab>Dark</button>
+            <button tuiTab>{{t('siteLayout.theme-light')}}</button>
+            <button tuiTab>{{t('siteLayout.theme-auto')}}</button>
+            <button tuiTab>{{t('siteLayout.theme-dark')}}</button>
         </tui-tabs>
     </nav>
     <router-outlet />

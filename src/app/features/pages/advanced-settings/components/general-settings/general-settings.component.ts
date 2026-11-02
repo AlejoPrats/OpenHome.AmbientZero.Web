@@ -20,6 +20,7 @@ import { ForceUpdateModalComponent } from 'app/core/components/force-update-moda
 import { ModuleUpdateRequest } from 'app/shared/models/module-update-request';
 import { TimedAutoRefreshModalComponent } from 'app/core/components/timed-auto-refresh-modal/timed-auto-refresh-modal.component';
 import { LoadingService } from 'app/core/services/loading.service';
+import { ExportDownloadModalComponent } from 'app/core/components/export-download-modal/export-download-modal.component';
 
 @Component({
   selector: 'app-general-settings',
@@ -141,8 +142,8 @@ export class GeneralSettingsComponent {
               },
             });
           },
-          error: () => {},
-          complete: () => {},
+          error: () => { },
+          complete: () => { },
         });
     } else {
       this.versionService
@@ -171,7 +172,19 @@ export class GeneralSettingsComponent {
   }
 
   protected exportDatabse() {
-    this.loadingService.loadingOn();
-    this.loadingService.longLoadingOn();
+    this.dialog.open<string>(new PolymorpheusComponent(ExportDownloadModalComponent), {
+      label: 'Export Database',
+      closable: true,
+      dismissible: true,
+      size: 'm'
+    }).subscribe({
+      next: (result) => {
+        console.log(result);
+        if (result === "generate") {
+          this.loadingService.loadingOn();
+          this.loadingService.longLoadingOn();
+        }
+      }
+    })
   }
 }

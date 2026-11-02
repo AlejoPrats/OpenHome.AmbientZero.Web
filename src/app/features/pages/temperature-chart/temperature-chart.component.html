@@ -1,20 +1,22 @@
-<div class="controls-container">
+<div *transloco="let t" class="controls-container">
     <span style="left: 0;">
-        <h1>Temperature Chart</h1>
+        <h1>{{t('temperature-chart.temperature-chart')}}</h1>
     </span>
     <span id="chart-controls" style="right: 0;">
-        <button id="chart-previous-day" tuiButton iconStart="@tui.chevron-left" (click)="previousDay()">Previous Date</button>
-        <tui-textfield id="chart-date-picker" tuiDropdownSheet="Pick a date" >
+        <button id="chart-previous-day" tuiButton iconStart="@tui.chevron-left"
+            (click)="previousDay()">{{t('temperature-chart.previous-date')}}Previous Date</button>
+        <tui-textfield id="chart-date-picker" tuiDropdownSheet="Pick a date">
             <label tuiLabel>Date</label>
             <input tuiInputDate [(ngModel)]="displayDate" (ngModelChange)="selectedDate()" />
             <ng-container *tuiDropdown="let close">
                 <tui-calendar />
                 <button appearance="action" size="m" tuiButton type="button" class="button" (click)="close(); today()">
-                    Today
+                    {{t('temperature-chart.today')}}
                 </button>
             </ng-container>
         </tui-textfield>
-        <button id="chart-next-day" tuiButton iconEnd="@tui.chevron-right" (click)="nextDay()">Next Date</button>
+        <button id="chart-next-day" tuiButton iconEnd="@tui.chevron-right"
+            (click)="nextDay()">{{t('temperature-chart.next-date')}}</button>
     </span>
 </div>
-<div id="chart-canvas" echarts [options]="options()" [theme]="theme.eChartsAttr()" class="chart"></div>
+<div id="chart-canvas" echarts (chartInit)="onChartInit($event)"  [options]="options()" [theme]="theme.eChartsAttr()" class="chart"></div>

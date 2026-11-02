@@ -7,25 +7,25 @@
     </div>
     <div class="progress-container">
       <label tuiProgressLabel class="label-wrapper">
-        {{ progress()?.percentage || 0 }}%
+        {{ progress()?.Percentage || 0 }}%
         <progress tuiProgressBar size="l" class="smooth-progress" max="100"
-          [value]="progress()?.percentage || 0"></progress>
+          [value]="progress()?.Percentage || 0"></progress>
       </label>
     </div>
     <div class="matrix-container">
-      <h3 class="matrix-text" [attr.data-text]="progress()?.status || 'Starting'">{{progress()?.status || 'Starting'}}
+      <h3 class="matrix-text" [attr.data-text]="progress()?.Status || 'Starting'">{{progress()?.Status || 'Starting'}}
       </h3>
     </div>
     <div class="long-loading-information-container">
       @for (item of progressMessages(); track $index) {
-        <div>{{item}}</div>
+      <div>{{item[0]}}: {{item[1]}}</div>
       }
       <div class="time-elapsed">Elapsed Time: {{ elapsedTime() | duration }}</div>
     </div>
-    @if(progress()?.percentage === 100)
+    @if(progress()?.Percentage === 100)
     {
     <div>
-      <button tuiButton size="s">Close</button>
+      <button tuiButton size="s" (click)="closeLongLoading()" >Close</button>
     </div>
     }
   </div>
@@ -33,14 +33,14 @@
 }
 @else if (loadingService.loading())
 {
-<div class="background">
+<div *transloco="let t" class="background">
   <div class="container">
     <div class="indicator">
       <img style="width: 150px; height: auto; stroke-opacity: 0.4; mix-blend-mode: screen;" src="/assets/svg/loader.svg"
         type="image/svg+xml" />
     </div>
     <div class="matrix-container">
-      <h3 class="matrix-text" data-text="Loading...">Loading...</h3>
+      <h3 class="matrix-text" data-text="Loading...">{{t('loading-indicator.loading')}}</h3>
     </div>
   </div>
 </div>

@@ -1,10 +1,14 @@
 import { Component, EventEmitter, input, Output, signal } from '@angular/core';
 import { TuiIcon, TuiHintDirective, TuiHint } from '@taiga-ui/core';
 import { NabVarItem } from './nab-var-item';
+import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-nav-bar',
-  imports: [TuiIcon, TuiHint, TuiHintDirective],
+  imports: [TuiIcon, TuiHint, TuiHintDirective, TranslocoModule],
+  providers: [
+    provideTranslocoScope({ scope: 'components/nav-bar', alias: 'navBar' }),
+  ],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.less',
 })

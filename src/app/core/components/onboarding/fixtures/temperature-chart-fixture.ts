@@ -7,6 +7,7 @@ export const TEMPERATURE_CHART_FIXTURE: ChartResponse = {
     {
       deviceId: '518d83d9-3447-4917-aad7-5fb8b3364bac',
       sensorVirtualName: 'Sensor 1',
+      color: null,
       temperatureReadings: [
         { id: 2211, date: new Date('2026-08-15T00:04:17.0989156'), temperature: 29.22 },
         { id: 2212, date: new Date('2026-08-15T00:24:33.629332'), temperature: 29.31 },
@@ -84,6 +85,7 @@ export const TEMPERATURE_CHART_FIXTURE: ChartResponse = {
     {
       deviceId: 'c1c9b1c4-7f3e-4f0e-9b7a-1a2f3b4c5d6e',
       sensorVirtualName: 'Sensor 2',
+      color: null,
       temperatureReadings: [
         { id: 3001, date: new Date('2026-08-15T00:00:00'), temperature: 26.4 },
         { id: 3002, date: new Date('2026-08-15T00:20:00'), temperature: 26.5 },

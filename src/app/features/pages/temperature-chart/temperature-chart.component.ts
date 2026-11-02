@@ -83,4 +83,9 @@ export class TemperatureChartComponent implements OnInit {
       },
     });
   }
+
+  onChartInit(ec: any) {
+    // Option 1: Try printing the raw instance to see what methods it actually has available
+    console.log('Raw Instance Object:', ec);
+  }
 }
