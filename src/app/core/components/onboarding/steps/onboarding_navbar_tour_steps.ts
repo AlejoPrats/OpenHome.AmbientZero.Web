@@ -17,7 +17,7 @@ export const ONBOARDING_NAVBAR_TOUR_STEPS: OnboardingStep[] = [
   },
   {
     element: '#nav-basic-settings',
-    title: 'basic-nav-settings',
+    title: 'basic-settings-nav',
     navigateTo: '/',
     description: 'basic-settings-nav-desc',
     position: 'right',
@@ -33,7 +33,7 @@ export const ONBOARDING_NAVBAR_TOUR_STEPS: OnboardingStep[] = [
     element: '#nav-help',
     title: 'help-nav',
     navigateTo: '/',
-    description: 'help-desc-nav',
+    description: 'help-nav-desc',
     position: 'right',
   },
 ];

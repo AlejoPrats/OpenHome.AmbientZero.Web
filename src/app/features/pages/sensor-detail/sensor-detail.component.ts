@@ -105,7 +105,7 @@ export class SensorDetailComponent implements OnInit {
         next: () => {
           this.sensorInformation()!.deviceVirtualName = this.tempSensorVirtualName;
           this.notificationService
-            .open('Device Name Saved Succesfully', {
+            .open('Device Name Saved Successfully', {
               label: 'Notification',
               appearance: 'positive',
               block: 'end',
@@ -133,7 +133,7 @@ export class SensorDetailComponent implements OnInit {
       .subscribe({
         next: () => {
           this.notificationService
-            .open('Sensor Settings Saved Succesfully', {
+            .open('Sensor Settings Saved Successfully', {
               label: 'Notification',
               appearance: 'positive',
               block: 'end',

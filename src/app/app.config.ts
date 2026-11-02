@@ -25,7 +25,6 @@ export const appConfig: ApplicationConfig = {
     provideEchartsCore({
       echarts: () => import('echarts'),
     }),
-    provideHttpClient(),
     provideTransloco({
       config: {
         availableLangs: ['en', 'es'],
