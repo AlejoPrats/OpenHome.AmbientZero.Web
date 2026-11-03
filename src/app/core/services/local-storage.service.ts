@@ -203,8 +203,7 @@ export class LocalStorageService {
     const raw = localStorage.getItem(STORAGE_KEYS.BACKUP_EXISTS);
     if (raw && raw == 'true') {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }
@@ -212,8 +211,7 @@ export class LocalStorageService {
   setBackupExists(value: boolean) {
     if (value) {
       localStorage.setItem(STORAGE_KEYS.BACKUP_EXISTS, 'true');
-    }
-    else {
+    } else {
       localStorage.setItem(STORAGE_KEYS.BACKUP_EXISTS, 'false');
     }
   }

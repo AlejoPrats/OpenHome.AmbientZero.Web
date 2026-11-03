@@ -142,8 +142,8 @@ export class GeneralSettingsComponent {
               },
             });
           },
-          error: () => { },
-          complete: () => { },
+          error: () => {},
+          complete: () => {},
         });
     } else {
       this.versionService
@@ -172,19 +172,20 @@ export class GeneralSettingsComponent {
   }
 
   protected exportDatabse() {
-    this.dialog.open<string>(new PolymorpheusComponent(ExportDownloadModalComponent), {
-      label: 'Export Database',
-      closable: true,
-      dismissible: true,
-      size: 'm'
-    }).subscribe({
-      next: (result) => {
-        console.log(result);
-        if (result === "generate") {
-          this.loadingService.loadingOn();
-          this.loadingService.longLoadingOn();
-        }
-      }
-    })
+    this.dialog
+      .open<string>(new PolymorpheusComponent(ExportDownloadModalComponent), {
+        label: 'Export Database',
+        closable: true,
+        dismissible: true,
+        size: 'm',
+      })
+      .subscribe({
+        next: (result) => {
+          if (result === 'generate') {
+            this.loadingService.loadingOn();
+            this.loadingService.longLoadingOn();
+          }
+        },
+      });
   }
 }

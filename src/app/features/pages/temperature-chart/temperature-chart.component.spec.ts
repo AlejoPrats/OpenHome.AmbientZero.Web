@@ -5,6 +5,7 @@ import { provideEchartsCore } from 'ngx-echarts';
 import { vi } from 'vitest';
 
 import { TemperatureChartComponent } from './temperature-chart.component';
+import { getTranslationModuleMock } from 'app/shared/mocks/translation-module.mock';
 
 describe('TemperatureChart', () => {
   let component: TemperatureChartComponent;
@@ -27,7 +28,7 @@ describe('TemperatureChart', () => {
     };
 
     await TestBed.configureTestingModule({
-      imports: [TemperatureChartComponent],
+      imports: [TemperatureChartComponent, getTranslationModuleMock()],
       providers: [
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
         provideEchartsCore({ echarts: () => import('echarts') }),

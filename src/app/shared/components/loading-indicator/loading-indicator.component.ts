@@ -11,11 +11,10 @@ import { BROADCAST_CHANNEL } from 'app/core/constants/broadcast-channel.constant
 
 @Component({
   selector: 'app-loading-indicator',
-  imports: [TuiProgress,
-    TuiButton,
-    DurationPipe,
-    TranslocoModule,],
-  providers: [provideTranslocoScope({ scope: 'components/loading-indicator', alias: 'loading-indicator' })],
+  imports: [TuiProgress, TuiButton, DurationPipe, TranslocoModule],
+  providers: [
+    provideTranslocoScope({ scope: 'components/loading-indicator', alias: 'loading-indicator' }),
+  ],
   templateUrl: './loading-indicator.component.html',
   styleUrl: './loading-indicator.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,

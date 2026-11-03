@@ -33,10 +33,6 @@ export class LoadingProgressManager {
                   this._progress.set(responseFromServer);
                   this._progressMessages.set(responseFromServer.Message);
 
-                  console.log(responseFromServer);
-
-                  console.log(responseFromServer.Percentage);
-
                   if (responseFromServer.Percentage === 100) {
                     this.counterService.stop();
                   }
@@ -47,7 +43,7 @@ export class LoadingProgressManager {
                 }),
               ),
             ),
-            takeWhile((responseFromServer) => responseFromServer.Percentage < 100, true)
+            takeWhile((responseFromServer) => responseFromServer.Percentage < 100, true),
           );
         }
 

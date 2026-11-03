@@ -19,4 +19,4 @@
             (click)="nextDay()">{{t('temperature-chart.next-date')}}</button>
     </span>
 </div>
-<div id="chart-canvas" echarts (chartInit)="onChartInit($event)"  [options]="options()" [theme]="theme.eChartsAttr()" class="chart"></div>
+<div id="chart-canvas" echarts [options]="options()" [theme]="theme.eChartsAttr()" class="chart"></div>

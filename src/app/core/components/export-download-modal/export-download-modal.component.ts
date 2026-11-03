@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnDestroy } from '@angular/core';
 import { TuiButton, TuiDialogContext } from '@taiga-ui/core';
 import { injectContext } from '@taiga-ui/polymorpheus';
 import { BROADCAST_CHANNEL } from 'app/core/constants/broadcast-channel.constants';
@@ -9,11 +9,11 @@ import { BackupService } from 'app/shared/services/backup.service';
 
 @Component({
   selector: 'app-export-download-modal',
-  imports: [TuiButton,],
+  imports: [TuiButton],
   templateUrl: './export-download-modal.component.html',
   styleUrl: './export-download-modal.component.less',
 })
-export class ExportDownloadModalComponent {
+export class ExportDownloadModalComponent implements OnDestroy {
   protected readonly context = injectContext<TuiDialogContext<string, string>>();
   private readonly backupService = inject(BackupService);
   private readonly loadingService = inject(LoadingService);

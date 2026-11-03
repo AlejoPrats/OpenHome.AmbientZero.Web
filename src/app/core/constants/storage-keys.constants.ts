@@ -10,5 +10,5 @@ export const STORAGE_KEYS = {
   ONBOARDING_RUNNING: 'onboarding_running',
   ONBOARDING_STEP: 'onboarding_step',
   HIDDEN_SENSORS: 'hidden_sensors',
-  BACKUP_EXISTS: 'backup_exists'
+  BACKUP_EXISTS: 'backup_exists',
 } as const;
