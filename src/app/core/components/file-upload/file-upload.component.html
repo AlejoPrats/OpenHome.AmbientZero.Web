@@ -1,0 +1,26 @@
+<label tuiInputFiles>
+    <input tuiInputFiles [disabled]="file() ? true : false" (change)="onFileSelected($event)" (drop)="onFileDrop($event)"
+        [(ngModel)]="uploadedFile" />
+</label>
+@if (file()) {
+<div style="display: flex; flex-direction: row; padding-top: 15px;">
+    <div style="align-items: center;display: inherit;padding-right: 5px;">
+        <tui-icon icon="@tui.file" />
+    </div>
+    <div style="display:grid">
+        <div style="grid-row: 1;grid-column: 1;gap: 12px;padding-right: 5px;">Filename:</div>
+        <div style="grid-row: 1;grid-column: 2;gap: 12px;padding-right: 5px;"> {{ file()!.name }}</div>
+        <div>Size:</div>
+        <div> {{ formatSize(['B', 'KB', 'MB'], file()!.size) }}</div>
+    </div>
+    <button tuiButtonX (click)="remove()">
+        Remove
+    </button>
+</div>
+}
+@if(displayError)
+{
+<div style="margin-top: 10px;">
+    {{errorMessage}}
+</div>
+}

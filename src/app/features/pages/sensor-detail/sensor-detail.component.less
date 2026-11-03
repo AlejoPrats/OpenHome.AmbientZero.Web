@@ -1,0 +1,14 @@
+// Animation duration
+@speed: 220ms;
+
+.table-row-anim {
+    overflow: hidden;
+    height: auto;
+    opacity: 1;
+    transition: height @speed ease, opacity @speed ease;
+
+    &.is-collapsed {
+        height: 0;
+        opacity: 0;
+    }
+}

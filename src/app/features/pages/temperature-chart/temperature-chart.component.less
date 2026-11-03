@@ -1,0 +1,34 @@
+.chart {
+  width: 100%;
+  height: 700px;
+}
+
+.button {
+  inline-size: 100%;
+  border-radius: 0;
+  box-shadow: 0 -1px var(--tui-border-normal);
+}
+
+.controls-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 10px;
+
+  :first-child {
+    display: flex;
+    align-items: center;
+  }
+
+  :nth-child(2) {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    tui-textfield {
+      width: 220px;
+      height: 20px;
+    }
+
+  }
+}
