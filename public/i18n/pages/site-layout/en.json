@@ -1,0 +1,11 @@
+{
+    "home":"Home",
+    "temperature-chart":"Temperature Chart",
+    "sensors":"Sensors",
+    "basic-settings":"Basic Settings",
+    "advanced-settings":"Advanced Settings",
+    "help":"Help",
+    "theme-light":"Light",
+    "theme-auto":"Auto",
+    "theme-dark":"Dark"
+}

@@ -16,6 +16,7 @@ export function buildTemperatureChartOption(chartResponse: ChartResponse): ECBas
       name: item.sensorVirtualName,
       smooth: true,
       type: 'line',
+      color: item.color,
       data: item.temperatureReadings.map((x) => [new Date(x.date).toISOString(), x.temperature]),
     });
   }

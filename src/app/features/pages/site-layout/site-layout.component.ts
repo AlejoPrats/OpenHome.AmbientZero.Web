@@ -7,6 +7,7 @@ import { TuiNavigation } from '@taiga-ui/layout';
 import { ThemeService } from '../../../core/services/theme.service';
 import { BreadcrumbService } from '../../../core/services/breadcrumb.service';
 import { AdditionalPageInformationService } from '../../../core/services/additional-page-information.service';
+import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
 
 type ThemeMode = 'light' | 'dark' | 'auto';
 @Component({
@@ -28,7 +29,9 @@ type ThemeMode = 'light' | 'dark' | 'auto';
     TuiTabs,
     RouterOutlet,
     RouterLinkWithHref,
+    TranslocoModule,
   ],
+  providers: [provideTranslocoScope({ scope: 'pages/site-layout', alias: 'siteLayout' })],
   templateUrl: './site-layout.component.html',
   styleUrl: './site-layout.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,6 +1,6 @@
 @if(tabs(); as tabsCollection)
 {
-<div class="custom-navbar-container">
+<div *transloco="let t" class="custom-navbar-container">
     @for(tab of tabsCollection; track tab; let i = $index)
     {
     @if(tab.enabled)
@@ -8,15 +8,15 @@
     <span [id]="tab.selectorId" class="tab-item" [class.active]="index() === i" (click)="setActive(i)">
         <tui-icon [icon]="tab.icon" />
         <span class="tab-wrapper"></span>
-        <span class="tab-text">{{tab.label}}</span>
+        <span class="tab-text">{{t(tab.label)}}</span>
     </span>
     }
     @else
     {
-    <span [id]="tab.selectorId" [tuiHint]="tab.hint"  tuiHintDirection="bottom" class="tab-item disabled">
+    <span [id]="tab.selectorId" [tuiHint]="tab.hint" tuiHintDirection="bottom" class="tab-item disabled">
         <tui-icon [icon]="tab.icon" />
         <span class="tab-wrapper"></span>
-        <span class="tab-text">{{tab.label}}</span>
+        <span class="tab-text">{{t(tab.label)}}</span>
     </span>
     }
     }

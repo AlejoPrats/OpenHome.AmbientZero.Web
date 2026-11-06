@@ -26,14 +26,14 @@ export class ForceUpdateModalComponent {
     {
       id: 0,
       selectorId: 'advanced-settings-general-tab',
-      label: 'Update From Server',
+      label: 'navBar.update-from-server',
       icon: '@tui.globe-check',
       enabled: true,
     },
     {
       id: 1,
       selectorId: 'advanced-settings-network-tab',
-      label: 'Update From File',
+      label: 'nav-bar.update-from-file',
       icon: '@tui.upload',
       enabled: true,
     },

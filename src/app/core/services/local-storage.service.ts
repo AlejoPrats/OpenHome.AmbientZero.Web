@@ -197,4 +197,23 @@ export class LocalStorageService {
     localStorage.setItem(STORAGE_KEYS.HIDDEN_SENSORS, JSON.stringify(existentArray));
   }
   //#endregion
+
+  //#region Backup
+  getBackupExists(): boolean {
+    const raw = localStorage.getItem(STORAGE_KEYS.BACKUP_EXISTS);
+    if (raw && raw == 'true') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  setBackupExists(value: boolean) {
+    if (value) {
+      localStorage.setItem(STORAGE_KEYS.BACKUP_EXISTS, 'true');
+    } else {
+      localStorage.setItem(STORAGE_KEYS.BACKUP_EXISTS, 'false');
+    }
+  }
+  //#endregion
 }
