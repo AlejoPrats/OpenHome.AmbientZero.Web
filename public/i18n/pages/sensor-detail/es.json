@@ -16,5 +16,6 @@
     "apply": "Aplicar Cambios",
     "save": "Guardar",
     "edit": "Editar",
-    "virtual-name":"Nombre Virtual del Dispositivo"
+    "virtual-name":"Nombre Virtual del Dispositivo",
+    "name-required":"El nombre es obligatorio"
 }

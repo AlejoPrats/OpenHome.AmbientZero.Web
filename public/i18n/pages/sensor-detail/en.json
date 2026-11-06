@@ -16,5 +16,6 @@
     "apply": "Apply Changes",
     "save": "Save",
     "edit": "Edit",
-    "virtual-name":"Device Virtual Name"
+    "virtual-name":"Device Virtual Name",
+    "name-required":"Name is required"
 }
