@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavBarComponent } from './nav-bar.component';
+import { getTranslationModuleMock } from 'app/shared/mocks/translation-module.mock';
 
 describe('NavBarComponent', () => {
   let component: NavBarComponent;
@@ -8,7 +9,7 @@ describe('NavBarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NavBarComponent],
+      imports: [NavBarComponent, getTranslationModuleMock()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NavBarComponent);

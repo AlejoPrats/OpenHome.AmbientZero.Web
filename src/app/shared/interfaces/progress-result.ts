@@ -1,6 +1,6 @@
 export interface ProgressResult {
-  percentage: number;
-  isSuccess: boolean;
-  status: string;
-  message: string;
+  Percentage: number;
+  IsSuccess: boolean;
+  Status: string;
+  Message: string[][];
 }

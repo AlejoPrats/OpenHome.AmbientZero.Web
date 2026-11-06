@@ -9,6 +9,7 @@ import { vi } from 'vitest';
 
 import { TemperatureChartComponent } from './temperature-chart.component';
 import { ThemeMode, ThemeService } from 'app/core/services/theme.service';
+import { getTranslationModuleMock } from 'app/shared/mocks/translation-module.mock';
 
 describe('TemperatureChart', () => {
   let component: TemperatureChartComponent;
@@ -45,7 +46,7 @@ describe('TemperatureChart', () => {
     systemDarkMode = signal(false);
 
     await TestBed.configureTestingModule({
-      imports: [TemperatureChartComponent],
+      imports: [TemperatureChartComponent, getTranslationModuleMock()],
       providers: [
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
         { provide: TUI_DARK_MODE, useValue: systemDarkMode },
