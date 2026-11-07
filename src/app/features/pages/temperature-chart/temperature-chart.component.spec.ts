@@ -23,7 +23,7 @@ describe('TemperatureChart', () => {
     await fixture.whenStable();
   };
 
-  const chartTheme = () =>
+  const getChartTheme = () =>
     fixture.debugElement
       .query(By.directive(NgxEchartsDirective))
       .injector.get(NgxEchartsDirective)
@@ -81,7 +81,7 @@ describe('TemperatureChart', () => {
 
       await createComponent();
 
-      expect(chartTheme()).toBe(expectedTheme);
+      expect(getChartTheme()).toBe(expectedTheme);
     },
   );
 });
