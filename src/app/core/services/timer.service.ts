@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
-import { filter, interval, map, take } from 'rxjs';
+import { filter, interval, map, Observable, take } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class TimerService {
@@ -26,13 +26,11 @@ export class TimerService {
     return this.getRemaining(name) > 0;
   }
 
-  onFinish(name: string, callback: () => void): void {
-    interval(250)
-      .pipe(
-        map(() => this.getRemaining(name)),
-        filter((remaining) => remaining <= 0),
-        take(1),
-      )
-      .subscribe(() => callback());
+  finished(name: string): Observable<void> {
+    return interval(250).pipe(
+      filter(() => this.getRemaining(name) <= 0),
+      take(1),
+      map(() => undefined),
+    );
   }
 }
