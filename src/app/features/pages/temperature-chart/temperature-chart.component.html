@@ -4,7 +4,7 @@
     </span>
     <span id="chart-controls" style="right: 0;">
         <button id="chart-previous-day" tuiButton iconStart="@tui.chevron-left"
-            (click)="previousDay()">{{t('temperature-chart.previous-date')}}Previous Date</button>
+            (click)="previousDay()">{{t('temperature-chart.previous-date')}}</button>
         <tui-textfield id="chart-date-picker" tuiDropdownSheet="Pick a date">
             <label tuiLabel>Date</label>
             <input tuiInputDate [(ngModel)]="displayDate" (ngModelChange)="selectedDate()" />
