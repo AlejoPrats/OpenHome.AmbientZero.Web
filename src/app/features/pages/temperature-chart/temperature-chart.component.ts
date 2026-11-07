@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, signal, OnInit } from '@ang
 import { NgxEchartsModule } from 'ngx-echarts';
 import { ThemeService } from '../../../core/services/theme.service';
 import { ActivatedRoute } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ECBasicOption } from 'echarts/types/dist/shared';
 import { ChartResponse } from '../../../shared/interfaces/chart-response';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -44,7 +45,7 @@ export class TemperatureChartComponent implements OnInit {
   protected displayDate = TuiDay.currentLocal();
 
   constructor() {
-    this.route.data.subscribe(({ temperatureReadings }) => {
+    this.route.data.pipe(takeUntilDestroyed()).subscribe(({ temperatureReadings }) => {
       const chartResponse = temperatureReadings as ChartResponse;
       this.options.set(buildTemperatureChartOption(chartResponse));
     });

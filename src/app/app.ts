@@ -1,12 +1,5 @@
 import { TuiRoot } from '@taiga-ui/core';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnDestroy,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ThemeService } from './core/services/theme.service';
 import { LoadingIndicatorComponent } from './shared/components/loading-indicator/loading-indicator.component';
@@ -19,20 +12,14 @@ import { LocalStorageService } from './core/services/local-storage.service';
   styleUrl: './app.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class App implements OnInit, OnDestroy {
+export class App {
   protected readonly title = signal('OpenHome.AmbientZero.Web');
   private readonly localStorageService = inject(LocalStorageService);
   readonly theme = inject(ThemeService);
 
-  ngOnInit() {
-    window.addEventListener('beforeunload', () => {
-      this.localStorageService.setOnboardingRunning(false);
-    });
-  }
-
-  ngOnDestroy() {
-    window.removeEventListener('beforeunload', () => {
-      this.localStorageService.setOnboardingRunning(false);
-    });
+  constructor() {
+    const stopOnboarding = () => this.localStorageService.setOnboardingRunning(false);
+    window.addEventListener('beforeunload', stopOnboarding);
+    inject(DestroyRef).onDestroy(() => window.removeEventListener('beforeunload', stopOnboarding));
   }
 }
