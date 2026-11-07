@@ -1,9 +1,8 @@
-import { Component, inject, input, OnInit, output } from '@angular/core';
+import { Component, input, OnInit, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
 import { TuiChevron, TuiDataListWrapper, TuiSelect } from '@taiga-ui/kit';
 import { UnitInterface } from './unit-interface';
-import { ThemeService } from 'app/core/services/theme.service';
 
 @Component({
   selector: 'app-unit-selector',
@@ -13,7 +12,6 @@ import { ThemeService } from 'app/core/services/theme.service';
   styleUrl: './unit-selector.component.less',
 })
 export class UnitSelectorComponent implements OnInit {
-  protected theme = inject(ThemeService);
   protected value: UnitInterface | null = null;
   selectedUnit = input<number | undefined>();
   valueChanged = output<number | undefined>();
