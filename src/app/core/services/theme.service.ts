@@ -9,11 +9,9 @@ const VALID_THEME_MODES: ThemeMode[] = ['light', 'dark', 'auto'];
   providedIn: 'root',
 })
 export class ThemeService {
-  private readonly systemDarkMode = inject(TUI_DARK_MODE);
+  private readonly isOsDark = inject(TUI_DARK_MODE);
   readonly mode = signal<ThemeMode>(this.readStoredTheme());
-  readonly resolvedTheme = computed(
-    () => this.attr() ?? (this.systemDarkMode() ? 'dark' : 'light'),
-  );
+  readonly resolvedTheme = computed(() => this.attr() ?? (this.isOsDark() ? 'dark' : 'light'));
 
   set(mode: ThemeMode) {
     this.mode.set(mode);

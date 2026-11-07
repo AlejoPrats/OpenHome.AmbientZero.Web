@@ -6,12 +6,12 @@ import { ThemeMode, ThemeService } from './theme.service';
 
 describe('ThemeService', () => {
   let service: ThemeService;
-  let systemDarkMode: WritableSignal<boolean>;
+  let isOsDark: WritableSignal<boolean>;
 
   beforeEach(() => {
-    systemDarkMode = signal(false);
+    isOsDark = signal(false);
     TestBed.configureTestingModule({
-      providers: [{ provide: TUI_DARK_MODE, useValue: systemDarkMode }],
+      providers: [{ provide: TUI_DARK_MODE, useValue: isOsDark }],
     });
     service = TestBed.inject(ThemeService);
   });
@@ -25,26 +25,26 @@ describe('ThemeService', () => {
   });
 
   it.each`
-    mode       | systemIsDark | expectedTheme
-    ${'auto'}  | ${false}     | ${'light'}
-    ${'auto'}  | ${true}      | ${'dark'}
-    ${'light'} | ${true}      | ${'light'}
-    ${'dark'}  | ${false}     | ${'dark'}
+    selectedMode | osIsDark | expectedTheme
+    ${'auto'}    | ${false} | ${'light'}
+    ${'auto'}    | ${true}  | ${'dark'}
+    ${'light'}   | ${true}  | ${'light'}
+    ${'dark'}    | ${false} | ${'dark'}
   `(
-    'should resolve $expectedTheme in $mode mode when the system is dark: $systemIsDark',
-    ({ mode, systemIsDark, expectedTheme }) => {
-      service.set(mode as ThemeMode);
-      systemDarkMode.set(systemIsDark);
+    'should resolve $expectedTheme in $selectedMode mode when the OS is dark: $osIsDark',
+    ({ selectedMode, osIsDark, expectedTheme }) => {
+      service.set(selectedMode as ThemeMode);
+      isOsDark.set(osIsDark);
 
       expect(service.resolvedTheme()).toBe(expectedTheme);
     },
   );
 
-  it('should follow the system when it changes in auto mode', () => {
+  it('should follow the OS when it changes in auto mode', () => {
     service.set('auto');
     expect(service.resolvedTheme()).toBe('light');
 
-    systemDarkMode.set(true);
+    isOsDark.set(true);
 
     expect(service.resolvedTheme()).toBe('dark');
   });
