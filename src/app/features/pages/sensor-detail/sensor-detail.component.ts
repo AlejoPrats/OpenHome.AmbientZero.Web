@@ -19,6 +19,7 @@ import {
   TuiFilterByInputPipe,
   TuiExpand,
   TuiDialog,
+  TuiError,
   TuiNotificationService,
 } from '@taiga-ui/core';
 import { TuiAutoFocus, TuiTime } from '@taiga-ui/cdk';
@@ -43,6 +44,7 @@ import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
     TuiButton,
     TuiExpand,
     TuiDialog,
+    TuiError,
     RouterLinkWithHref,
     TuiAutoFocus,
     TranslocoModule,
@@ -96,14 +98,13 @@ export class SensorDetailComponent implements OnInit {
   }
 
   protected updateVirtualName() {
+    const virtualName = this.tempSensorVirtualName.trim();
     this.changeNameModalOpen = false;
     this.sensorService
-      .updateSensorName(
-        new NameUpdateRequest(this.sensorInformation()!.deviceId, this.tempSensorVirtualName),
-      )
+      .updateSensorName(new NameUpdateRequest(this.sensorInformation()!.deviceId, virtualName))
       .subscribe({
         next: () => {
-          this.sensorInformation()!.deviceVirtualName = this.tempSensorVirtualName;
+          this.sensorInformation()!.deviceVirtualName = virtualName;
           this.notificationService
             .open('Device Name Saved Successfully', {
               label: 'Notification',

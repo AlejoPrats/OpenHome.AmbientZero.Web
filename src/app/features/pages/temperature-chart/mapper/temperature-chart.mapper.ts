@@ -10,10 +10,10 @@ export function buildTemperatureChartOption(chartResponse: ChartResponse): ECBas
   const legendSeries: EchartsSeries[] = [];
 
   for (const item of chartValues) {
-    legendData.push(item.sensorVirtualName!);
+    legendData.push(item.sensorVirtualName);
 
     legendSeries.push({
-      name: item.sensorVirtualName!,
+      name: item.sensorVirtualName,
       smooth: true,
       type: 'line',
       color: item.color,
