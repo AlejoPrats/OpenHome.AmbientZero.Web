@@ -5,7 +5,7 @@
     application will not work correctly until the process finishes</p>
 <footer>
     <div class="footer-buttons">
-        <button tuiButton (click)="downloadBackup()" [disabled]="!lastBackupDate">
+        <button tuiButton (click)="downloadBackup()" [disabled]="!backupExists">
             Download
         </button>        
         <button tuiButton (click)="generateBackup()" [disabled]="isProcessRunning()">

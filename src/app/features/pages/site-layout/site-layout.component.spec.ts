@@ -4,6 +4,7 @@ import { provideTaiga } from '@taiga-ui/core';
 import { vi } from 'vitest';
 
 import { SiteLayoutComponent } from './site-layout.component';
+import { getTranslationModuleMock } from 'app/shared/mocks/translation-module.mock';
 
 describe('SiteLayout', () => {
   let component: SiteLayoutComponent;
@@ -29,7 +30,7 @@ describe('SiteLayout', () => {
     });
 
     await TestBed.configureTestingModule({
-      imports: [SiteLayoutComponent],
+      imports: [SiteLayoutComponent, getTranslationModuleMock()],
       providers: [provideRouter([]), provideTaiga()],
     }).compileComponents();
 

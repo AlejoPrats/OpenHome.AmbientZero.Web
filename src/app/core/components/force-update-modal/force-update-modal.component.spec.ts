@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 import { NotificationService } from 'app/core/services/notification-service.service';
 import { VersionService } from 'app/shared/services/version.service';
 import { ForceUpdateModalComponent } from './force-update-modal.component';
+import { getTranslationModuleMock } from 'app/shared/mocks/translation-module.mock';
 
 describe('ForceUpdateModalComponent', () => {
   let component: ForceUpdateModalComponent;
@@ -12,7 +13,7 @@ describe('ForceUpdateModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ForceUpdateModalComponent],
+      imports: [ForceUpdateModalComponent, getTranslationModuleMock()],
       providers: [
         {
           provide: POLYMORPHEUS_CONTEXT,
