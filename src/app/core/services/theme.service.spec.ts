@@ -42,7 +42,6 @@ describe('ThemeService', () => {
 
   it('should follow the system when it changes in auto mode', () => {
     service.set('auto');
-    systemDarkMode.set(false);
     expect(service.resolvedTheme()).toBe('light');
 
     systemDarkMode.set(true);
