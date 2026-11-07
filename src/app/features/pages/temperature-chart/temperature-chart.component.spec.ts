@@ -1,21 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { signal, WritableSignal } from '@angular/core';
+import { signal } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { NgxEchartsDirective, provideEchartsCore } from 'ngx-echarts';
-import { TUI_DARK_MODE } from '@taiga-ui/core';
 import { vi } from 'vitest';
 
 import { TemperatureChartComponent } from './temperature-chart.component';
-import { ThemeMode, ThemeService } from 'app/core/services/theme.service';
+import { ThemeService } from 'app/core/services/theme.service';
 import { getTranslationModuleMock } from 'app/shared/mocks/translation-module.mock';
 
 describe('TemperatureChart', () => {
   let component: TemperatureChartComponent;
   let fixture: ComponentFixture<TemperatureChartComponent>;
   let resizeObserverMock: unknown;
-  let systemDarkMode: WritableSignal<boolean>;
 
   const createComponent = async () => {
     fixture = TestBed.createComponent(TemperatureChartComponent);
@@ -43,13 +41,12 @@ describe('TemperatureChart', () => {
         temperatureReadings: { measurements: [], minTemperature: 20, maxTemperature: 30 },
       }),
     };
-    systemDarkMode = signal(false);
 
     await TestBed.configureTestingModule({
       imports: [TemperatureChartComponent, getTranslationModuleMock()],
       providers: [
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
-        { provide: TUI_DARK_MODE, useValue: systemDarkMode },
+        { provide: ThemeService, useValue: { resolvedTheme: signal('dark') } },
         provideEchartsCore({ echarts: () => import('echarts') }),
       ],
     }).compileComponents();
@@ -57,7 +54,6 @@ describe('TemperatureChart', () => {
 
   afterEach(() => {
     (globalThis as unknown as Record<string, unknown>)['ResizeObserver'] = resizeObserverMock;
-    localStorage.removeItem('theme');
     vi.clearAllMocks();
   });
 
@@ -67,21 +63,9 @@ describe('TemperatureChart', () => {
     expect(component).toBeTruthy();
   });
 
-  it.each`
-    mode       | systemIsDark | expectedTheme
-    ${'auto'}  | ${false}     | ${'light'}
-    ${'auto'}  | ${true}      | ${'dark'}
-    ${'light'} | ${true}      | ${'light'}
-    ${'dark'}  | ${false}     | ${'dark'}
-  `(
-    'should draw the chart $expectedTheme in $mode mode when the system is dark: $systemIsDark',
-    async ({ mode, systemIsDark, expectedTheme }) => {
-      TestBed.inject(ThemeService).set(mode as ThemeMode);
-      systemDarkMode.set(systemIsDark);
+  it('should draw the chart in the resolved theme', async () => {
+    await createComponent();
 
-      await createComponent();
-
-      expect(getChartTheme()).toBe(expectedTheme);
-    },
-  );
+    expect(getChartTheme()).toBe('dark');
+  });
 });

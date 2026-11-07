@@ -6,6 +6,7 @@ import { of } from 'rxjs';
 import { OnboardingSetupService } from 'app/shared/services/onboarding-setup.service';
 import { OnboardingUnitSelectorComponent } from './onboarding-unit-selector.component';
 import { OnboardingService } from '../../services/driver.service';
+import { ThemeService } from 'app/core/services/theme.service';
 
 describe('OnboardingUnitSelectorComponent', () => {
   let component: OnboardingUnitSelectorComponent;
@@ -18,6 +19,7 @@ describe('OnboardingUnitSelectorComponent', () => {
         TranslocoTestingModule.forRoot({ langs: { en: {}, es: {} } }),
       ],
       providers: [
+        { provide: ThemeService, useValue: { attr: () => null } },
         { provide: OnboardingService, useValue: { nextStep: vi.fn(), previousStep: vi.fn() } },
         { provide: OnboardingSetupService, useValue: { setTemperatureUnit: vi.fn(() => of()) } },
         { provide: TuiNotificationService, useValue: { open: vi.fn(() => of(undefined)) } },

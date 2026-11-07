@@ -1,4 +1,5 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, signal } from '@angular/core';
+import { TUI_DARK_MODE } from '@taiga-ui/core';
 
 export type ThemeMode = 'light' | 'dark' | 'auto';
 
@@ -8,7 +9,11 @@ const VALID_THEME_MODES: ThemeMode[] = ['light', 'dark', 'auto'];
   providedIn: 'root',
 })
 export class ThemeService {
+  private readonly systemDarkMode = inject(TUI_DARK_MODE);
   readonly mode = signal<ThemeMode>(this.readStoredTheme());
+  readonly resolvedTheme = computed(
+    () => this.attr() ?? (this.systemDarkMode() ? 'dark' : 'light'),
+  );
 
   set(mode: ThemeMode) {
     this.mode.set(mode);

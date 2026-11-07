@@ -6,6 +6,7 @@ import { of } from 'rxjs';
 import { OnboardingSetupService } from 'app/shared/services/onboarding-setup.service';
 import { OnboardingLanguageSelectorComponent } from './onboarding-language-selector.component';
 import { OnboardingService } from '../../services/driver.service';
+import { ThemeService } from 'app/core/services/theme.service';
 
 describe('OnboardingLanguageSelectorComponent', () => {
   let component: OnboardingLanguageSelectorComponent;
@@ -18,6 +19,7 @@ describe('OnboardingLanguageSelectorComponent', () => {
         TranslocoTestingModule.forRoot({ langs: { en: {}, es: {} } }),
       ],
       providers: [
+        { provide: ThemeService, useValue: { attr: () => null } },
         { provide: OnboardingService, useValue: { nextStep: vi.fn(), previousStep: vi.fn() } },
         { provide: OnboardingSetupService, useValue: { setLanguage: vi.fn(() => of()) } },
         { provide: TuiNotificationService, useValue: { open: vi.fn(() => of(undefined)) } },
