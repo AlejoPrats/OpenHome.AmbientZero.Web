@@ -8,7 +8,6 @@ import {
   signal,
   ViewChild,
 } from '@angular/core';
-import { ThemeService } from 'app/core/services/theme.service';
 import { TimeZone } from 'app/shared/interfaces/time-zone';
 import { TuiDropdown, TuiFilterByInputPipe } from '@taiga-ui/core';
 import { FormsModule } from '@angular/forms';
@@ -50,7 +49,6 @@ import { TuiDropdownMobile } from '@taiga-ui/addon-mobile';
 export class TimeZoneSelectorComponent implements OnInit {
   @ViewChild('tzInput', { static: false }) tzInput!: ElementRef<HTMLInputElement>;
   systemService = inject(SystemService);
-  theme = inject(ThemeService);
   protected readonly timeZones = signal<TimeZone[]>([]);
   protected readonly value = signal<TimeZone | null>(null);
   valueChanged = output<string | undefined>();

@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { tuiScrollbarOptionsProvider } from '@taiga-ui/core/components/scrollbar';
 import { TuiChevron, TuiDataListWrapper, TuiFlagPipe, TuiSelect } from '@taiga-ui/kit';
 import { LanguageInterface } from './language-interface';
-import { ThemeService } from 'app/core/services/theme.service';
 import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
 
 @Component({
@@ -18,7 +17,6 @@ import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
   ],
 })
 export class LanguageSelectorComponent {
-  protected theme = inject(ThemeService);
   protected value: LanguageInterface | null = null;
   valueChanged = output<string | undefined>();
 
