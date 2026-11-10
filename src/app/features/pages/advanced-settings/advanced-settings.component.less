@@ -1,3 +1,5 @@
+@import (reference) "../../../shared/styles/responsive.less";
+
 .flex-table-form {
   display: flex;
   flex-direction: column;
@@ -10,6 +12,7 @@
 
 .table-row-form {
   display: flex;
+  gap: var(--spacing-xs);
   padding: 8px 12px;
   align-items: center;
 }
@@ -18,27 +21,43 @@
   font-weight: 600;
   background-color: var(--tui-background-neutral-1);
   border-bottom: 1px solid var(--tui-border-normal);
+  flex-wrap: wrap;
 }
 
 .cell-title {
-  flex: 1;
+  flex: 1 1 0;
   padding: 4px 8px;
-  white-space: nowrap;
+  white-space: normal;
   overflow: hidden;
   text-overflow: ellipsis;
-  flex-shrink: 0;
-  flex-grow: 0;
-  flex-basis: 16%;
 }
 
 .cell-field {
+  flex: 0 1 auto;
+  min-inline-size: 0;
   padding: 4px 8px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  flex-basis: 0px;
-  flex-grow: 0.3;
-  flex-shrink: 0.5;
+
+  tui-textfield {
+    min-inline-size: 8rem;
+  }
+}
+
+.table-row-form:has(> .cell-field tui-textfield) {
+  flex-direction: column;
+  align-items: stretch;
+
+  > .cell-title,
+  > .cell-field {
+    flex: none;
+  }
+}
+
+.table-top-controls {
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 footer.advancedSettings {
@@ -59,3 +78,45 @@ footer.advancedSettings {
 .page-scroll-container {
   height: 100%;
 }
+
+.desktop-layout({
+  .table-row-form {
+    gap: normal;
+  }
+
+  .cell-title {
+    flex: 0 0 16%;
+    white-space: nowrap;
+  }
+
+  .cell-field {
+    flex: 0.3 0.5 0px;
+    min-inline-size: auto;
+
+    tui-textfield {
+      min-inline-size: auto;
+    }
+  }
+
+  .header-form {
+    flex-wrap: nowrap;
+  }
+
+  .table-top-controls {
+    flex-wrap: nowrap;
+    justify-content: normal;
+  }
+
+  .table-row-form:has(> .cell-field tui-textfield) {
+    flex-direction: row;
+    align-items: center;
+
+    > .cell-title {
+      flex: 0 0 16%;
+    }
+
+    > .cell-field {
+      flex: 0.3 0.5 0px;
+    }
+  }
+});

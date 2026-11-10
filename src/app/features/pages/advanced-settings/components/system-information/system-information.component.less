@@ -1,3 +1,5 @@
+@import (reference) "../../../../../shared/styles/responsive.less";
+
     .status-good {
         color: var(--tui-status-positive);
     }
@@ -14,15 +16,47 @@
         color: var(--tui-text-tertiary);
     }
 	 
+    .status-cards {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 30px;
+    }
+
+    .card {
+        align-self: stretch;
+    }
+
+    .brief-status {
+        flex-wrap: wrap;
+        align-items: first baseline;
+        gap: 1rem 1.5rem;
+
+        &:has(> [tuiTitle] ~ [tuiTitle]) > [tuiTitle]:first-child {
+            flex-basis: 100%;
+        }
+    }
+
+    .expand-details-button {
+        align-self: end;
+    }
+
+.desktop-layout({
+    .status-cards {
+        flex-direction: row;
+        align-items: center;
+    }
+
     .card {
         align-self: flex-start;
         width: 30%;
     }
 
     .brief-status {
-        align-items: first baseline;
-    }
+        flex-wrap: nowrap;
+        gap: 3rem;
 
-    .expand-details-button {
-        align-self: end;
+        &:has(> [tuiTitle] ~ [tuiTitle]) > [tuiTitle]:first-child {
+            flex-basis: auto;
+        }
     }
+});
