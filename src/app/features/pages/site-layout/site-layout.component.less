@@ -14,7 +14,7 @@
   --breadcrumbs-flex: 1 0 100%;
   --page-context-tabs-margin-inline-end: 0;
   --page-context-tabs-offset: 0;
-  --page-info-flex: 1;
+  --page-info-align: start;
 
   display: block;
 }
@@ -34,7 +34,7 @@
     --breadcrumbs-flex: 1;
     --page-context-tabs-margin-inline-end: 1.5rem;
     --page-context-tabs-offset: 3rem;
-    --page-info-flex: 0 0 auto;
+    --page-info-align: end;
   }
 });
 
@@ -106,8 +106,14 @@
     border-inline-start-width: var(--page-context-tabs-offset);
   }
 
-  > tui-tabs[tuiFade] {
-    flex: var(--page-info-flex);
+  > .page-info {
+    flex: 1 1 auto;
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--tui-text-secondary);
+    font: var(--tui-typography-body-s);
+    text-align: var(--page-info-align);
   }
 }
 

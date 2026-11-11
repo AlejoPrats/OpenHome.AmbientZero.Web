@@ -17,11 +17,11 @@
         </div>
         <div class="title">{{t('settings.tour')}}</div>
         <div class="row">
-            <button tuiButton>{{t('settings.take-the-tour')}}</button>
+            <button size="m" tuiButton>{{t('settings.take-the-tour')}}</button>
         </div>
     </div>
     <footer class="advancedSettings">
-        <button tuiButton [disabled]="saveButtonDisabled()" (click)="saveSettings()">
+        <button size="m" tuiButton [disabled]="saveButtonDisabled()" (click)="saveSettings()">
             {{t('settings.save')}}
         </button>
     </footer>

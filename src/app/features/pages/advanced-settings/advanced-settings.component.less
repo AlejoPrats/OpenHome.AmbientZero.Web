@@ -25,7 +25,7 @@
 }
 
 .cell-title {
-  flex: 1 1 0;
+  flex: 1 1 auto;
   padding: 4px 8px;
   white-space: normal;
   overflow: hidden;
@@ -33,31 +33,35 @@
 }
 
 .cell-field {
-  flex: 0 1 auto;
+  flex: 0 0 auto;
   min-inline-size: 0;
   padding: 4px 8px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-
-  tui-textfield {
-    min-inline-size: 8rem;
-  }
 }
 
 .table-row-form:has(> .cell-field tui-textfield) {
   flex-direction: column;
   align-items: stretch;
+}
 
-  > .cell-title,
-  > .cell-field {
-    flex: none;
-  }
+.table-row-form:has(> .cell-field):not(:has(> .cell-field tui-textfield)) {
+  justify-content: space-between;
+}
+
+.header-form:has(> .table-top-controls) {
+  flex-direction: column;
+  align-items: stretch;
 }
 
 .table-top-controls {
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: flex-end;
+}
+
+.cell-container.table-scroll {
+  min-inline-size: 0;
 }
 
 footer.advancedSettings {
@@ -80,26 +84,13 @@ footer.advancedSettings {
 }
 
 .desktop-layout({
-  .table-row-form {
-    gap: normal;
-  }
-
-  .cell-title {
-    flex: 0 0 16%;
-    white-space: nowrap;
-  }
-
-  .cell-field {
-    flex: 0.3 0.5 0px;
-    min-inline-size: auto;
-
-    tui-textfield {
-      min-inline-size: auto;
-    }
-  }
-
   .header-form {
     flex-wrap: nowrap;
+  }
+
+  .header-form:has(> .table-top-controls) {
+    flex-direction: row;
+    align-items: center;
   }
 
   .table-top-controls {
@@ -107,16 +98,18 @@ footer.advancedSettings {
     justify-content: normal;
   }
 
-  .table-row-form:has(> .cell-field tui-textfield) {
+  .table-row-form:has(> .cell-field tui-textfield),
+  .table-row-form:has(> .cell-field):not(:has(> .cell-field tui-textfield)) {
     flex-direction: row;
     align-items: center;
+    justify-content: normal;
 
     > .cell-title {
-      flex: 0 0 16%;
+      flex: 0 0 14rem;
     }
 
     > .cell-field {
-      flex: 0.3 0.5 0px;
+      flex: 0 1 22rem;
     }
   }
 });

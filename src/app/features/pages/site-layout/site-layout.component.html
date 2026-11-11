@@ -78,9 +78,9 @@
           }
         }
       </tui-breadcrumbs>
-      <tui-tabs tuiFade>
-        <span>{{ additionalInformation() }}</span>
-      </tui-tabs>
+      @if (additionalInformation()) {
+        <span class="page-info" aria-live="polite">{{ additionalInformation() }}</span>
+      }
       <tui-tabs
         appearance="segmented"
         [attr.aria-label]="t('siteLayout.theme')"

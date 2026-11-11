@@ -23,18 +23,19 @@ export function buildTemperatureChartOption(chartResponse: ChartResponse): ECBas
 
   return {
     tooltip: { trigger: 'axis' },
-    legend: { data: legendData },
+    legend: { data: legendData, type: 'scroll', bottom: 0 },
     xAxis: { type: 'time' },
     yAxis: {
       type: 'value',
-      min: chartResponse.minTemperature,
-      max: chartResponse.maxTemperature,
+      min: Math.floor(chartResponse.minTemperature),
+      max: Math.ceil(chartResponse.maxTemperature),
     },
     grid: {
-      left: 3,
-      right: 3,
+      left: 8,
+      right: 16,
       top: 20,
-      containLabel: false,
+      bottom: 40,
+      containLabel: true,
     },
     series: legendSeries,
   };
