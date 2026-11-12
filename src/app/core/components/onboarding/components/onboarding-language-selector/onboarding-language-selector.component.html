@@ -1,0 +1,16 @@
+<div *transloco="let t">
+    <p>{{t('language.select-your-language')}}</p>
+    <div style="width: 100%;">
+        <app-language-selector [attr.tuiTheme]="theme.attr()" (valueChanged)="languageSelectorChanged($event)" ></app-language-selector>
+    </div>
+    <footer class="onboarding-popover-footer" >
+        <span class="onboarding-popover-navigation-buttons">
+            <button type="button" class="onboarding-popover-footer-button" (click)="previous()">
+                {{t('language.back')}}
+            </button>
+            <button type="button" [disabled]="buttonDisabled()" class="onboarding-popover-footer-button" (click)="next()">
+                {{t('language.next')}}
+            </button>
+        </span>
+    </footer>
+</div>

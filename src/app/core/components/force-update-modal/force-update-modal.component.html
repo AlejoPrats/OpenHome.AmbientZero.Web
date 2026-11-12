@@ -1,0 +1,27 @@
+<app-nav-bar [tabs]="tabs" (activeItemIndexChange)="onTabChange($event)">
+</app-nav-bar>
+<div class="force-update-container">
+    @if(showFileUpload)
+    {
+    <div>
+        <app-file-upload #fileUpload [acceptedFiles]="['zip']" uploadType="ForceUpdate" [referenceId]="this.context.data" (fileChanged)="fileChanged($event)" />
+    </div>
+    }
+    @else
+    {
+    <div>
+        This option will fetch the latest version available on the remote server of OpenHomeProject, this action will
+        execute without respecting versions or anything, so proceed with caution
+    </div>
+    }
+</div>
+<footer>
+    <div class="footer-buttons">
+        <button appearance="secondary" tuiButton type="button" (click)="context.$implicit.complete()">
+            Cancel
+        </button>
+        <button tuiButton (click)="submit()" [disabled]="showFileUpload && !response.hasFile">
+            Update
+        </button>
+    </div>
+</footer>
