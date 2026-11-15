@@ -63,16 +63,16 @@
             <div class="table-row-form header-form">
                 <div>Version</div>
                 <div class="table-top-controls">
-                    <button iconStart="@tui.refresh-cw" size="m" tuiHint="Refresh Versions" tuiButton
+                    <button iconStart="@tui.refresh-cw" size="s" tuiHint="Refresh Versions" tuiButton
                         (click)="updateVersion()">Check For Updates</button>
-                    <button iconStart="@tui.refresh-cw" size="m"
+                    <button iconStart="@tui.refresh-cw" size="s"
                         [appearance]="isForceUpdateEnabled ? 'positive' : 'negative'" tuiHint="Refresh Versions"
                         tuiButton (click)="toggleForceUpdate()">{{ isForceUpdateEnabled ? 'Disable' :
                         'Enable' }} Force Update</button>
                 </div>
             </div>
             <div class="table-row-form">
-                <div class="cell-container">
+                <div class="cell-container table-scroll">
                     <div class="flex-table">
                         <div class="table-row header">
                             <div class="cell">
@@ -131,10 +131,10 @@
             <div class="table-row-form header-form">
                 <div>Backup Options</div>
                 <div class="table-top-controls">
-                    <button iconStart="@tui.download" tuiButton (click)="exportDatabse()">
+                    <button iconStart="@tui.download" size="s" tuiButton (click)="exportDatabse()">
                         Export
                     </button>
-                    <button iconStart="@tui.upload" tuiButton>
+                    <button iconStart="@tui.upload" size="s" tuiButton>
                         Import
                     </button>
                 </div>
@@ -143,7 +143,7 @@
     </span>
 </div>
 <footer class="advancedSettings">
-    <button iconStart="@tui.save" tuiButton (click)="saveGeneralSettings()">
+    <button iconStart="@tui.save" size="m" tuiButton (click)="saveGeneralSettings()">
         Save
     </button>
 </footer>

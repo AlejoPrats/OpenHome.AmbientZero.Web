@@ -14,15 +14,61 @@
         color: var(--tui-text-tertiary);
     }
 	 
-    .card {
-        align-self: flex-start;
-        width: 30%;
+    .status-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+        align-items: start;
+        gap: 30px;
     }
 
     .brief-status {
+        flex-wrap: wrap;
         align-items: first baseline;
+        gap: 1rem 1.5rem;
+
+        &:has(> [tuiTitle] ~ [tuiTitle]) > [tuiTitle]:first-child,
+        &:has(> .status-actions) > [tuiTitle]:first-child {
+            flex-basis: 100%;
+        }
+    }
+
+    .status-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        font: var(--tui-typography-body-s);
+    }
+
+    .status-details-title {
+        margin: 1rem 0 0.25rem;
+        font: var(--tui-typography-body-s);
+        font-weight: 600;
+        color: var(--tui-text-secondary);
+    }
+
+    .status-details {
+        margin: 0;
+
+        > div {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-block: 0.5rem;
+            border-block-start: 1px solid var(--tui-border-normal);
+        }
+
+        dt {
+            color: var(--tui-text-secondary);
+        }
+
+        dd {
+            margin: 0;
+            text-align: end;
+        }
     }
 
     .expand-details-button {
         align-self: end;
+        margin-inline-start: auto;
     }

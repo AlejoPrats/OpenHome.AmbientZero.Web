@@ -3,7 +3,7 @@
         <h1>{{t('temperature-chart.temperature-chart')}}</h1>
     </span>
     <span id="chart-controls" style="right: 0;">
-        <button id="chart-previous-day" tuiButton iconStart="@tui.chevron-left"
+        <button id="chart-previous-day" size="m" tuiButton iconStart="@tui.chevron-left"
             (click)="previousDay()">{{t('temperature-chart.previous-date')}}</button>
         <tui-textfield id="chart-date-picker" tuiDropdownSheet="Pick a date">
             <label tuiLabel>Date</label>
@@ -15,7 +15,7 @@
                 </button>
             </ng-container>
         </tui-textfield>
-        <button id="chart-next-day" tuiButton iconEnd="@tui.chevron-right"
+        <button id="chart-next-day" size="m" tuiButton iconEnd="@tui.chevron-right"
             (click)="nextDay()">{{t('temperature-chart.next-date')}}</button>
     </span>
 </div>

@@ -5,7 +5,15 @@
     "basic-settings":"Basic Settings",
     "advanced-settings":"Advanced Settings",
     "help":"Help",
+    "collapse":"Collapse",
+    "expand":"Expand",
+    "theme":"Theme",
     "theme-light":"Light",
     "theme-auto":"Auto",
-    "theme-dark":"Dark"
+    "theme-dark":"Dark",
+    "main-navigation":"Main",
+    "breadcrumb":"Breadcrumb",
+    "open-menu":"Open menu",
+    "close-menu":"Close menu",
+    "skip-to-content":"Skip to content"
 }
