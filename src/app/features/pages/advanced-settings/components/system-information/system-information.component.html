@@ -21,14 +21,10 @@
                             {{ ramStatus().label }}
                         </div>
                     </div>
-                    <div tuiTitle>
-                        <div tuiSubtitle>Clean Cache</div>
-                        <button appearance="secondary" tuiButton size='s' iconStart="@tui.database-zap"
-                            (click)="cleanCache()"></button>
-                    </div>
-                    <div tuiTitle>
-                        <div tuiSubtitle>Force Free Memory</div>
-                        <button appearance="secondary" tuiButton size='s' iconStart="@tui.trash-2"></button>
+                    <div class="status-actions">
+                        <button tuiLink type="button" iconStart="@tui.database-zap"
+                            (click)="cleanCache()">Clean Cache</button>
+                        <button tuiLink type="button" iconStart="@tui.trash-2">Force Free Memory</button>
                     </div>
                     <button appearance="secondary" class="expand-details-button" size="s" tuiIconButton type="button"
                         [tuiChevron]="!ramCollapsed()" (click)="ramCollapsed.set(!ramCollapsed())">
@@ -36,27 +32,17 @@
                     </button>
                 </div>
                 <tui-expand [expanded]="!ramCollapsed()">
-                    <div class="flex-table-form">
-                        <div class="table-row header-form">
-                            <div>Ram Details</div>
+                    <h3 class="status-details-title">Ram Details</h3>
+                    <dl class="status-details">
+                        <div>
+                            <dt>Available</dt>
+                            <dd>{{ details().ramAvailable }}</dd>
                         </div>
-                        <div class="table-row">
-                            <div class="cell-title">
-                                Available
-                            </div>
-                            <div class="cell-field">
-                                {{ details().ramAvailable }}
-                            </div>
+                        <div>
+                            <dt>Free</dt>
+                            <dd>{{ details().ramFree }}</dd>
                         </div>
-                        <div class="table-row-form">
-                            <div class="cell-title">
-                                Free
-                            </div>
-                            <div class="cell-field">
-                                {{ details().ramFree }}
-                            </div>
-                        </div>
-                    </div>
+                    </dl>
                 </tui-expand>
             </section>
             <section class="card" tuiCardLarge="compact" [tuiCardCollapsed]="swapCollapsed()">
@@ -82,19 +68,13 @@
                     </button>
                 </div>
                 <tui-expand [expanded]="!swapCollapsed()">
-                    <div class="flex-table-form">
-                        <div class="table-row header-form">
-                            <div>Swap Details</div>
+                    <h3 class="status-details-title">Swap Details</h3>
+                    <dl class="status-details">
+                        <div>
+                            <dt>Used</dt>
+                            <dd>{{ details().swapUsed }}</dd>
                         </div>
-                        <div class="table-row">
-                            <div class="cell-title">
-                                Used
-                            </div>
-                            <div class="cell-field">
-                                {{ details().swapUsed }}
-                            </div>
-                        </div>
-                    </div>
+                    </dl>
                 </tui-expand>
             </section>
             <section class="card" tuiCardLarge="compact" [tuiCardCollapsed]="cpuCollapsed()">
@@ -120,19 +100,13 @@
                     </button>
                 </div>
                 <tui-expand [expanded]="!cpuCollapsed()">
-                    <div class="flex-table-form">
-                        <div class="table-row header-form">
-                            <div>Cpu Details</div>
+                    <h3 class="status-details-title">Cpu Details</h3>
+                    <dl class="status-details">
+                        <div>
+                            <dt>Temperature</dt>
+                            <dd>{{ details().cpuTemperature }}</dd>
                         </div>
-                        <div class="table-row">
-                            <div class="cell-title">
-                                Temperature
-                            </div>
-                            <div class="cell-field">
-                                {{ details().cpuTemperature }}
-                            </div>
-                        </div>
-                    </div>
+                    </dl>
                 </tui-expand>
             </section>
         </div>

@@ -1,7 +1,7 @@
 import { Component, computed, inject, input, linkedSignal, signal } from '@angular/core';
 import { provideTranslocoScope, translateSignal } from '@jsverse/transloco';
 import { TuiTable } from '@taiga-ui/addon-table';
-import { TuiButton, TuiExpand, TuiIcon, TuiTitle, TuiHintDirective } from '@taiga-ui/core';
+import { TuiButton, TuiExpand, TuiIcon, TuiLink, TuiTitle, TuiHintDirective } from '@taiga-ui/core';
 import { TuiChevron } from '@taiga-ui/kit';
 import { TuiCard, TuiHeader } from '@taiga-ui/layout';
 import { NotificationService } from 'app/core/services/notification-service.service';
@@ -27,6 +27,7 @@ const parseMebibytes = (value: string | undefined): number | null => {
     TuiExpand,
     TuiHeader,
     TuiIcon,
+    TuiLink,
     TuiTable,
     TuiTitle,
     TuiHintDirective,

@@ -61,6 +61,7 @@
 
 .sidebar {
   position: fixed;
+  z-index: 2;
   block-size: var(--sidebar-block-size);
   visibility: var(--sidebar-visibility);
   transform: var(--sidebar-transform);
@@ -78,6 +79,20 @@
 
 .sidebar-toggle {
   display: var(--sidebar-toggle-display);
+}
+
+.sidebar-backdrop {
+  position: fixed;
+  inset: 3rem 0 0;
+  z-index: 1;
+  background: var(--tui-service-backdrop, rgb(0 0 0 / 40%));
+  animation: sidebar-backdrop-in var(--tui-duration, 0.3s) ease-in-out;
+}
+
+@keyframes sidebar-backdrop-in {
+  from {
+    opacity: 0;
+  }
 }
 
 :host .sidebar + .content {

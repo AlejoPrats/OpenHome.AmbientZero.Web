@@ -99,6 +99,7 @@ export class SiteLayoutComponent {
 
   protected closeMenu(): void {
     this.isMenuOpen.set(false);
+    this.expanded.set(false);
   }
 
   protected toggleExpanded(): void {

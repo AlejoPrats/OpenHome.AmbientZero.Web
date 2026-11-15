@@ -20,6 +20,8 @@ describe('SiteLayout', () => {
 
   const menuToggle = () => element.querySelector<HTMLButtonElement>('#nav-menu-toggle')!;
   const menu = () => element.querySelector<HTMLElement>('#nav-menu')!;
+  const sidebarToggle = () => element.querySelector<HTMLButtonElement>('.sidebar-toggle')!;
+  const backdrop = () => element.querySelector<HTMLElement>('.sidebar-backdrop');
   const themeOptions = () =>
     Array.from(
       element.querySelectorAll<HTMLButtonElement>('tui-tabs[appearance="segmented"] button'),
@@ -134,6 +136,36 @@ describe('SiteLayout', () => {
     await fixture.whenStable();
 
     expect(menu().classList).not.toContain('open');
+  });
+
+  it('should close the menu when the backdrop is clicked', async () => {
+    await openMenu();
+
+    backdrop()!.click();
+    await fixture.whenStable();
+
+    expect(menu().classList).not.toContain('open');
+    expect(backdrop()).toBeNull();
+  });
+
+  it('should collapse the expanded sidebar when the backdrop is clicked', async () => {
+    sidebarToggle().click();
+    await fixture.whenStable();
+
+    backdrop()!.click();
+    await fixture.whenStable();
+
+    expect(sidebarToggle().getAttribute('aria-expanded')).toBe('false');
+  });
+
+  it('should collapse the expanded sidebar after navigating', async () => {
+    sidebarToggle().click();
+    await fixture.whenStable();
+
+    await router.navigateByUrl('/chart');
+    await fixture.whenStable();
+
+    expect(sidebarToggle().getAttribute('aria-expanded')).toBe('false');
   });
 
   it('should mark the link of the current page', async () => {

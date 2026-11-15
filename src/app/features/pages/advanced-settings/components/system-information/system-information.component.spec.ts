@@ -29,7 +29,7 @@ describe('SystemInformationComponent', () => {
       .textContent!.trim();
 
   const getCardValues = (cardPosition: number) =>
-    Array.from(getCard(cardPosition).querySelectorAll('.cell-field'), (cell) =>
+    Array.from(getCard(cardPosition).querySelectorAll('.status-details dd'), (cell) =>
       cell.textContent!.trim(),
     );
 

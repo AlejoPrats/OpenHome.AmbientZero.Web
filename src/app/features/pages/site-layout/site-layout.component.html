@@ -94,4 +94,8 @@
     </nav>
     <router-outlet />
   </main>
+
+  @if (expanded() || isMenuOpen()) {
+    <div class="sidebar-backdrop" aria-hidden="true" (click)="closeMenu()"></div>
+  }
 </ng-container>
