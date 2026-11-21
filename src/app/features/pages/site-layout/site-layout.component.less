@@ -107,31 +107,6 @@
   block-size: var(--page-context-block-size);
 }
 
-:host ::ng-deep .page-context[compact] .t-nav-subheader {
-  flex-wrap: var(--page-context-wrap);
-  align-content: var(--page-context-align-content);
-  row-gap: 0;
-
-  > tui-breadcrumbs {
-    flex: var(--breadcrumbs-flex);
-  }
-
-  > tui-tabs {
-    margin-inline-end: var(--page-context-tabs-margin-inline-end);
-    border-inline-start-width: var(--page-context-tabs-offset);
-  }
-
-  > .page-info {
-    flex: 1 1 auto;
-    min-inline-size: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: var(--tui-text-secondary);
-    font: var(--tui-typography-body-s);
-    text-align: var(--page-info-align);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .sidebar {
     transition: none;
