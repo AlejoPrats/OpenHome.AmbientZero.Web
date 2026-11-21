@@ -78,7 +78,7 @@ describe('SiteLayout', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should keep the ids the tour highlights on the navigation items', () => {
+  it('should keep every navigation item reachable by the onboarding tour', () => {
     const ids = Array.from(element.querySelectorAll('[tuiAsideItem][id]'), (item) => item.id);
 
     expect(ids).toEqual([
