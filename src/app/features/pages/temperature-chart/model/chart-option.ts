@@ -1,6 +1,6 @@
 export type ChartOption = {
   tooltip: { trigger: string };
-  legend: { data: string[] };
+  legend: { data: string[]; type: 'plain' | 'scroll'; bottom: number };
   xAxis: { type: string; boundaryGap: number[]; data: string[] };
   yAxis: { type: string; min: number; max: number };
   grid: {

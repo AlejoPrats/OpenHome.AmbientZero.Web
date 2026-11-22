@@ -1,3 +1,5 @@
+@import (reference) "./responsive.less";
+
 :root {
   /* =========================== Colors =========================== */
   --color-primary: #ff5e00;
@@ -34,6 +36,8 @@
   /* =========================== Typography =========================== */
   --font-family-display: "Orbitron", monospace;
   --font-family-base: "Inter", system-ui, sans-serif;
+  --tui-typography-family-text: var(--font-family-base);
+  --tui-typography-family-display: var(--font-family-base);
   --font-size-sm: 0.875rem;
   /* 14px */
   --font-size-base: 1rem;
@@ -177,10 +181,47 @@
   background: var(--tui-background-neutral-2);
 }
 
+
+.table-scroll {
+  overflow-x: auto;
+
+  > .flex-table {
+    min-inline-size: 40rem;
+  }
+}
+
+/* =========================== Typography scale =========================== */
+:root {
+  --font-size-content: 0.875rem;
+}
+
+h1 {
+  font-size: 1.5rem;
+  line-height: 1.25;
+}
+
+.flex-table {
+  font: var(--tui-typography-body-s);
+}
+
+.desktop-layout({
+  :root {
+    --font-size-content: var(--font-size-base);
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .flex-table {
+    font: inherit;
+  }
+});
+
 /* =========================== Override Taiga UI root styles =========================== */
 tui-root {
   font-family: var(--font-family-base) !important;
-  font-size: var(--font-size-base) !important;
+  font-size: var(--font-size-content) !important;
   font-weight: var(--font-weight-normal) !important;
   line-height: var(--line-height) !important;
 }

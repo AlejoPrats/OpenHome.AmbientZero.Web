@@ -1,61 +1,112 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterLink, RouterOutlet, RouterLinkWithHref } from '@angular/router';
-import { TuiButton, TuiDataList, TuiDropdown, TuiIcon, TuiInput, TuiLink } from '@taiga-ui/core';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { TuiItem } from '@taiga-ui/cdk';
+import { TuiButton, TuiIcon, TuiLink } from '@taiga-ui/core';
 import { TuiAvatar, TuiBadgeNotification, TuiBreadcrumbs, TuiFade, TuiTabs } from '@taiga-ui/kit';
 import { TuiNavigation } from '@taiga-ui/layout';
-import { ThemeService } from '../../../core/services/theme.service';
+import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
+import { filter, map } from 'rxjs';
+import { ThemeMode, ThemeService } from '../../../core/services/theme.service';
 import { BreadcrumbService } from '../../../core/services/breadcrumb.service';
 import { AdditionalPageInformationService } from '../../../core/services/additional-page-information.service';
-import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
 
-type ThemeMode = 'light' | 'dark' | 'auto';
+interface NavigationLink {
+  id: string;
+  path: string;
+  icon: string;
+  label: string;
+}
+
 @Component({
   selector: 'app-site-layout',
   imports: [
-    FormsModule,
     TuiAvatar,
-    RouterLink,
     TuiBadgeNotification,
     TuiBreadcrumbs,
     TuiButton,
-    TuiDataList,
-    TuiDropdown,
     TuiFade,
     TuiIcon,
-    TuiInput,
+    TuiItem,
     TuiLink,
     TuiNavigation,
     TuiTabs,
+    RouterLink,
     RouterOutlet,
-    RouterLinkWithHref,
     TranslocoModule,
   ],
   providers: [provideTranslocoScope({ scope: 'pages/site-layout', alias: 'siteLayout' })],
   templateUrl: './site-layout.component.html',
   styleUrl: './site-layout.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '(document:keydown.escape)': 'closeMenu()',
+  },
 })
 export class SiteLayoutComponent {
+  private readonly router = inject(Router);
+  private readonly breadcrumbService = inject(BreadcrumbService);
+  private readonly additionalPageInformationService = inject(AdditionalPageInformationService);
+  private readonly navigationEnd = this.router.events.pipe(
+    filter((event) => event instanceof NavigationEnd),
+  );
+  private readonly currentUrl = toSignal(this.navigationEnd.pipe(map(() => this.router.url)), {
+    initialValue: this.router.url,
+  });
+
+  protected readonly theme = inject(ThemeService);
   protected readonly expanded = signal(false);
-  protected readonly breadcrumbService = inject(BreadcrumbService);
-  protected readonly additionalPageInformationService = inject(AdditionalPageInformationService);
-  protected open = false;
-  protected switch = false;
-  protected readonly routes: Record<string, unknown> = {};
-  protected breadcrumbs = computed(() => this.breadcrumbService.getBreadcrumbs());
-  protected additionalInformation = computed(() =>
+  protected readonly isMenuOpen = signal(false);
+  protected readonly breadcrumbs = computed(() => this.breadcrumbService.getBreadcrumbs());
+  protected readonly additionalInformation = computed(() =>
     this.additionalPageInformationService.getAdditionalInformation(),
   );
+  protected readonly themeModes: ThemeMode[] = ['light', 'auto', 'dark'];
+  protected readonly links: NavigationLink[] = [
+    {
+      id: 'nav-temperature-chart',
+      path: '/chart',
+      icon: '@tui.chart-no-axes-column-increasing',
+      label: 'siteLayout.temperature-chart',
+    },
+    { id: 'nav-sensors', path: '/list', icon: '@tui.gauge', label: 'siteLayout.sensors' },
+    {
+      id: 'nav-basic-settings',
+      path: '/settings',
+      icon: '@tui.cog',
+      label: 'siteLayout.basic-settings',
+    },
+    {
+      id: 'nav-advanced-settings',
+      path: '/advancedSettings',
+      icon: '@tui.sliders',
+      label: 'siteLayout.advanced-settings',
+    },
+  ];
 
-  readonly theme = inject(ThemeService);
-  readonly modes: ThemeMode[] = ['light', 'auto', 'dark'];
-
-  select(index: number) {
-    this.theme.set(this.modes[index]);
+  constructor() {
+    this.navigationEnd.pipe(takeUntilDestroyed()).subscribe(() => this.closeMenu());
   }
 
-  protected handleToggle(): void {
-    this.expanded.update((e) => !e);
+  protected isCurrent(path: string, exact = false): boolean {
+    const url = this.currentUrl().split(/[?#]/)[0];
+    return exact ? url === path : url === path || url.startsWith(`${path}/`);
+  }
+
+  protected toggleMenu(): void {
+    this.isMenuOpen.update((isOpen) => !isOpen);
+  }
+
+  protected closeMenu(): void {
+    this.isMenuOpen.set(false);
+    this.expanded.set(false);
+  }
+
+  protected toggleExpanded(): void {
+    this.expanded.update((isExpanded) => !isExpanded);
+  }
+
+  protected selectTheme(mode: ThemeMode): void {
+    this.theme.set(mode);
   }
 }

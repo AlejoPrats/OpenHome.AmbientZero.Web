@@ -2,7 +2,7 @@ import { ChartOption } from '../model/chart-option';
 
 export const EMPTY_ECHARTS_OPTION: ChartOption = {
   tooltip: { trigger: 'axis' },
-  legend: { data: [] as string[] },
+  legend: { data: [] as string[], type: 'scroll', bottom: 0 },
   xAxis: { type: 'time', boundaryGap: [0, 0], data: [] },
   yAxis: { type: 'value', min: 0, max: 30 },
   grid: {
