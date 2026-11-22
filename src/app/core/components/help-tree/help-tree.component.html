@@ -5,12 +5,14 @@
 <tui-tree [childrenHandler]="handler" [map]="map" [content]="content" [tuiTreeController]="isSearching()" [value]="data()" />
 <ng-template #content let-item>
     <span class="tree-node-container" (click)="nodeClick(item)">
+        <span class="expand_collapse_slot">
+            @if(item.children)
+            {
+            <app-icon class="expand_collapse_icon" size="small" [name]="(map.get(item) ?? isSearching()) ? expandedIcon() : collapsedIcon()" />
+            }
+        </span>
         <app-icon size="small" [name]="item.icon ? item.icon : defaultIcon" />
         {{ item.text }}
-        @if(item.children)
-        {
-        <app-icon class="expand_collapse_icon" size="small" [name]="(map.get(item) ?? isSearching()) ? expandedIcon() : collapsedIcon()" />
-        }
         @if(item.hasTour)
         {
         <button tuiButton class="tour-button" iconStart="@tui.bus" size="xs" (click)="onActionClick($event,item)"
