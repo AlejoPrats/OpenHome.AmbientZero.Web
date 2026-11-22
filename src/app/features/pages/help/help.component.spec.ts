@@ -27,14 +27,15 @@ describe('HelpComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show no help topic until one is chosen', () => {
-    expect(element.querySelector('app-about')).toBeNull();
+  it('should show the about page until a topic is chosen', () => {
+    expect(element.querySelector('app-about')).not.toBeNull();
   });
 
   it('should show the chosen help topic', async () => {
-    topic('About').click();
+    topic('Sensors').click();
     await fixture.whenStable();
 
-    expect(element.querySelector('app-about')).not.toBeNull();
+    expect(element.querySelector('app-sensors')).not.toBeNull();
+    expect(element.querySelector('app-about')).toBeNull();
   });
 });

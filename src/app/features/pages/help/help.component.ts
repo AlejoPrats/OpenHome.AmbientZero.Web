@@ -130,7 +130,7 @@ export class HelpComponent {
       case HELP_IDENTIFIER.ABOUT:
         return AboutComponent;
       default:
-        return null;
+        return AboutComponent;
     }
   });
 
