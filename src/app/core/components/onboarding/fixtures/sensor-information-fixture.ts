@@ -10,7 +10,7 @@ export const SENSOR_INFORMATION_FIXTURE: SensorInformationResponse[] = [
     isSignaling: false,
     lastReadingTime: new Date(),
     lastReadingValue: 25.5,
-    temperatureTendency: 'ascending',
+    temperatureTendency: 'Rising',
     version: '1.0.0',
     isMigrated: false,
     sensorSetting: {
@@ -29,7 +29,7 @@ export const SENSOR_INFORMATION_FIXTURE: SensorInformationResponse[] = [
     isSignaling: true,
     lastReadingTime: new Date(),
     lastReadingValue: 27.9,
-    temperatureTendency: 'descending',
+    temperatureTendency: 'Descending',
     version: '1.0.0',
     isMigrated: false,
     sensorSetting: {

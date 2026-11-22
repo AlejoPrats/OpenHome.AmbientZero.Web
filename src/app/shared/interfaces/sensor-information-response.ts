@@ -9,7 +9,7 @@ export interface SensorInformationResponse {
   isSignaling: boolean;
   lastReadingTime: Date;
   lastReadingValue: number;
-  temperatureTendency: string;
+  temperatureTendency: string | null;
   version: string;
   isMigrated: boolean;
   sensorSetting: SensorSettingsResponse;

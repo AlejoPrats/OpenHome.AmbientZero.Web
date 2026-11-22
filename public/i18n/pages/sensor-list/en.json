@@ -13,5 +13,6 @@
     "no-sensor-message": "There Are No Sensors Registered In The Node",
     "Descending": "Descending",
     "Rising": "Rising",
+    "Stable": "Stable",
     "force-merge": "Force Merge"
 }
