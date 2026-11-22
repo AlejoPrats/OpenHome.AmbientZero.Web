@@ -26,6 +26,11 @@ describe('httpInterceptors', () => {
     await Promise.resolve();
   };
 
+  const logInAgain = async () => {
+    resolveLogin(true);
+    await Promise.resolve();
+  };
+
   beforeEach(() => {
     localStorage.clear();
     openLoginModal = vi.fn(
@@ -73,13 +78,11 @@ describe('httpInterceptors', () => {
     expect(loadingService.loading()).toBe(false);
   });
 
-  it('should retry the request with loading shown after logging in again', async () => {
+  it('should resend the request after logging in again', async () => {
     const response = firstValueFrom(http.get(url));
     await expireSession();
 
-    resolveLogin(true);
-    await Promise.resolve();
-    await Promise.resolve();
+    await logInAgain();
 
     expect(loadingService.loading()).toBe(true);
 
