@@ -1,6 +1,5 @@
-<tui-textfield class="search-text-field" iconStart="@tui.search">
-    <label tuiLabel>Help Search...</label>
-    <input placeholder="write a topic" tuiInput type="text" [ngModel]="searchText()"
+<tui-textfield class="search-text-field" iconStart="@tui.search" tuiTextfieldSize="m">
+    <input aria-label="Search help topics" placeholder="Search help topics" tuiInput type="text" [ngModel]="searchText()"
         (ngModelChange)="searchText.set($event)" />
 </tui-textfield>
 <tui-tree [childrenHandler]="handler" [map]="map" [content]="content" [tuiTreeController]="true" [value]="data()" />

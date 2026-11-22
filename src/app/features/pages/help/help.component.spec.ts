@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HelpComponent } from './help.component';
+import { BreadcrumbService } from 'app/core/services/breadcrumb.service';
 
 describe('HelpComponent', () => {
   let component: HelpComponent;
@@ -25,6 +26,10 @@ describe('HelpComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should show Help as the current page in the breadcrumb', () => {
+    expect(TestBed.inject(BreadcrumbService).getBreadcrumbs()).toEqual(['Help']);
   });
 
   it('should show the about page until a topic is chosen', () => {
