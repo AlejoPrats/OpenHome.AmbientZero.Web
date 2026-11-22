@@ -6,6 +6,7 @@ import {
   withInterceptors,
 } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { firstValueFrom } from 'rxjs';
 import { vi } from 'vitest';
 
 import { httpInterceptors } from './http-interceptors';
@@ -52,18 +53,19 @@ describe('httpInterceptors', () => {
     localStorage.clear();
   });
 
-  it('should show the loading indicator while a request is in progress', () => {
-    http.get(url).subscribe();
+  it('should show the loading indicator while a request is in progress', async () => {
+    const response = firstValueFrom(http.get(url));
 
     expect(loadingService.loading()).toBe(true);
 
     httpTesting.expectOne(url).flush([]);
 
+    expect(await response).toEqual([]);
     expect(loadingService.loading()).toBe(false);
   });
 
   it('should hide the loading indicator so the login dialog can be used when the session expires', async () => {
-    http.get(url).subscribe();
+    void firstValueFrom(http.get(url));
 
     await expireSession();
 
@@ -72,8 +74,7 @@ describe('httpInterceptors', () => {
   });
 
   it('should retry the request with loading shown after logging in again', async () => {
-    const response = vi.fn();
-    http.get(url).subscribe(response);
+    const response = firstValueFrom(http.get(url));
     await expireSession();
 
     resolveLogin(true);
@@ -84,20 +85,17 @@ describe('httpInterceptors', () => {
 
     httpTesting.expectOne(url).flush(['sensor']);
 
-    expect(response).toHaveBeenCalledWith(['sensor']);
+    expect(await response).toEqual(['sensor']);
     expect(loadingService.loading()).toBe(false);
   });
 
   it('should fail the request without loading when the login is cancelled', async () => {
-    const error = vi.fn();
-    http.get(url).subscribe({ error });
+    const response = firstValueFrom(http.get(url));
     await expireSession();
 
     resolveLogin(false);
-    await Promise.resolve();
-    await Promise.resolve();
 
-    expect(error).toHaveBeenCalledWith(expect.any(HttpErrorResponse));
+    await expect(response).rejects.toBeInstanceOf(HttpErrorResponse);
     expect(loadingService.loading()).toBe(false);
   });
 });
