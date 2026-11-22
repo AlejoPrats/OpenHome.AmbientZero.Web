@@ -1,0 +1,7 @@
+<tui-segmented size="s" [activeItemIndex]="activeIndex()" (activeItemIndexChange)="onSelect($event)">
+    @for (opt of options; track opt.value) {
+    <button type="button" [title]="opt.label" [attr.aria-label]="opt.label + ' theme'">
+        <tui-icon [icon]="opt.icon" />
+    </button>
+    }
+</tui-segmented>

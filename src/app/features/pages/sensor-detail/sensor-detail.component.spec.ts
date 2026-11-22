@@ -64,6 +64,7 @@ describe('SensorDetailComponent', () => {
       lastReadingValue: 20,
       temperatureTendency: 'Stable',
       version: '1.0.0',
+      isMigrated: false,
       sensorSetting: {
         isLightEnabled: true,
         isScheduled: false,

@@ -1,0 +1,21 @@
+<tui-textfield class="search-text-field" iconStart="@tui.search">
+    <label tuiLabel>Help Search...</label>
+    <input placeholder="write a topic" tuiInput type="text" [ngModel]="searchText()"
+        (ngModelChange)="searchText.set($event)" />
+</tui-textfield>
+<tui-tree [childrenHandler]="handler" [map]="map" [content]="content" [tuiTreeController]="true" [value]="data()" />
+<ng-template #content let-item>
+    <span class="tree-node-container" (click)="nodeClick(item)">
+        @if(item.children)
+        {
+        <app-icon class="expand_collapse_icon" [name]="(map.get(item) ?? true) ? expandedIcon() : collapsedIcon()" />
+        }
+        <app-icon [name]="item.icon ? item.icon : defaultIcon" />
+        {{ item.text }}
+        @if(item.hasTour)
+        {
+        <button tuiButton class="tour-button" iconStart="@tui.bus" size="xs" (click)="onActionClick($event,item)"
+            tuiHint="Take Tour"></button>
+        }
+    </span>
+</ng-template>

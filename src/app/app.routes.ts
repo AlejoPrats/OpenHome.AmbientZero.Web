@@ -70,6 +70,12 @@ export const routes: Routes = [
         },
         data: { protectionLevel: ProtectionMode.Allways },
       },
+      {
+        path: 'help',
+        loadComponent: () =>
+          import('./features/pages/help/help.component').then((m) => m.HelpComponent),
+        data: { protectionLevel: ProtectionMode.All },
+      },
     ],
   },
   {

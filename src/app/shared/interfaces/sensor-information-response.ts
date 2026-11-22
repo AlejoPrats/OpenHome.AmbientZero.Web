@@ -11,5 +11,6 @@ export interface SensorInformationResponse {
   lastReadingValue: number;
   temperatureTendency: string;
   version: string;
+  isMigrated: boolean;
   sensorSetting: SensorSettingsResponse;
 }

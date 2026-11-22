@@ -20,6 +20,10 @@
                     (click)="toggleHiddenSensors()">
                     {{t('sensor-list.show-hidden-sensors')}}
                 </button>
+                <button tuiOption [iconStart]="forceMerge ? '@tui.check' : null" type="button"
+                    (click)="toggleForceMerge()">
+                    {{t('sensor-list.force-merge')}}
+                </button>
             </tui-data-list>
         </ng-template>
     </div>
@@ -58,7 +62,11 @@
             <div id="sensor-info-row" class="table-row">
                 <div id="sensor-name" class="cell">
                     {{ sensor.deviceVirtualName ?? sensor.deviceId }}
-                </div>
+                    @if(sensor.isMigrated)
+                {
+                (*)
+                }
+            </div>
                 <div class="cell">
                     @if(showRawBatteryReadings)
                     {
@@ -97,7 +105,12 @@
                         size="medium" />
                     }
                     <app-icon id="sensor-cog" [name]="IconName.Cog" size="medium" />
-                    <span (click)="openDeleteDialog(sensor.id)"><app-icon id="sensor-delete" [name]="IconName.Delete"
+                    @if(sensor.isMigrated || forceMerge)
+                {
+                <app-icon id="sensor-merge" [name]="IconName.Merge" size="medium"
+                    (OnClick)="openMergeDialog(sensor.deviceId,sensor.deviceVirtualName ?? sensor.deviceId)" />
+                }
+                <span (click)="openDeleteDialog(sensor.id)"><app-icon id="sensor-delete" [name]="IconName.Delete"
                             size="medium" /></span>
                 </div>
             </div>

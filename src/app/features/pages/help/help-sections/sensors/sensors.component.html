@@ -1,0 +1,55 @@
+<div class="entry-title">
+    <span>Sensors</span>
+</div>
+
+<p>The Sensors screen provides a centralized overview of all connected temperature sensors, displaying their real-time
+    status, battery levels, and management actions.
+</p>
+
+<u>
+    <h2>Sensor Overview Table</h2>
+</u>
+
+<p>Each row represents an individual sensor and displays the following details:</p>
+<ul>
+    <li>Sensor Name. The custom label assigned to the sensor or room.</li>
+    <li>Battery Remaining. Shows the estimated battery percentage (or the raw sensor value when enabled in the display
+        options).</li>
+    <li>Last Reading. The date and timestamp of the most recent data transmission received from the sensor.</li>
+    <li>Temperature. The latest temperature value recorded by the sensor.</li>
+    <li>Signaling. Indicates whether the sensor is currently actively transmitting a signal (true or false).</li>
+    <li>Tendency. Shows whether the temperature is currently Rising, Descending, or has no recent trend available.</li>
+</ul>
+
+<u>
+    <h2>Sensor Display Options</h2>
+</u>
+
+<p>Click the < Sensor Display Options button in the top-right corner to access additional view and management tools:</p>
+
+        <ul>
+            <li>Show Raw Battery Readings. Switches the Battery Remaining column from percentages to raw numeric values.
+                Use this option to read the exact raw values needed when configuring battery calibration thresholds in
+                your settings.</li>
+            <li>Show Hidden Sensors. Temporarily reveals sensors that have been hidden from the main list. (Note: Hiding
+                sensors is a local browser preference stored on your device and does not hide them for other users or
+                devices.)</li>
+            <li>Force Merge. Allows you to manually combine any two sensors into one—even if they were not originally
+                flagged as imported duplicates.</li>
+        </ul>
+
+        <u>
+            <h2>Row Actions</h2>
+        </u>
+
+        <p>Use the action icons on the right side of each sensor row to manage individual devices:</p>
+
+        <ul>
+            <li>Edit Name (Pencil icon). Rename the sensor to match its room or location.</li>
+            <li>Show Individual Chart (Bar chart icon). View a dedicated temperature history chart for this specific
+                sensor. (Coming soon)</li>
+            <li>Hide Sensor (Crossed-out eye icon). Remove the sensor from your default view on this browser without
+                deleting its data. You can bring it back anytime via Sensor Display Options > Show Hidden Sensors.</li>
+            <li>Configure Sensor (Gear icon). Open the configuration settings for that specific sensor.</li>
+            <li>Delete Sensor (Trash can icon). Permanently remove the sensor and its record from the system.</li>
+        </ul>

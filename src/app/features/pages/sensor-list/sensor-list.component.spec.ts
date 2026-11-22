@@ -58,6 +58,7 @@ describe('SensorList', () => {
       lastReadingValue: 20,
       temperatureTendency: 'Rising',
       version: '1.0.0',
+      isMigrated: false,
       sensorSetting: {
         isLightEnabled: false,
         isScheduled: false,

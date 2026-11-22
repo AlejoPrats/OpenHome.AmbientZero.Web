@@ -51,7 +51,7 @@
       }
     </nav>
     <footer>
-      <button id="nav-help" iconStart="@tui.help-circle" tuiAsideItem type="button">
+      <button id="nav-help" [routerLink]="['help']" iconStart="@tui.help-circle" tuiAsideItem type="button">
         {{ t('siteLayout.help') }}
       </button>
       <button
@@ -91,6 +91,7 @@
           <button tuiTab type="button">{{ t('siteLayout.theme-' + mode) }}</button>
         }
       </tui-tabs>
+        <app-theme-switcher></app-theme-switcher>
     </nav>
     <router-outlet />
   </main>

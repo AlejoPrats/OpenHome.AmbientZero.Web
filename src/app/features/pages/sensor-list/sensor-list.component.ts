@@ -27,6 +27,9 @@ import { AdditionalPageInformationService } from '../../../core/services/additio
 import { TuiButton, TuiDataList, TuiDropdown } from '@taiga-ui/core';
 import { LocalStorageService } from 'app/core/services/local-storage.service';
 import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
+import { PolymorpheusComponent } from '@taiga-ui/polymorpheus';
+import { MergeSensorsModalComponent } from 'app/shared/components/merge-sensors-modal/merge-sensors-modal.component';
+import { MergeSensors } from 'app/shared/models/merge-sensors';
 
 const AUTO_REFRESH_MS = 20 * 60 * 1000;
 
@@ -49,7 +52,7 @@ const AUTO_REFRESH_MS = 20 * 60 * 1000;
 })
 export class SensorListComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
-  private readonly dialogs = inject(TuiResponsiveDialogService);
+  private readonly dialog = inject(TuiResponsiveDialogService);
   protected readonly additionalPageInformationService = inject(AdditionalPageInformationService);
   private readonly sensorService = inject(SensorService);
   private readonly breadcrumbService = inject(BreadcrumbService);
@@ -62,6 +65,7 @@ export class SensorListComponent implements OnInit {
   protected readonly sensorList = signal<SensorInformationResponse[] | null>(null);
   protected showRawBatteryReadings: boolean = false;
   protected showHiddenSensors: boolean = false;
+  protected forceMerge: boolean = false;
   protected openDropDown: boolean = false;
   protected hiddenSensorsArray: string[] = [];
   protected readonly resolvedSensors = toSignal(
@@ -123,7 +127,7 @@ export class SensorListComponent implements OnInit {
       no: 'No',
     };
 
-    this.dialogs
+    this.dialog
       .open<boolean>(TUI_CONFIRM, {
         label: 'Delete',
         size: 's',
@@ -131,6 +135,23 @@ export class SensorListComponent implements OnInit {
       })
       .pipe(filter(Boolean))
       .subscribe(() => this.deleteDevice(id));
+  }
+
+  openMergeDialog(deviceId: string, deviceVirtualName: string) {
+    this.dialog
+      .open<string>(new PolymorpheusComponent(MergeSensorsModalComponent), {
+        label: 'Merge Sensors',
+        closable: true,
+        dismissible: true,
+        size: 'm',
+        data: new MergeSensors(
+          deviceId,
+          deviceVirtualName,
+          this.resolvedSensors()!,
+          this.forceMerge,
+        ),
+      })
+      .subscribe();
   }
 
   deleteDevice(id: number) {
@@ -160,6 +181,10 @@ export class SensorListComponent implements OnInit {
   toggleHiddenSensors() {
     this.showHiddenSensors = !this.showHiddenSensors;
     this.openDropDown = false;
+  }
+
+  toggleForceMerge() {
+    this.forceMerge = !this.forceMerge;
   }
 
   hideSensor(sensorId: string) {

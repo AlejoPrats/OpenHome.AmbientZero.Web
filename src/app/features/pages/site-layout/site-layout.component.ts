@@ -7,9 +7,10 @@ import { TuiAvatar, TuiBadgeNotification, TuiBreadcrumbs, TuiFade, TuiTabs } fro
 import { TuiNavigation } from '@taiga-ui/layout';
 import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
 import { filter, map } from 'rxjs';
-import { ThemeMode, ThemeService } from '../../../core/services/theme.service';
+import { ThemeService } from '../../../core/services/theme.service';
 import { BreadcrumbService } from '../../../core/services/breadcrumb.service';
 import { AdditionalPageInformationService } from '../../../core/services/additional-page-information.service';
+import { ThemeSwitcherComponent } from 'app/core/components/theme-switcher/theme-switcher.component';
 
 interface NavigationLink {
   id: string;
@@ -18,6 +19,7 @@ interface NavigationLink {
   label: string;
 }
 
+type ThemeMode = 'light' | 'dark' | 'auto';
 @Component({
   selector: 'app-site-layout',
   imports: [
@@ -34,6 +36,7 @@ interface NavigationLink {
     RouterLink,
     RouterOutlet,
     TranslocoModule,
+    ThemeSwitcherComponent,
   ],
   providers: [provideTranslocoScope({ scope: 'pages/site-layout', alias: 'siteLayout' })],
   templateUrl: './site-layout.component.html',

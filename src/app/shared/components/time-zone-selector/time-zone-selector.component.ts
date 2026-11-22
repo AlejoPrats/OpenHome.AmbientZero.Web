@@ -80,7 +80,7 @@ export class TimeZoneSelectorComponent implements OnInit {
     this.focusTimeout = setTimeout(() => {
       const el = this.tzInput.nativeElement;
       el.focus();
-      el.setSelectionRange(0, 0); // move cursor to the beginning
+      el.setSelectionRange(0, 0);
     });
   }
 }

@@ -1,0 +1,111 @@
+.page-title {
+    top: 95px;
+    margin-left: 20px;
+    position: fixed;
+    background: var(--tui-background-base);
+    width: 100%;
+}
+
+.help-section-tree {
+    position: fixed;
+    background: var(--tui-background-base);
+    padding-top: 20px;
+    top: 189px;
+    overflow: auto;
+    bottom: 0;
+    padding-bottom: 1rem;
+    text-wrap: nowrap;
+    width: 14vw;
+}
+
+::ng-deep .img-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+::ng-deep .img-wrapper img {
+    display: block;
+    width: 250px;
+    height: auto;
+}
+
+::ng-deep .float-right {
+    float: right;
+    margin: 0 0 10px 10px;
+}
+
+::ng-deep .float-left {
+    float: left;
+    margin: 0 10px 10px 0;
+}
+
+::ng-deep .img-label {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 50px;
+    background: rgba(0, 0, 0, 0.75);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    pointer-events: none;
+}
+
+.entry-title {
+    flex: 1;
+    padding-bottom: 10px;
+    justify-content: space-between;
+    display: flex;
+    padding-top: 30px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid white;
+
+    & span {
+        font-size: 18px;
+        font-weight: 600;
+    }
+}
+
+.entry-header {
+    flex: 1;
+    padding-bottom: 10px;
+    justify-content: space-between;
+    display: flex;
+    padding-top: 30px;
+    margin-bottom: 30px;
+    margin-right: 20px;
+    margin-left: 20px;
+
+    & span {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        user-select: none;
+    }
+}
+
+div[tuiCardLarge] {
+    margin-right: 20px;
+    margin-left: 30px;
+
+    header[tuiHeader] {
+        display: flex;
+        align-items: end;
+        gap: 10px;
+    }
+}
+
+.main-margins {
+    margin-right: 20px;
+    margin-left: 30px;
+}

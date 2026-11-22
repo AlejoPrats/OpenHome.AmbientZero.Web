@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { SensorInformationResponse } from '../interfaces/sensor-information-response';
 import { SensorUpdateRequest } from '../models/sensor-update-request';
 import { NameUpdateRequest } from '../models/name-update-request';
+import { MergeSensorsRequest } from '../models/merge-sensors-request';
 
 @Injectable({
   providedIn: 'root',
@@ -36,5 +37,9 @@ export class SensorService {
 
   updateSensorName(nameUpdateRequest: NameUpdateRequest): Observable<void> {
     return this.http.patch<void>(`${this.sensorApiRoot}/UpdateSensorName`, nameUpdateRequest);
+  }
+
+  mergeSensors(request: MergeSensorsRequest): Observable<void> {
+    return this.http.post<void>(`${this.sensorApiRoot}/MergeSesnor`, request);
   }
 }

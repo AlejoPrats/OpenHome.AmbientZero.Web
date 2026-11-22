@@ -1,0 +1,26 @@
+@import '@taiga-ui/styles/utils.less';
+
+:host {
+    .transition(background);
+
+    position: relative;
+    display: flex;
+    block-size: var(--tui-height-s);
+    align-items: center;
+    padding: 0 0.5rem;
+    border-radius: var(--tui-radius-xs);
+    background: var(--tui-background-base);
+
+    &:hover {
+        cursor: pointer;
+        background: var(--tui-background-base-alt);
+    }
+
+}
+
+tui-icon {
+    position: relative;
+    z-index: 1;
+    background: inherit;
+    margin-inline-end: 0.5rem;
+}

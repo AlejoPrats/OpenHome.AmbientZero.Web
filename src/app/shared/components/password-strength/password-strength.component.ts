@@ -42,7 +42,6 @@ export class PasswordStrengthComponent {
     if (pwd.length >= 15) score += 50;
     if (pwd.length > 20) score += 60;
 
-    // Variety scoring (0–40)
     if (/[a-z]/.test(pwd)) score += 10;
     if (/[A-Z]/.test(pwd)) score += 10;
     if (/\d/.test(pwd)) score += 10;

@@ -1,0 +1,151 @@
+<div class="entry-title">
+    <span>Advanced Settings</span>
+    <span>General</span>
+</div>
+<p>The Advanced Settings section gives administrators control over system updates, sensor battery calibration, and
+    database backups. Because this screen modifies critical system behavior and sensitive data, access is
+    password-protected by default.</p>
+
+<div appearance="floating" tuiCardLarge class="tui-space_top-4">
+    <header tuiHeader>
+        <app-icon [name]="iconName.Lightbulb"></app-icon>
+        <h2 tuiTitle>Tip</h2>
+    </header>
+
+    <section>Since this page contains multiple configuration sections, use the scroll-to-bottom arrow in the
+        bottom-right corner
+        to jump quickly to the Version and Backup controls.</section>
+</div>
+
+<u>
+    <h2>
+        Update Options
+    </h2>
+</u>
+
+<p>
+    Configure how the system checks for and installs software updates:
+</p>
+<ul>
+    <li>Check For Updates. Automatically queries the remote server for newer versions of system modules.</li>
+    <li>Apply Updates Automatically. Installs available updates automatically without manual confirmation when enabled.
+    </li>
+</ul>
+
+<u>
+    <h2>
+        Battery Settings
+    </h2>
+</u>
+
+
+<p>
+    Calibrate how raw battery voltage/ADC readings from your sensors translate into percentage values on the Sensors
+    screen:
+</p>
+<ul>
+    <li>Max Battery Raw Reading. The raw sensor value that corresponds to 100% battery charge (e.g., 40944).</li>
+    <li>Min Battery Raw Reading. The raw sensor value that corresponds to 0% battery charge (e.g., 18320).</li>
+</ul>
+
+<div appearance="floating" tuiCardLarge class="tui-space_top-4">
+    <header tuiHeader>
+        <app-icon [name]="iconName.Lightbulb"></app-icon>
+        <h2 tuiTitle>Tip</h2>
+    </header>
+
+    <section>To find the exact numbers for your hardware, go to Sensors > Sensor Display Options and enable Show Raw
+        Battery Readings.</section>
+</div>
+
+<u>
+    <h2>
+        Version & Module Updates
+    </h2>
+</u>
+<p>
+    The Version table displays the current status of each system component (API, PCB, Web, and Sensor Code), comparing
+    your Local Version against the Remote Version alongside the Last Updated timestamp.
+</p>
+
+<ul>
+    <li>Check For Updates. Manually triggers a check against the remote server to see if newer versions are available.
+    </li>
+    <li>Updating a Module. When a remote version is higher than your local version, an upward arrow icon automatically
+        appears in the Update column next to that module. Click it to install the update.</li>
+    <li>Enable / Disable Force Update. Toggles manual override mode, forcing the Update arrow icons to appear for all
+        modules regardless of version numbers. Clicking a module's update icon in this mode opens a dialog where you
+        can:<ul>
+            <li>Update From Server. Pulls and installs the latest version directly from the remote server, bypassing
+                version checks.</li>
+            <li>Update From File. Upload a local update package manually.</li>
+        </ul>
+    </li>
+</ul>
+
+<div appearance="floating" tuiCardLarge class="tui-space_top-4">
+    <header tuiHeader>
+        <app-icon [name]="iconName.WarningTriangle"></app-icon>
+        <h2 tuiTitle>Caution</h2>
+    </header>
+
+    <section>Force-updating bypasses standard version compatibility checks. Only use this option if you are
+        troubleshooting
+        or instructed to apply a specific build.</section>
+</div>
+
+
+
+
+<u>
+    <h2>
+        Backup Options (Import & Export Database)
+    </h2>
+</u>
+
+<p>
+    Manage full database backups from the bottom of the screen:
+</p>
+<ul>
+    <li>Export Database
+        <ul type="numbers">
+            <li>Click Export to open the export dialog.</li>
+            <li>Click Generate to build the backup file. A progress bar will display on screen while the export runs.
+            </li>
+            <li>Once generation reaches 100%, the Download button becomes active—click it to save the backup file to
+                your device. (If no backup has been generated yet, the Download button remains disabled.)</li>
+        </ul>
+    </li>
+    <li>Import Database
+        <ul type="numbers">
+            <li>Click Import to open the restore dialog.</li>
+            <li>Select or drag-and-drop a valid .sql backup file into the upload area.</li>
+            <li>Click Import to restore the database.</li>
+        </ul>
+    </li>
+</ul>
+
+<div appearance="floating" tuiCardLarge class="tui-space_top-4">
+    <header tuiHeader>
+        <app-icon [name]="iconName.WarningTriangle"></app-icon>
+        <h2 tuiTitle>Important </h2>
+    </header>
+
+    <section>Temporary Service Interruption During Backups & Restores:
+        Exporting or importing the database is a resource-intensive operation. To prevent data corruption and free up
+        system
+        memory, the main API temporarily shuts down while a lightweight background maintenance service handles the
+        database
+        transfer and tracks progress.
+        <ul>
+            <li>While the progress bar is running, the application will not be operational and incoming sensor readings
+                will not be
+                recorded.</li>
+            <li>
+                Refreshing the page will not cancel an active export or import—the process continues safely in the
+                background until it
+                finishes and automatically restarts the main API.
+            </li>
+        </ul>
+    </section>
+</div>

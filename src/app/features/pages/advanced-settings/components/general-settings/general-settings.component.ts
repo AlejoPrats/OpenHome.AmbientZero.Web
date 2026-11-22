@@ -21,6 +21,7 @@ import { ModuleUpdateRequest } from 'app/shared/models/module-update-request';
 import { TimedAutoRefreshModalComponent } from 'app/core/components/timed-auto-refresh-modal/timed-auto-refresh-modal.component';
 import { LoadingService } from 'app/core/services/loading.service';
 import { ExportDownloadModalComponent } from 'app/core/components/export-download-modal/export-download-modal.component';
+import { ImportModalComponent } from 'app/core/components/import-modal/import-modal.component';
 
 @Component({
   selector: 'app-general-settings',
@@ -182,13 +183,17 @@ export class GeneralSettingsComponent {
         dismissible: true,
         size: 'm',
       })
-      .subscribe({
-        next: (result) => {
-          if (result === 'generate') {
-            this.loadingService.loadingOn();
-            this.loadingService.longLoadingOn();
-          }
-        },
-      });
+      .subscribe();
+  }
+
+  protected importDatabase() {
+    this.dialog
+      .open<string>(new PolymorpheusComponent(ImportModalComponent), {
+        label: 'Import Database',
+        closable: true,
+        dismissible: true,
+        size: 'm',
+      })
+      .subscribe();
   }
 }
