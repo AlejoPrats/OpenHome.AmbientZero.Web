@@ -34,6 +34,7 @@ export class HelpTreeComponent {
   readonly collapsedIcon = input.required<IconName>();
   readonly expandedIcon = input.required<IconName>();
   readonly searchText = signal('');
+  protected readonly isSearching = computed(() => this.searchText().trim().length > 0);
   protected defaultIcon: IconName = IconName.CircleQuestion;
   readonly nodeClicked = output<string>();
   readonly buttonClicked = output<string>();
@@ -46,6 +47,7 @@ export class HelpTreeComponent {
 
     if (!query) {
       this.map.clear();
+      this.map.set(root, true);
       return root;
     }
 

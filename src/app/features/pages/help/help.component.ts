@@ -1,4 +1,4 @@
-import { Component, computed, signal, ViewEncapsulation } from '@angular/core';
+import { Component, computed, inject, OnInit, signal, ViewEncapsulation } from '@angular/core';
 import { HelpTreeComponent } from 'app/core/components/help-tree/help-tree.component';
 import { TreeNode } from 'app/core/components/help-tree/interfaces/tree-node';
 import { HELP_IDENTIFIER } from 'app/core/constants/help-identifier.constants';
@@ -15,6 +15,8 @@ import { ConfigurationComponent } from './help-sections/pysical-sensor/configura
 import { UsageComponent } from './help-sections/pysical-sensor/usage/usage.component';
 import { CommonModule } from '@angular/common';
 import { AboutComponent } from './help-sections/about/about.component';
+import { BreadcrumbService } from 'app/core/services/breadcrumb.service';
+import { AdditionalPageInformationService } from 'app/core/services/additional-page-information.service';
 
 @Component({
   selector: 'app-help',
@@ -23,7 +25,9 @@ import { AboutComponent } from './help-sections/about/about.component';
   styleUrl: './help.component.less',
   encapsulation: ViewEncapsulation.None,
 })
-export class HelpComponent {
+export class HelpComponent implements OnInit {
+  private readonly breadcrumbService = inject(BreadcrumbService);
+  private readonly additionalPageInformationService = inject(AdditionalPageInformationService);
   protected iconName = IconName;
   protected treeData: TreeNode = {
     text: 'Home',
@@ -130,9 +134,15 @@ export class HelpComponent {
       case HELP_IDENTIFIER.ABOUT:
         return AboutComponent;
       default:
-        return AbortController;
+        return AboutComponent;
     }
   });
+
+  ngOnInit() {
+    this.additionalPageInformationService.clearAdditionalInformation();
+    this.breadcrumbService.clearBreadcrumbs();
+    this.breadcrumbService.addBreadcrumb('Help');
+  }
 
   setHelpConent(index: string) {
     this.helpIdentifier.set(index);

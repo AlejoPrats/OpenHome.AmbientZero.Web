@@ -81,17 +81,7 @@
       @if (additionalInformation()) {
         <span class="page-info" aria-live="polite">{{ additionalInformation() }}</span>
       }
-      <tui-tabs
-        appearance="segmented"
-        [attr.aria-label]="t('siteLayout.theme')"
-        [activeItemIndex]="themeModes.indexOf(theme.mode())"
-        (activeItemIndexChange)="selectTheme(themeModes[$event])"
-      >
-        @for (mode of themeModes; track mode) {
-          <button tuiTab type="button">{{ t('siteLayout.theme-' + mode) }}</button>
-        }
-      </tui-tabs>
-        <app-theme-switcher></app-theme-switcher>
+      <app-theme-switcher />
     </nav>
     <router-outlet />
   </main>

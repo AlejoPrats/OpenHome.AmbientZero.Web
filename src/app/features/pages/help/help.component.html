@@ -1,14 +1,10 @@
-<div>
-    <span class="page-title">
-        <h1>Help Section</h1>
-    </span>
-    <div style="display:flex; flex: 0 1 auto; margin-top: 40px;">
-        <div class="help-section-tree">
-            <app-help-tree [treeData]="treeData" [collapsedIcon]="iconName.Add" [expandedIcon]="iconName.Substract" (nodeClicked)="setHelpConent($event)"
-                (buttonClicked)="startTour($event)" />
-        </div>
-        <div style="width: 85%; margin: 15px 0 0 15%">
-            <ng-container *ngComponentOutlet="currentComponent();" />
-        </div>
-    </div>
+<h1>Help Section</h1>
+<div class="help-layout">
+    <nav class="help-section-tree" aria-label="Help topics">
+        <app-help-tree [treeData]="treeData" [collapsedIcon]="iconName.Add" [expandedIcon]="iconName.Substract" (nodeClicked)="setHelpConent($event)"
+            (buttonClicked)="startTour($event)" />
+    </nav>
+    <article class="help-content">
+        <ng-container *ngComponentOutlet="currentComponent();" />
+    </article>
 </div>

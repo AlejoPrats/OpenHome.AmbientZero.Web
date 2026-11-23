@@ -132,6 +132,19 @@ describe('SensorList', () => {
     });
   });
 
+  describe('tendency', () => {
+    it('should label a sensor whose temperature held steady as stable', () => {
+      getAllSensors.mockReturnValue(of([{ ...sensor, temperatureTendency: null }]));
+
+      vi.advanceTimersByTime(20 * MINUTE);
+      fixture.detectChanges();
+
+      expect(getPage().querySelector('#sensor-info-row .tendency')!.textContent).toContain(
+        'sensor-list.Stable',
+      );
+    });
+  });
+
   describe('when the tab is hidden', () => {
     it('should not reload sensors', () => {
       setVisibility('hidden');

@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { TuiSegmented } from '@taiga-ui/kit';
 import { TuiIcon } from '@taiga-ui/core';
 import { ThemeOption } from './theme-option';
@@ -18,12 +18,11 @@ export class ThemeSwitcherComponent {
     { value: 'dark', label: 'Dark', icon: '@tui.moon' },
   ];
 
-  // 0 = Light, 1 = System, 2 = Dark
-  protected readonly activeIndex = signal(1);
+  protected readonly activeIndex = computed(() =>
+    this.options.findIndex((option) => option.value === this.theme.mode()),
+  );
 
   protected onSelect(index: number): void {
-    this.activeIndex.set(index);
-    const mode = this.options[index].value;
-    this.theme.set(mode);
+    this.theme.set(this.options[index].value);
   }
 }

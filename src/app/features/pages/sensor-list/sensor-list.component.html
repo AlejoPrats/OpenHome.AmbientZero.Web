@@ -86,8 +86,8 @@
                 <div class="cell">
                     {{ sensor.isSignaling }}
                 </div>
-                <div class="cell">
-                    {{t(`sensor-list.${sensor.temperatureTendency}`)}}
+                <div class="cell tendency">
+                    {{t(`sensor-list.${sensor.temperatureTendency ?? 'Stable'}`)}}
                 </div>
                 <div class="cell">
                     <span [routerLink]="['/sensorDetail',sensor.id]">

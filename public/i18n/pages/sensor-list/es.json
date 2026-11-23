@@ -12,5 +12,7 @@
     "actions":"Acciones",
     "no-sensor-message":"No Hay Sensores Registrados en el Nodo",
     "Descending":"Descendiendo",
-    "Rising":"Subiendo"
+    "Rising":"Subiendo",
+    "Stable":"Estable",
+    "force-merge":"Forzar Fusión"
 }

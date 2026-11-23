@@ -6,7 +6,6 @@ import { vi } from 'vitest';
 
 import { SiteLayoutComponent } from './site-layout.component';
 import { getTranslationModuleMock } from 'app/shared/mocks/translation-module.mock';
-import { ThemeService } from 'app/core/services/theme.service';
 
 @Component({ template: '' })
 class EmptyPageComponent {}
@@ -16,16 +15,11 @@ describe('SiteLayout', () => {
   let fixture: ComponentFixture<SiteLayoutComponent>;
   let element: HTMLElement;
   let router: Router;
-  let themeService: ThemeService;
 
   const menuToggle = () => element.querySelector<HTMLButtonElement>('#nav-menu-toggle')!;
   const menu = () => element.querySelector<HTMLElement>('#nav-menu')!;
   const sidebarToggle = () => element.querySelector<HTMLButtonElement>('.sidebar-toggle')!;
   const backdrop = () => element.querySelector<HTMLElement>('.sidebar-backdrop');
-  const themeOptions = () =>
-    Array.from(
-      element.querySelectorAll<HTMLButtonElement>('tui-tabs[appearance="segmented"] button'),
-    );
 
   const openMenu = async () => {
     menuToggle().click();
@@ -61,7 +55,6 @@ describe('SiteLayout', () => {
     }).compileComponents();
 
     router = TestBed.inject(Router);
-    themeService = TestBed.inject(ThemeService);
     fixture = TestBed.createComponent(SiteLayoutComponent);
     component = fixture.componentInstance;
     element = fixture.nativeElement;
@@ -175,17 +168,5 @@ describe('SiteLayout', () => {
     const current = element.querySelector('[aria-current="page"]');
 
     expect(current?.id).toBe('nav-sensors');
-  });
-
-  it.each`
-    index | mode
-    ${0}  | ${'light'}
-    ${1}  | ${'auto'}
-    ${2}  | ${'dark'}
-  `('should switch to the $mode theme when its option is pressed', async ({ index, mode }) => {
-    themeOptions()[index].click();
-    await fixture.whenStable();
-
-    expect(themeService.mode()).toBe(mode);
   });
 });

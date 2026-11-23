@@ -3,11 +3,10 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { TuiItem } from '@taiga-ui/cdk';
 import { TuiButton, TuiIcon, TuiLink } from '@taiga-ui/core';
-import { TuiAvatar, TuiBadgeNotification, TuiBreadcrumbs, TuiFade, TuiTabs } from '@taiga-ui/kit';
+import { TuiAvatar, TuiBadgeNotification, TuiBreadcrumbs, TuiFade } from '@taiga-ui/kit';
 import { TuiNavigation } from '@taiga-ui/layout';
 import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
 import { filter, map } from 'rxjs';
-import { ThemeService } from '../../../core/services/theme.service';
 import { BreadcrumbService } from '../../../core/services/breadcrumb.service';
 import { AdditionalPageInformationService } from '../../../core/services/additional-page-information.service';
 import { ThemeSwitcherComponent } from 'app/core/components/theme-switcher/theme-switcher.component';
@@ -19,7 +18,6 @@ interface NavigationLink {
   label: string;
 }
 
-type ThemeMode = 'light' | 'dark' | 'auto';
 @Component({
   selector: 'app-site-layout',
   imports: [
@@ -32,7 +30,6 @@ type ThemeMode = 'light' | 'dark' | 'auto';
     TuiItem,
     TuiLink,
     TuiNavigation,
-    TuiTabs,
     RouterLink,
     RouterOutlet,
     TranslocoModule,
@@ -57,14 +54,12 @@ export class SiteLayoutComponent {
     initialValue: this.router.url,
   });
 
-  protected readonly theme = inject(ThemeService);
   protected readonly expanded = signal(false);
   protected readonly isMenuOpen = signal(false);
   protected readonly breadcrumbs = computed(() => this.breadcrumbService.getBreadcrumbs());
   protected readonly additionalInformation = computed(() =>
     this.additionalPageInformationService.getAdditionalInformation(),
   );
-  protected readonly themeModes: ThemeMode[] = ['light', 'auto', 'dark'];
   protected readonly links: NavigationLink[] = [
     {
       id: 'nav-temperature-chart',
@@ -107,9 +102,5 @@ export class SiteLayoutComponent {
 
   protected toggleExpanded(): void {
     this.expanded.update((isExpanded) => !isExpanded);
-  }
-
-  protected selectTheme(mode: ThemeMode): void {
-    this.theme.set(mode);
   }
 }
