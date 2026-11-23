@@ -15,6 +15,10 @@ export class LocalStorageService {
     localStorage.setItem(STORAGE_KEYS.TOKEN_STORAGE, token);
   }
 
+  removeAuthenticationToken() {
+    localStorage.removeItem(STORAGE_KEYS.TOKEN_STORAGE);
+  }
+
   //#endregion
 
   //#region Timer
