@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { POLYMORPHEUS_CONTEXT } from '@taiga-ui/polymorpheus';
-import { TuiNotificationService } from '@taiga-ui/core';
+import { provideTaiga, TuiNotificationService } from '@taiga-ui/core';
 
 import { AuthService } from 'app/shared/services/auth.service';
 import { LoginModalComponent } from './login-modal.component';
+import { provideZonelessChangeDetection } from '@angular/core';
 
 describe('LoginModalComponent', () => {
   let component: LoginModalComponent;
@@ -14,6 +15,8 @@ describe('LoginModalComponent', () => {
     await TestBed.configureTestingModule({
       imports: [LoginModalComponent],
       providers: [
+        provideZonelessChangeDetection(),
+        provideTaiga(),
         {
           provide: POLYMORPHEUS_CONTEXT,
           useValue: {

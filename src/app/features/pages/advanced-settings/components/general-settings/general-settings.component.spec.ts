@@ -4,6 +4,7 @@ import { of } from 'rxjs';
 import { VersionResponse } from 'app/shared/interfaces/version-response';
 import { VersionService } from 'app/shared/services/version.service';
 import { GeneralSettingsComponent } from './general-settings.component';
+import { provideTaiga } from '@taiga-ui/core';
 
 describe('GeneralSettingsComponent', () => {
   let component: GeneralSettingsComponent;
@@ -41,7 +42,10 @@ describe('GeneralSettingsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [GeneralSettingsComponent],
-      providers: [{ provide: VersionService, useValue: { getVersions: vi.fn(() => of([])) } }],
+      providers: [
+        provideTaiga(),
+        { provide: VersionService, useValue: { getVersions: vi.fn(() => of([])) } },
+      ],
     }).compileComponents();
   });
 

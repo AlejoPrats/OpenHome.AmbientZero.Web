@@ -63,8 +63,8 @@ export class SensorDetailComponent implements OnInit {
   private readonly notificationService = inject(TuiNotificationService);
   protected changeNameModalOpen = false;
   protected tempSensorVirtualName: string = '';
-  protected disableStartTime: string | null = null;
-  protected disableEndTime: string | null = null;
+  protected disableStartTime: TuiTime | null = null;
+  protected disableEndTime: TuiTime | null = null;
 
   protected readonly sensorInformation = toSignal(
     this.route.data.pipe(
@@ -147,7 +147,20 @@ export class SensorDetailComponent implements OnInit {
   }
 }
 
-export const toApiTime = (t: string | null): string | null => (t ? `${t.toString()}:00` : null);
+export const toApiTime = (t: TuiTime | string | null): string | null => {
+  if (!t) {
+    return null;
+  }
 
-export const fromApiTime = (t: string | undefined): string | null =>
-  t ? `${t.split(':')[0]}:${t.split(':')[1]}` : null;
+  return typeof t === 'string' ? `${t}:00` : `${t.toString('HH:MM')}:00`;
+};
+
+export const fromApiTime = (t: string | undefined): TuiTime | null => {
+  if (!t) {
+    return null;
+  }
+
+  const [hours, minutes] = t.split(':').map(Number);
+
+  return Number.isNaN(hours) || Number.isNaN(minutes) ? null : new TuiTime(hours, minutes);
+};

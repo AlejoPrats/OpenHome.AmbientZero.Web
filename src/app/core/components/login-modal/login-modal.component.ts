@@ -3,7 +3,15 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { interval } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { TuiAutoFocus } from '@taiga-ui/cdk';
-import { TuiButton, TuiDialogContext, TuiInput, TuiNotificationService } from '@taiga-ui/core';
+import {
+  TuiButton,
+  TuiDialogContext,
+  TuiLabel,
+  TuiNotificationService,
+  TuiTextfield,
+  TuiInputDirective,
+  TuiInput,
+} from '@taiga-ui/core';
 import { TuiForm } from '@taiga-ui/layout';
 import { injectContext } from '@taiga-ui/polymorpheus';
 import { AuthService } from '../../../shared/services/auth.service';
@@ -14,7 +22,17 @@ import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-login-modal',
-  imports: [FormsModule, TuiAutoFocus, TuiButton, TuiForm, TuiInput, DecimalPipe],
+  imports: [
+    FormsModule,
+    TuiAutoFocus,
+    TuiButton,
+    TuiForm,
+    TuiTextfield,
+    TuiInput,
+    TuiLabel,
+    DecimalPipe,
+    TuiInputDirective,
+  ],
   templateUrl: './login-modal.component.html',
   styleUrl: './login-modal.component.less',
 })

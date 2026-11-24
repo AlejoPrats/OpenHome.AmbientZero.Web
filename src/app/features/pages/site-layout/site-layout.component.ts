@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { TuiItem } from '@taiga-ui/cdk';
-import { TuiButton, TuiDropdown, TuiIcon, TuiLink } from '@taiga-ui/core';
+import { TuiButton, TuiDropdown, TuiLink } from '@taiga-ui/core';
 import { TuiAvatar, TuiBadgeNotification, TuiBreadcrumbs, TuiFade } from '@taiga-ui/kit';
 import { TuiNavigation } from '@taiga-ui/layout';
 import { provideTranslocoScope, TranslocoModule } from '@jsverse/transloco';
@@ -14,7 +14,6 @@ import { ThemeService } from 'app/core/services/theme.service';
 import { LanguageSelectorComponent } from 'app/shared/components/language-selector/language-selector.component';
 import { AuthService } from 'app/shared/services/auth.service';
 import { LocalStorageService } from 'app/core/services/local-storage.service';
-import { LoginModalComponent } from 'app/core/components/login-modal/login-modal.component';
 import { LoginService } from 'app/core/services/login.service';
 import { NotificationService } from 'app/core/services/notification-service.service';
 
@@ -33,7 +32,6 @@ interface NavigationLink {
     TuiBreadcrumbs,
     TuiButton,
     TuiFade,
-    TuiIcon,
     TuiItem,
     TuiLink,
     TuiDropdown,
@@ -42,7 +40,7 @@ interface NavigationLink {
     RouterOutlet,
     TranslocoModule,
     ThemeSwitcherComponent,
-    LanguageSelectorComponent
+    LanguageSelectorComponent,
   ],
   providers: [provideTranslocoScope({ scope: 'pages/site-layout', alias: 'siteLayout' })],
   templateUrl: './site-layout.component.html',
@@ -111,7 +109,6 @@ export class SiteLayoutComponent {
     this.isMenuOpen.update((isOpen) => !isOpen);
   }
 
-
   protected closeMenu(): void {
     this.isMenuOpen.set(false);
     this.expanded.set(false);
@@ -129,8 +126,7 @@ export class SiteLayoutComponent {
         .SuccessType()
         .BottomRight()
         .Show();
-    }
-    else {
+    } else {
       this.loginService.openLoginModal();
     }
   }

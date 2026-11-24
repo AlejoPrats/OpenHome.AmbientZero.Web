@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { TuiNotificationService } from '@taiga-ui/core';
+import { provideTaiga, TuiNotificationService } from '@taiga-ui/core';
 import { TuiResponsiveDialogService } from '@taiga-ui/addon-mobile';
 import { of } from 'rxjs';
 import { TranslocoTestingModule } from '@jsverse/transloco';
@@ -29,6 +29,7 @@ describe('AdvancedSettingsComponent', () => {
         TranslocoTestingModule.forRoot({ langs: { en: {}, es: {} } }),
       ],
       providers: [
+        provideTaiga(),
         {
           provide: ActivatedRoute,
           useValue: {
@@ -67,7 +68,7 @@ describe('AdvancedSettingsComponent', () => {
   });
 
   afterEach(() => {
-    fixture.destroy();
+    fixture?.destroy();
     vi.unstubAllGlobals();
   });
 
