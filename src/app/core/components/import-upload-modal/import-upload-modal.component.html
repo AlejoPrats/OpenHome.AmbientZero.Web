@@ -1,0 +1,15 @@
+
+<p>
+    This process might take a long time, a progress bar will display to show that the process didnt die, but in the meantime sensors will not be able to report temperatures since its a very heavy resource-wise process.
+</p>
+<app-file-upload #fileUpload [acceptedFiles]="['sql']" [uploadType]="'Import'" (fileChanged)="fileChanged($event)" />
+<footer>
+    <div class="footer-buttons">
+        <button appearance="secondary" tuiButton type="button" (click)="context.$implicit.complete()">
+            Cancel
+        </button>
+        <button tuiButton (click)="submit()" [disabled]="!hasFile">
+            Import
+        </button>
+    </div>
+</footer>

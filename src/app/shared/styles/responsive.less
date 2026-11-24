@@ -1,0 +1,7 @@
+@breakpoint-desktop-min: 768px;
+
+.desktop-layout(@rules) {
+  @media (min-width: @breakpoint-desktop-min) {
+    @rules();
+  }
+}

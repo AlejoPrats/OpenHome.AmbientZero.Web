@@ -1,0 +1,42 @@
+<section>
+<div class="entry-title">
+    <span>About this application</span>
+</div>
+<section class="about-container">
+    <p>
+        <strong>AmbientZero</strong> is an open-source and open-hardware project
+        developed by the OpenHomeProject team and its contributors. It is
+        distributed under the
+        <a tuiLink href="https://gnu.org" target="_blank" rel="noopener noreferrer">
+            GNU General Public License v3.0 (GPLv3)
+        </a>
+        and is provided "as is," without warranty of any kind.
+    </p>
+
+    <p>
+        While built around the Raspberry Pi ecosystem, AmbientZero is an
+        independent project and is not affiliated with, endorsed by, or officially
+        connected to Raspberry Pi Ltd. or any of the open-source projects featured
+        below.
+    </p>
+
+    <div class="tech-section">
+        <h2>Powered by Open Source</h2>
+        <p>
+            Special thanks to the creators and maintainers whose work makes
+            AmbientZero possible:
+        </p>
+
+        <div class="logo-grid">
+            @for (tech of technologies; track tech.name) {
+            <a class="logo-card" [href]="tech.url" [title]="tech.name"
+                [attr.aria-label]="'Visit ' + tech.name + ' website'" target="_blank" rel="noopener noreferrer">
+                <div class="logo-wrapper" [class.logo-wrapper--light-bg]="tech.needsLightBg">
+                    <img class="logo-img" [src]="tech.logoPath" [alt]="tech.name + ' logo'" loading="lazy" />
+                </div>
+                <span class="logo-label">{{ tech.name }}</span>
+            </a>
+            }
+        </div>
+    </div>
+    </section>

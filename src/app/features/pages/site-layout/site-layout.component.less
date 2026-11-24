@@ -1,0 +1,177 @@
+@import (reference) '../../../shared/styles/responsive.less';
+
+:host {
+  --menu-toggle-display: inline-flex;
+  --sidebar-toggle-display: none;
+  --sidebar-block-size: calc(100dvh - 3rem);
+  --sidebar-transform: translateX(-100%);
+  --sidebar-visibility: hidden;
+  --content-margin-inline-start: 0;
+  --content-gutter: 1rem;
+  --page-context-block-size: calc(2 * var(--tui-height-m));
+  --page-context-wrap: wrap;
+  --page-context-align-content: center;
+  --breadcrumbs-flex: 1 0 100%;
+  --page-context-theme-margin-inline-end: 0;
+  --page-context-theme-offset: 0;
+  --page-info-align: start;
+
+  display: block;
+}
+
+.desktop-layout({
+  :host {
+    --menu-toggle-display: none;
+    --sidebar-toggle-display: inline-flex;
+    --sidebar-block-size: 95vh;
+    --sidebar-transform: none;
+    --sidebar-visibility: visible;
+    --content-margin-inline-start: 2.5rem;
+    --content-gutter: 1.5rem;
+    --page-context-block-size: var(--tui-height-m);
+    --page-context-wrap: nowrap;
+    --page-context-align-content: normal;
+    --breadcrumbs-flex: 1;
+    --page-context-theme-margin-inline-end: 1.5rem;
+    --page-context-theme-offset: 1.5rem;
+    --page-info-align: end;
+  }
+});
+
+.skip-link {
+  position: fixed;
+  inset-block-start: 0.5rem;
+  inset-inline-start: 0.5rem;
+  z-index: 10;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-sm);
+  background: var(--tui-background-accent-1);
+  color: var(--tui-text-primary-on-accent-1);
+  font-weight: var(--font-weight-bold);
+  transform: translateY(-200%);
+
+  &:focus-visible {
+    transform: none;
+  }
+}
+
+.menu-toggle {
+  display: var(--menu-toggle-display);
+}
+
+.sidebar {
+  position: fixed;
+  z-index: 2;
+  block-size: var(--sidebar-block-size);
+  visibility: var(--sidebar-visibility);
+  transform: var(--sidebar-transform);
+  transition:
+    transform var(--tui-duration, 0.3s) ease-in-out,
+    visibility var(--tui-duration, 0.3s),
+    width var(--tui-duration, 0.3s) ease-in-out;
+
+  &.open,
+  &:has(.driver-active-element) {
+    visibility: visible;
+    transform: none;
+  }
+}
+
+.sidebar-toggle {
+  display: var(--sidebar-toggle-display);
+}
+
+.sidebar-backdrop {
+  position: fixed;
+  inset: 3rem 0 0;
+  z-index: 1;
+  background: var(--tui-service-backdrop, rgb(0 0 0 / 40%));
+  animation: sidebar-backdrop-in var(--tui-duration, 0.3s) ease-in-out;
+}
+
+@keyframes sidebar-backdrop-in {
+  from {
+    opacity: 0;
+  }
+}
+
+:host .sidebar+.content {
+  max-inline-size: none;
+  margin-inline-start: var(--content-margin-inline-start);
+  border-inline-width: var(--content-gutter);
+  outline: none;
+}
+
+:host .page-context {
+  position: sticky;
+  block-size: var(--page-context-block-size);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar {
+    transition: none;
+  }
+}
+
+.logo-override {
+  margin: 0 !important;
+}
+
+.user-aside {
+  margin-right: 0.5rem;
+  display: flex;
+  gap: 5px
+}
+
+
+.main-dropdown {
+  background: var(--tui-background-base-alt);
+  padding: 5px 10px;
+  border: 1px solid var(--tui-border-normal);
+  border-radius: var(--tui-radius-m);
+  color: var(--tui-text-primary);
+
+  .user-menu {
+    .separator {
+      border-bottom: 1px solid var(--tui-border-normal);
+      margin-bottom: 5px;
+    }
+
+    .footer {
+      margin: 25px 0 0 0;
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--tui-border-normal);
+      padding-top: 5px;
+    }
+  }
+
+  .notification-dropdown {
+
+    .title {
+      border-bottom: 1px solid var(--tui-border-normal);
+      margin-bottom: 5px;
+      text-align: center;
+    }
+
+    .no-notifications {
+      margin: 50px 0;
+      text-align: center;
+      color: var(--tui-text-tertiary);
+    }
+
+    max-width: 170px;
+    word-wrap: break-word;
+  }
+
+}
+
+.logo {
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  margin-left: -7px;
+  background-color: var(--tui-text-primary);
+  -webkit-mask: url('/assets/svg/logo-small.svg') no-repeat center / contain;
+  mask: url('/assets/svg/logo-small.svg') no-repeat center / contain;
+}

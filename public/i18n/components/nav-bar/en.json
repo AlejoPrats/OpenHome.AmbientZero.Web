@@ -1,0 +1,10 @@
+{
+    "update-from-server": "Update From Server",
+    "update-from-file": "Update From File",
+    "general": "General",
+    "network": "Network",
+    "security": "Security",
+    "users": "Users",
+    "dashboard": "Dashboard",
+    "system": "System"
+}

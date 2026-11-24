@@ -1,0 +1,32 @@
+<div class="entry-title">
+    <span>Advanced Settings</span>
+    <span>Security</span>
+</div>
+<p>The Security tab lets you manage administrator and SSH credentials and control which areas of the application require
+    password authentication.</p>
+
+<h2>System Passwords</h2>
+<ul>
+    <li>Admin Password. Click Change Admin Password to update the master administrator password configured during
+        initial setup.</li>
+    <li>SSH Password. Displays the system's SSH login password for remote terminal access. This password is uniquely and
+        randomly generated during each installation. <ul>
+            <li>Show / Hide (Eye icon). Toggle visibility to reveal or mask the SSH password on screen.</li>
+            <li>Copy (Clipboard icon). Copy the SSH password directly to your clipboard.</li>
+
+        </ul>
+    </li>
+</ul>
+<h2>Application Security</h2>
+<p>
+    The Application Protection dropdown sets the global access restriction level across both the user interface and the
+    backend API:
+</p>
+<ul>
+    <li>Open. Allows unrestricted access to general views (such as charts and sensor overviews) without logging in.
+        Advanced Settings remains password-protected at all times.</li>
+    <li>Settings (Default). General monitoring screens remain accessible, while configuration pages (such as Basic
+        Settings and Advanced Settings) require authentication.</li>
+    <li>All. Locks the entire application behind a login prompt, requiring authentication to view any screen or access
+        API endpoints.</li>
+</ul>

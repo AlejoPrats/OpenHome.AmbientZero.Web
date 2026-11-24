@@ -1,0 +1,45 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { SensorInformationResponse } from '../interfaces/sensor-information-response';
+import { SensorUpdateRequest } from '../models/sensor-update-request';
+import { NameUpdateRequest } from '../models/name-update-request';
+import { MergeSensorsRequest } from '../models/merge-sensors-request';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class SensorService {
+  private readonly http = inject(HttpClient);
+  private readonly sensorApiRoot = '/api/Sensor';
+
+  getAllSensors(): Observable<SensorInformationResponse[]> {
+    const data = this.http.get<SensorInformationResponse[]>(`${this.sensorApiRoot}/GetSensorData`);
+    return data ?? [];
+  }
+
+  getSensorById(sensorId: number): Observable<SensorInformationResponse> {
+    const params = new HttpParams().set('sensorId', sensorId);
+    const data = this.http.get<SensorInformationResponse>(`${this.sensorApiRoot}/GetSensorById`, {
+      params,
+    });
+    return data;
+  }
+
+  saveSensorSettings(sensorUpdateRequest: SensorUpdateRequest): Observable<void> {
+    return this.http.patch<void>(`${this.sensorApiRoot}/UpdateSensorSettings`, sensorUpdateRequest);
+  }
+
+  deleteSensor(sensorId: number): Observable<void> {
+    const params = new HttpParams().set('sensorId', sensorId);
+    return this.http.delete<void>(`${this.sensorApiRoot}/DeleteSensor`, { params });
+  }
+
+  updateSensorName(nameUpdateRequest: NameUpdateRequest): Observable<void> {
+    return this.http.patch<void>(`${this.sensorApiRoot}/UpdateSensorName`, nameUpdateRequest);
+  }
+
+  mergeSensors(request: MergeSensorsRequest): Observable<void> {
+    return this.http.post<void>(`${this.sensorApiRoot}/MergeSesnor`, request);
+  }
+}

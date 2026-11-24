@@ -1,0 +1,100 @@
+.about-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: var(--tui-text-primary);
+}
+
+.about-text {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.about-disclaimer {
+    font: var(--tui-typography-body-s);
+    color: var(--tui-text-secondary);
+}
+
+.tech-section {
+    margin-top: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--tui-border-normal);
+}
+
+.tech-heading {
+    margin: 0 0 0.25rem;
+    font: var(--tui-typography-heading-h6);
+}
+
+.tech-subtitle {
+    margin: 0 0 1rem;
+    font: var(--tui-typography-body-s);
+    color: var(--tui-text-secondary);
+}
+
+.logo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
+    gap: 0.75rem;
+}
+
+.logo-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 0.5rem;
+    border-radius: var(--tui-radius-m);
+    background: var(--tui-background-neutral-1);
+    border: 1px solid transparent;
+    text-decoration: none;
+    color: var(--tui-text-secondary);
+    transition:
+        transform 0.2s ease,
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+        transform: translateY(-2px);
+        background: var(--tui-background-neutral-1-hover);
+        border-color: var(--tui-border-hover);
+        color: var(--tui-text-primary);
+    }
+}
+
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.25rem;
+    max-width: 100%;
+    padding: 0 0.5rem;
+    border-radius: var(--tui-radius-s);
+    transition: background-color 0.2s ease;
+
+    &--light-bg {
+
+        :host-context([tuiTheme='dark']) &,
+        :host-context([data-tui-theme='dark']) & {
+            background: #ffffff;
+            padding: 0.35rem 0.65rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+        }
+    }
+}
+
+.logo-img {
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.logo-label {
+    font: var(--tui-typography-body-xs);
+    font-weight: 500;
+    text-align: center;
+}

@@ -1,0 +1,17 @@
+<p>This procedure will merge the sensor "{{this.context.data.sensorName}}" into the selected one</p>
+<span>Force Merge: </span><input type="checkbox" tuiCheckbox [(ngModel)]="isForceMerge"
+    (ngModelChange)="getSensorsForList($event)" size="m" />
+<tui-textfield tuiChevron>
+    <input placeholder="Select A Sensor" tuiSelect [(ngModel)]="value" />
+    <tui-data-list-wrapper *tuiDropdown [items]="sensors" />
+</tui-textfield>
+<footer>
+    <div class="footer-buttons">
+        <button appearance="secondary" tuiButton type="button" (click)="context.$implicit.complete()">
+            Cancel
+        </button>
+        <button tuiButton (click)="submit()" [disabled]="!value">
+            Merge
+        </button>
+    </div>
+</footer>

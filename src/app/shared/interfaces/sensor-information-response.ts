@@ -1,0 +1,16 @@
+import { SensorSettingsResponse } from './sensor-settings-response';
+
+export interface SensorInformationResponse {
+  id: number;
+  deviceId: string;
+  deviceVirtualName: string | null;
+  rawADCReading: number;
+  batteryPercentage: number;
+  isSignaling: boolean;
+  lastReadingTime: Date;
+  lastReadingValue: number;
+  temperatureTendency: string | null;
+  version: string;
+  isMigrated: boolean;
+  sensorSetting: SensorSettingsResponse;
+}

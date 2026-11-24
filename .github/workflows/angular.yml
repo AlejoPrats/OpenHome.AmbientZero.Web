@@ -34,7 +34,7 @@ jobs:
     - name: Adding Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: 22.19.0
+        node-version-file: .nvmrc
     - name: Install Dependencies
       run: npm install --legacy-peer-deps
     - name: Get Next Version

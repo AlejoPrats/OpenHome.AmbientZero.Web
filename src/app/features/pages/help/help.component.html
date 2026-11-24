@@ -1,0 +1,10 @@
+<h1>Help Section</h1>
+<div class="help-layout">
+    <nav class="help-section-tree" aria-label="Help topics">
+        <app-help-tree [treeData]="treeData" [collapsedIcon]="iconName.Add" [expandedIcon]="iconName.Substract" (nodeClicked)="setHelpConent($event)"
+            (buttonClicked)="startTour($event)" />
+    </nav>
+    <article class="help-content">
+        <ng-container *ngComponentOutlet="currentComponent();" />
+    </article>
+</div>

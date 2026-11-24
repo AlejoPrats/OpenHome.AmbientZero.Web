@@ -1,0 +1,115 @@
+@import (reference) "../../../shared/styles/responsive.less";
+
+.flex-table-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 1px solid var(--tui-border-normal);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.table-row-form {
+  display: flex;
+  gap: var(--spacing-xs);
+  padding: 8px 12px;
+  align-items: center;
+}
+
+.header-form {
+  font-weight: 600;
+  background-color: var(--tui-background-neutral-1);
+  border-bottom: 1px solid var(--tui-border-normal);
+  flex-wrap: wrap;
+}
+
+.cell-title {
+  flex: 1 1 auto;
+  padding: 4px 8px;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cell-field {
+  flex: 0 0 auto;
+  min-inline-size: 0;
+  padding: 4px 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.table-row-form:has(> .cell-field tui-textfield) {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.table-row-form:has(> .cell-field):not(:has(> .cell-field tui-textfield)) {
+  justify-content: space-between;
+}
+
+.header-form:has(> .table-top-controls) {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.table-top-controls {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.cell-container.table-scroll {
+  min-inline-size: 0;
+}
+
+footer.advancedSettings {
+  position: sticky;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: end;
+  border-top: 1px solid var(--tui-border-normal);
+  background: var(--tui-background-base);
+  z-index: 999;
+  margin-bottom: -100px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 45px;
+}
+
+.page-scroll-container {
+  height: 100%;
+}
+
+.desktop-layout({
+  .header-form {
+    flex-wrap: nowrap;
+  }
+
+  .header-form:has(> .table-top-controls) {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .table-top-controls {
+    flex-wrap: nowrap;
+    justify-content: normal;
+  }
+
+  .table-row-form:has(> .cell-field tui-textfield),
+  .table-row-form:has(> .cell-field):not(:has(> .cell-field tui-textfield)) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: normal;
+
+    > .cell-title {
+      flex: 0 0 14rem;
+    }
+
+    > .cell-field {
+      flex: 0 1 22rem;
+    }
+  }
+});

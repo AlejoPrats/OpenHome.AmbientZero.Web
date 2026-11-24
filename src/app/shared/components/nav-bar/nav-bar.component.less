@@ -1,0 +1,117 @@
+.custom-navbar-container {
+  --tui-active-color: var(--tui-text-action);
+  position: relative;
+  display: flex;
+  font: .625rem/.75rem system-ui, sans-serif;
+  block-size: var(--tui-height-l);
+  color: var(--tui-text-secondary);
+  -webkit-backdrop-filter: blur(.3125rem);
+  backdrop-filter: blur(.3125rem);
+}
+
+.custom-navbar-container:before {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  content: "";
+  background: var(--tui-background-base-alt);
+  box-shadow: inset 0 1px var(--tui-border-normal);
+  opacity: .8
+}
+
+.tab-item {
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 0;
+  border: 0;
+  background: none;
+  line-height: inherit;
+  text-decoration: none;
+  transition-property: color;
+  transition-duration: var(--tui-duration, .3s);
+  transition-timing-function: ease-in-out;
+  position: relative;
+  display: flex;
+  flex: 1 0;
+  font: inherit;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.tab-item.active {
+  color: #6788ff !important;
+}
+
+.tab-item.disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.tab-item:nth-child(1) {
+  color: var(--tui-tab-1, inherit)
+}
+
+.tab-item:nth-child(2) {
+  color: var(--tui-tab-2, inherit)
+}
+
+.tab-item:nth-child(3) {
+  color: var(--tui-tab-3, inherit)
+}
+
+.tab-item:nth-child(4) {
+  color: var(--tui-tab-4, inherit)
+}
+
+.tab-item:nth-child(5) {
+  color: var(--tui-tab-5, inherit)
+}
+
+.tab-item:nth-child(6) {
+  color: var(--tui-tab-6, inherit)
+}
+
+.tab-item:nth-child(7) {
+  color: var(--tui-tab-7, inherit)
+}
+
+.tab-item:nth-child(8) {
+  color: var(--tui-tab-8, inherit)
+}
+
+.tab-item:nth-child(9) {
+  color: var(--tui-tab-9, inherit)
+}
+
+.tab-item:nth-child(10) {
+  color: var(--tui-tab-10, inherit)
+}
+
+.tab-item tui-icon {
+  inline-size: 1.75rem;
+  block-size: 1.75rem;
+  margin: .375rem 0 .125rem;
+  pointer-events: none;
+  border: .125rem solid transparent
+}
+
+.tab-wrapper {
+  position: absolute;
+  display: flex;
+  inset-block-start: .125rem;
+  inset-inline-start: 1rem;
+  inline-size: 100%;
+  justify-content: center;
+  pointer-events: none
+}
+
+.tab-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-inline-size: 100%;
+  pointer-events: none
+}

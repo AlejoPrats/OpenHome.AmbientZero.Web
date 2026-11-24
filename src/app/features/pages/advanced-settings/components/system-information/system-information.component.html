@@ -1,0 +1,114 @@
+<span id="advanced-settings-system-password-section">
+    <div class="flex-table-form">
+        <div class="table-row-form header-form">
+            <div>System Status</div>
+        </div>
+        <div class="table-row-form status-cards">
+            <section class="card" tuiCardLarge="compact" [tuiCardCollapsed]="ramCollapsed()">
+                <header tuiHeader="body-m">
+                    <hgroup tuiTitle>
+                        <h2>Ram Status</h2>
+                    </hgroup>
+                    <aside tuiAccessories>
+                        <tui-icon icon="@tui.info" />
+                    </aside>
+                </header>
+                <div tuiCardRow class="brief-status">
+                    <div tuiTitle>
+                        <div tuiSubtitle>Status</div>
+                        <div>
+                            <tui-icon [className]="ramStatus().className" icon="@tui.circle-filled" />
+                            {{ ramStatus().label }}
+                        </div>
+                    </div>
+                    <div class="status-actions">
+                        <button tuiLink type="button" iconStart="@tui.database-zap"
+                            (click)="cleanCache()">Clean Cache</button>
+                        <button tuiLink type="button" iconStart="@tui.trash-2">Force Free Memory</button>
+                    </div>
+                    <button appearance="secondary" class="expand-details-button" size="s" tuiIconButton type="button"
+                        [tuiChevron]="!ramCollapsed()" (click)="ramCollapsed.set(!ramCollapsed())">
+                        Expand
+                    </button>
+                </div>
+                <tui-expand [expanded]="!ramCollapsed()">
+                    <h3 class="status-details-title">Ram Details</h3>
+                    <dl class="status-details">
+                        <div>
+                            <dt>Available</dt>
+                            <dd>{{ details().ramAvailable }}</dd>
+                        </div>
+                        <div>
+                            <dt>Free</dt>
+                            <dd>{{ details().ramFree }}</dd>
+                        </div>
+                    </dl>
+                </tui-expand>
+            </section>
+            <section class="card" tuiCardLarge="compact" [tuiCardCollapsed]="swapCollapsed()">
+                <header tuiHeader="body-m">
+                    <hgroup tuiTitle>
+                        <h2>Swap Status</h2>
+                    </hgroup>
+                    <aside tuiAccessories>
+                        <tui-icon icon="@tui.info" />
+                    </aside>
+                </header>
+                <div tuiCardRow class="brief-status">
+                    <div tuiTitle>
+                        <div tuiSubtitle>Status</div>
+                        <div>
+                            <tui-icon [className]="swapStatus().className" icon="@tui.circle-filled" />
+                            {{ swapStatus().label }}
+                        </div>
+                    </div>
+                    <button appearance="secondary" class="expand-details-button" size="s" tuiIconButton type="button"
+                        [tuiChevron]="!swapCollapsed()" (click)="swapCollapsed.set(!swapCollapsed())">
+                        Expand
+                    </button>
+                </div>
+                <tui-expand [expanded]="!swapCollapsed()">
+                    <h3 class="status-details-title">Swap Details</h3>
+                    <dl class="status-details">
+                        <div>
+                            <dt>Used</dt>
+                            <dd>{{ details().swapUsed }}</dd>
+                        </div>
+                    </dl>
+                </tui-expand>
+            </section>
+            <section class="card" tuiCardLarge="compact" [tuiCardCollapsed]="cpuCollapsed()">
+                <header tuiHeader="body-m">
+                    <hgroup tuiTitle>
+                        <h2>Cpu Status</h2>
+                    </hgroup>
+                    <aside tuiAccessories>
+                        <tui-icon icon="@tui.info" tuiHint="sadasdasda" />
+                    </aside>
+                </header>
+                <div tuiCardRow class="brief-status">
+                    <div tuiTitle>
+                        <div tuiSubtitle>Status</div>
+                        <div>
+                            <tui-icon [className]="cpuStatus().className" icon="@tui.circle-filled" />
+                            {{ cpuStatus().label }}
+                        </div>
+                    </div>
+                    <button appearance="secondary" class="expand-details-button" size="s" tuiIconButton type="button"
+                        [tuiChevron]="!cpuCollapsed()" (click)="cpuCollapsed.set(!cpuCollapsed())">
+                        Expand
+                    </button>
+                </div>
+                <tui-expand [expanded]="!cpuCollapsed()">
+                    <h3 class="status-details-title">Cpu Details</h3>
+                    <dl class="status-details">
+                        <div>
+                            <dt>Temperature</dt>
+                            <dd>{{ details().cpuTemperature }}</dd>
+                        </div>
+                    </dl>
+                </tui-expand>
+            </section>
+        </div>
+    </div>
+</span>
